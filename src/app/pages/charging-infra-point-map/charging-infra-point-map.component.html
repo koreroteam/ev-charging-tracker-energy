@@ -1,0 +1,16 @@
+<div class="row">
+    <div class="col-12">
+       <p>Öffentliche Ladepunkte in Deutschland - Karte
+            <span class="float-right px-2"><button nbButton  size="small" status="danger" shape="round"
+                    (click)='downloadImage("jpeg")'>JPEG</button></span>
+            <span class="float-right"><button nbButton  size="small" status="danger" shape="round"
+                    (click)='downloadImage("png")'>png</button></span>
+            </p>
+
+    </div>
+</div>
+<div class="map-container" id="print">
+    <div class="map-frame">
+        <div id="leafLetMap"></div>
+    </div>
+</div>

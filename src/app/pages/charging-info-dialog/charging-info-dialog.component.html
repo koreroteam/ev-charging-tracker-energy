@@ -1,0 +1,23 @@
+<nb-card>
+    <nb-card-header>{{ title }}</nb-card-header>
+    <nb-card-body>
+        <table>
+            <tr><td>EvseID</td><td>:</td><td>{{data.evseID}}</td></tr>
+            <tr><td>Ladepunkt ID</td><td>:</td><td>{{data.chargingStationID}}</td></tr>
+            <tr><td>Betreiber</td><td>:</td><td>{{data.operatorName}}</td></tr>
+            <tr><td>Quelle</td><td>:</td><td>{{data.source}}</td></tr>
+            <tr><td>Adresse</td><td>:</td><td>{{data.address}}</td></tr>
+            <!-- <tr><td>Hausnummer</td><td>:</td><td>{{data.houseNumber}}</td></tr> -->
+            <tr><td>Stadt</td><td>:</td><td>{{data.city}}</td></tr>
+            <tr><td>PLZ</td><td>:</td><td>{{data.zipCode}}</td></tr>
+            <!-- <tr><td>Land</td><td>:</td><td>{{data.country}}</td></tr> -->
+            <tr><td>Leistungsklasse</td><td>:</td><td>{{data.chargePointType}}</td></tr>
+            <tr><td>Leistung</td><td>:</td><td>{{data.maximumPower}}</td></tr>
+            <tr><td>Breitengrad</td><td>:</td><td>{{data.latitude}}</td></tr>
+            <tr><td>Längengrad</td><td>:</td><td>{{data.longitude}}</td></tr>
+        </table>
+    </nb-card-body>
+    <nb-card-footer>
+        <button nbButton hero status="primary" (click)="dismiss()">Schließen</button>
+    </nb-card-footer>
+</nb-card>

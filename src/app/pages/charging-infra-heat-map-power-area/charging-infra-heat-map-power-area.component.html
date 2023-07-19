@@ -1,0 +1,130 @@
+<nb-card>
+  <nb-card-header>
+    Filter
+    <div class="zipcode-filter">
+      <br>
+      <input nbInput [(ngModel)]="inputRegierungsbezirk" type="text" placeholder="Gebiet eingeben" (input)="onInputChange($event)" />&nbsp;
+      <button nbButton shape="round" >Suche</button>
+    </div>
+    <br>
+    Ansicht:&nbsp; &nbsp;
+<nb-select [(selected)]="zipCodeFilterOption">
+
+  <nb-option value="regierungsbezirke" (click)="switchMap('regierungsbezirke')">Regierungsbezirke</nb-option>
+  <nb-option value="kreise" (click)="switchMap('kreise')">Landkreise</nb-option>
+</nb-select>
+    
+ 
+    
+
+</nb-card-header>
+</nb-card>
+<br>
+
+<div class="row">
+  <div class="col-12">
+    <p><b>Heat Map: Ladeleistung je km²</b>
+          <span class="float-right px-2"><button nbButton  size="small" status="danger" shape="round"
+                  (click)='downloadImage("jpeg")'>JPEG</button></span>
+          <span class="float-right"><button nbButton  size="small" status="danger" shape="round"
+                  (click)='downloadImage("png")'>png</button></span>
+                  <span class="float-right">
+                    <button nbButton *ngIf="zipCodeFilterOption === 'regierungsbezirke'" size="small" status="danger" shape="round" (click)="downloadCSV('regierungsbezirk-data.csv', popupDataRegierungsbezirk,'Regierungsbezirk')">
+                      CSV-Export
+                    </button>&nbsp;
+                  </span>
+                  <span class="float-right">
+                    <button nbButton *ngIf="zipCodeFilterOption === 'kreise'" size="small" status="danger" shape="round" (click)="downloadCSV('kreise-data.csv', popupDataKreise,'Landkreise')">
+                      CSV-Export
+                    </button>&nbsp;
+                  </span>
+                  
+          </p>
+  </div>
+</div>
+<div class="map-container" id="print">
+    <div class="map-frame">
+        <div id="PowerArea"></div>
+        <div class="legend-container" #draggableLegend>
+          <div *ngIf="zipCodeFilterOption === 'regierungsbezirke'" id="legendBezirk" class="legend">
+            <p><b>Perzentile der installierten Leistung
+              <br>je km² je Regierungsbezirk:</b></p>
+            <div class="legend-item">
+              <div class="color" style="background-color: rgba(243, 249, 255, 1)"></div>
+              <div class="label">untere 20 %</div>
+            </div>
+            <div class="legend-item">
+              <div class="color" style="background-color: rgba(175, 209, 231, 1)"></div>
+              <div class="label">21-40 %</div>
+            </div>
+            <div class="legend-item">
+              <div class="color" style="background-color: rgba(62, 142, 196, 1)"></div>
+              <div class="label">41-60 %</div>
+            </div>
+            <div class="legend-item">
+              <div class="color" style="background-color: rgba(8, 48, 107, 1)"></div>
+              <div class="label">61-80 %</div>
+            </div>
+            <div class="legend-item">
+              <div class="color" style="background-color: rgba(0, 0, 55, 1)"></div>
+              <div class="label">obere 20 %</div>
+            </div>
+          
+          </div>
+        
+      
+        <div *ngIf="zipCodeFilterOption === 'kreise'" id="kreise" class="legend">
+            <p><b>Perzentile der installierten Leistung
+              <br>je km² je Landkreis:</b></p>
+          <div class="legend-item">
+            <div class="color" style="background-color: rgba(243, 249, 255, 1)"></div>
+            <div class="label">untere 20 %</div>
+          </div>
+          <div class="legend-item">
+            <div class="color" style="background-color: rgba(175, 209, 231, 1)"></div>
+            <div class="label">21-40 %</div>
+          </div>
+          <div class="legend-item">
+            <div class="color" style="background-color: rgba(62, 142, 196, 1)"></div>
+            <div class="label">41-60 %</div>
+          </div>
+          <div class="legend-item">
+            <div class="color" style="background-color: rgba(8, 48, 107, 1)"></div>
+            <div class="label">61-80 %</div>
+          </div>
+          <div class="legend-item">
+            <div class="color" style="background-color: rgba(0, 0, 55, 1)"></div>
+            <div class="label">obere 20 %</div>
+          </div>
+        
+    </div>
+  </div>
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+ 
+  
+  

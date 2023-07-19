@@ -1,0 +1,117 @@
+<div class="col-lg-12">
+    <nb-card>
+        <nb-card-header>
+            Filter &nbsp;  &nbsp;  &nbsp;  &nbsp;   
+            <span class="float-right"  style="display: flex; align-items: center; justify-content: center;">
+                <form nbForm [formGroup]="weekRangeForm" (submit)="$event.preventDefault(); updateChartData();">
+                    <label for="startWeek">Start:</label>&nbsp;
+                    <input type="week" id="startWeek" formControlName="startWeek" />&nbsp;
+                    <label for="endWeek">Ende:</label>&nbsp;
+                    <input type="week" id="endWeek" formControlName="endWeek" />&nbsp;&nbsp;&nbsp;
+                    <button nbButton type="submit">Filter</button>
+                  </form>
+                  
+
+                  <br>
+                <nb-select selected="#" class="mx-2" (selectedChange)="changePowerFilter($event)">
+                    <nb-option value="#">Leistungsklasse</nb-option>
+                    <nb-option value="NC">AC</nb-option>
+                    <nb-option value="FC">DC</nb-option>
+                    <nb-option value="HPC">HPC</nb-option>
+                </nb-select>
+              
+                <nb-select selected="#" class="mx-2" (selectedChange)="changeRegion($event)" [(ngModel)]="selectedFilter" id='selectedFilter'>
+                    <nb-option value="#">Region</nb-option>
+                    <nb-option value="regierungsbezirk">Regierungsbezirk</nb-option>
+                    <nb-option value="landkreis">Landkreis</nb-option>
+                   
+                    <nb-option value="city">Stadt</nb-option>
+                    <nb-option value="zipcode">PLZ</nb-option>
+                    <!-- <nb-option value="country">Land</nb-option> -->
+                </nb-select>
+      
+                <br>
+                <ng-container *ngIf="selectedFilter === 'regierungsbezirk'">
+                    <nb-select id="filterValue" [(selected)]="selectedFilterValue">
+                    <nb-option value="Schleswig-Holstein">Schleswig-Holstein</nb-option>
+                    <nb-option value="Hamburg">Hamburg</nb-option>
+                    <nb-option value="Niedersachsen">Niedersachsen</nb-option>
+                    <nb-option value="Bremen">Bremen</nb-option>
+                    <nb-option value="Düsseldorf">Düsseldorf</nb-option>
+                    <nb-option value="Köln">Köln</nb-option>
+                    <nb-option value="Munster">Munster</nb-option>
+                    <nb-option value="Detmold">Detmold</nb-option>
+                    <nb-option value="Arnsberg">Arnsberg</nb-option>
+                    <nb-option value="Darmstadt">Darmstadt</nb-option>
+                    <nb-option value="Gießen">Gießen</nb-option>
+                    <nb-option value="Kassel">Kassel</nb-option>
+                    <nb-option value="Rheinland-Pfalz">Rheinland-Pfalz</nb-option>
+                    <nb-option value="Freiburg">Freiburg</nb-option>
+                    <nb-option value="Tübingen">Tübingen</nb-option>
+                    <nb-option value="Oberbayern">Oberbayern</nb-option>
+                    <nb-option value="Niederbayern">Niederbayern</nb-option>
+                    <nb-option value="Oberpfalz">Oberpfalz</nb-option>
+                    <nb-option value="Oberfranken">Oberfranken</nb-option>
+                    <nb-option value="Mittelfranken">Mittelfranken</nb-option>
+                    <nb-option value="Schwaben">Schwaben</nb-option>
+                    <nb-option value="Unterfranken">Unterfranken</nb-option>
+                    <nb-option value="Saarland">Saarland</nb-option>
+                    <nb-option value="Berlin">Berlin</nb-option>
+                    <nb-option value="Brandenburg">Brandenburg</nb-option>
+                    <nb-option value="Mecklenburg-Vorpommern">Mecklenburg-Vorpommern</nb-option>
+                    <nb-option value="Sachsen-Anhalt">Sachsen-Anhalt</nb-option>
+                    <nb-option value="Thüringen">Thüringen</nb-option>
+                    <nb-option value="Sachsen">Sachsen</nb-option>
+                    <nb-option value="Stuttgart">Stuttgart</nb-option>
+                    <nb-option value="Karlsruhe">Karlsruhe</nb-option>
+                  </nb-select>
+      
+                </ng-container>
+                <ng-container *ngIf="selectedFilter === 'landkreis'">
+                  <input nbInput type="text" id="filterValue"  placeholder="Bezirk/Kreis eingeben" />
+                </ng-container>&nbsp;&nbsp;
+      
+                <ng-container *ngIf="selectedFilter === 'city'">
+                    <input nbInput type="text" id="filterValue"  placeholder="Stadt eingeben" />
+                  </ng-container>&nbsp;&nbsp;
+      
+                  <ng-container *ngIf="selectedFilter === 'zipcode'">
+                    <input nbInput type="text" id="filterValue"  placeholder="Postleitzahl eingeben" />
+                  </ng-container>&nbsp;&nbsp;
+      
+                  
+                    <button nbButton status="danger" shape="round" (click)='getChargepointGraph()'>Filter</button>
+          
+            </span>
+            
+        </nb-card-header>
+    </nb-card>
+</div>
+<div class="col-lg-12" id="print">
+    <nb-card>
+        <nb-card-header>Maximale Leistung (in Summe: MWh) der Ladepunkte in Deutschland - wöchentlich<span class="float-right px-2"><button nbButton size="small"  shape="round"
+            (click)='downloadImage("jpeg")'><nb-icon icon="download-outline"></nb-icon>JPEG</button></span>
+    <span class="float-right"><button nbButton size="small" shape="round"
+            (click)='downloadImage("png")'><nb-icon icon="download-outline"></nb-icon>PNG</button></span></nb-card-header>
+        <nb-card-body>
+            <p>Qualitätsmanagement: KW16</p>
+          <p>Qualitätsmanagement: KW26</p>
+            <ngx-charts-bar-vertical-stacked 
+            [scheme]="colorScheme" 
+            [view]="[900,300]" 
+            [results]="results" 
+            [showDataLabel]="true" 
+            [xAxis]="showXAxis" 
+            [yAxis]="showYAxis"
+            [legend]="showLegend" 
+            [legendTitle]="legendTitle" 
+            [xAxisLabel]="xAxisLabel" 
+            [yAxisLabel]="yAxisLabel">
+            (select)="onSelect($event)">
+            </ngx-charts-bar-vertical-stacked>
+            
+        </nb-card-body>
+        
+    </nb-card>
+   
+</div>

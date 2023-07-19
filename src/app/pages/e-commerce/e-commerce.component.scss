@@ -1,0 +1,117 @@
+@import '../../@theme/styles/themes.scss';
+
+@include nb-install-component() {
+
+  .echart {
+    display: block;
+    height: nb-theme(card-height-medium);
+    width: 100%;
+  }  
+}
+
+
+button.nb-button {
+  position: relative;
+
+}
+
+button.nb-button nb-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.my-icon {
+  size: 2rem;
+}
+
+.button-1:hover {
+  background-image: url('/assets/images/AnzahlLadepunkt.png');
+  background-size: cover;
+  background-position: center center;
+  opacity: 0.5;
+}
+
+.button-1:hover .mx-2 {
+  display: none;
+}
+
+.button-2:hover {
+  background-image: url('/assets/images/LeistungLadepunkt.png');
+  background-size: cover;
+  background-position: center center;
+  opacity: 0.5;
+}
+
+.button-2:hover .mx-2 {
+  display: none;
+}
+
+.button-3:hover {
+  background-image: url('/assets/images/ListLadepunkt.png');
+  background-size: cover;
+  background-position: center center;
+  opacity: 0.5;
+}
+
+.button-3:hover .mx-2 {
+  display: none;
+}
+
+.button-4:hover {
+  background-image: url('/assets/images/MapLadepunkt.png');
+  background-size: cover;
+  background-position: center center;
+  opacity: 0.5;
+}
+
+.button-4:hover .mx-2 {
+  display: none;
+}
+
+.button-5:hover {
+  background-image: url('/assets/images/HeatLadepunkt.png');
+  background-size: cover;
+  background-position: center center;
+  opacity: 0.5;
+}
+
+.button-5:hover .mx-2 {
+  display: none;
+}
+
+.button-6:hover {
+  background-image: url('/assets/images/DynamicLadepunkt.png');
+  background-size: cover;
+  background-position: center center;
+  opacity: 0.5;
+}
+
+.button-6:hover .mx-2 {
+  display: none;
+}
+
+.button-7:hover {
+  background-image: url('/assets/images/BelegungLadepunkt.png');
+  background-size: cover;
+  background-position: center center;
+  opacity: 0.5;
+}
+
+.button-7:hover .mx-2 {
+  display: none;
+}
+
+
+
+/* .my-button {
+  width: 250px;
+  height: 200px;
+  box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24),
+    0 17px 50px 0 rgba(0, 0, 0, 0.19);
+  margin-right: 20px;
+  margin-bottom: 20px;
+  border: 1px solid black;
+  border-radius: 8px;
+} */

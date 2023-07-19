@@ -1,0 +1,137 @@
+<div class="col-lg-12">
+    <nb-card>
+      <nb-card-header>
+        Filter
+        <span class="float-right">
+       
+          <button (click)="getLast7DaysData([], true,false)" class="text-center" nbButton>Alle EvseId's</button>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          
+          <input nbInput placeholder="Zeitraum wählen" class="mx-2 date" id="dateRangeFilter" [nbDatepicker]="formpicker">
+          <nb-rangepicker #formpicker></nb-rangepicker>
+          <input nbInput [(ngModel)]="evseIdInput" placeholder="EvseID (mehrere mit Komma trennen)" class="mx-2 my-custom-class">
+          <button nbButton size="small" (click)="getLast7DaysData(evseIdInput.split(','))">Anzeigen</button>
+  
+       
+
+        <div style="display: flex; align-items: center; justify-content: center;">
+        
+          <h6 class="text-center text-white">Gebiet : </h6>&nbsp;&nbsp;
+          <nb-select [(ngModel)]="selectedFilter" id='selectedFilter'>
+            <nb-option value="regierungsbezirke">Regierungsbezirk</nb-option>
+            <nb-option value="kreise">Landkreis</nb-option>
+          </nb-select>&nbsp;&nbsp;
+          <br>
+          <ng-container *ngIf="selectedFilter === 'regierungsbezirke'" >
+            <nb-select id="bezirkSelect" [(ngModel)]="selectedArea">
+              <nb-option value="Schleswig-Holstein">Schleswig-Holstein</nb-option>
+              <nb-option value="Hamburg">Hamburg</nb-option>
+              <nb-option value="Niedersachsen">Niedersachsen</nb-option>
+              <nb-option value="Bremen">Bremen</nb-option>
+              <nb-option value="Düsseldorf">Düsseldorf</nb-option>
+              <nb-option value="Köln">Köln</nb-option>
+              <nb-option value="Munster">Munster</nb-option>
+              <nb-option value="Detmold">Detmold</nb-option>
+              <nb-option value="Arnsberg">Arnsberg</nb-option>
+              <nb-option value="Darmstadt">Darmstadt</nb-option>
+              <nb-option value="Gießen">Gießen</nb-option>
+              <nb-option value="Kassel">Kassel</nb-option>
+              <nb-option value="Rheinland-Pfalz">Rheinland-Pfalz</nb-option>
+              <nb-option value="Freiburg">Freiburg</nb-option>
+              <nb-option value="Tübingen">Tübingen</nb-option>
+              <nb-option value="Oberbayern">Oberbayern</nb-option>
+              <nb-option value="Niederbayern">Niederbayern</nb-option>
+              <nb-option value="Oberpfalz">Oberpfalz</nb-option>
+              <nb-option value="Oberfranken">Oberfranken</nb-option>
+              <nb-option value="Mittelfranken">Mittelfranken</nb-option>
+              <nb-option value="Schwaben">Schwaben</nb-option>
+              <nb-option value="Unterfranken">Unterfranken</nb-option>
+              <nb-option value="Saarland">Saarland</nb-option>
+              <nb-option value="Berlin">Berlin</nb-option>
+              <nb-option value="Brandenburg">Brandenburg</nb-option>
+              <nb-option value="Mecklenburg-Vorpommern">Mecklenburg-Vorpommern</nb-option>
+              <nb-option value="Sachsen-Anhalt">Sachsen-Anhalt</nb-option>
+              <nb-option value="Thüringen">Thüringen</nb-option>
+              <nb-option value="Sachsen">Sachsen</nb-option>
+              <nb-option value="Stuttgart">Stuttgart</nb-option>
+              <nb-option value="Karlsruhe">Karlsruhe</nb-option>
+            </nb-select>
+          </ng-container>
+          <ng-container *ngIf="selectedFilter === 'kreise'">
+            <input nbInput type="text" id="kreisInput" [(ngModel)]="selectedArea" placeholder="Kreis eingeben" />
+          </ng-container>&nbsp;&nbsp;
+          <button nbButton shape="round" (click)="getLast7DaysData([], false,true)">Suche</button>
+        </div>
+
+
+      </span>
+        
+      </nb-card-header>
+    </nb-card>
+  </div>
+<div class="col-lg-12" id="print">
+    <nb-card>
+        <nb-card-header>Belegungszeit je Ladepunkt in Deutschland - täglich
+        
+            <div class="row">
+              <div class="col-12">
+              
+                      <span class="float-right px-2"><button nbButton  size="small" status="danger" shape="round"
+                              (click)='downloadImage("jpeg")'>JPEG</button></span>
+                      <span class="float-right"><button nbButton  size="small" status="danger" shape="round"
+                              (click)='downloadImage("png")'>png</button></span>
+                              <span class="float-right">
+                                <button nbButton *ngIf="selectedFilter === 'regierungsbezirke'" size="small" status="danger" shape="round" (click)="downloadCSV('regierungsbezirk-data.csv', printDataRegierungsbezirk,'Regierungsbezirk')">
+                                  CSV-Export
+                                </button>&nbsp;
+                              </span>
+                              <span class="float-right">
+                                <button nbButton *ngIf="selectedFilter === 'kreise'" size="small" status="danger" shape="round" (click)="downloadCSV('kreise-data.csv', printDataKreise,'Landkreise')">
+                                  CSV-Export
+                                </button>&nbsp;
+                                <button nbButton *ngIf="selectedFilter === 'singleEvse'" size="small" status="danger" shape="round" (click)="downloadCSV('evseId-data.csv', printDataSingleEvse,'EvseID')">
+                                  CSV-Export
+                                </button>&nbsp;
+                                <button nbButton *ngIf="selectedFilter === 'allEvse'" size="small" status="danger" shape="round" (click)="downloadCSV('AllevseId-data.csv', printAllEvse,'All EvseID')">
+                                  CSV-Export
+                                </button>&nbsp;
+                              </span>
+                              
+                
+            
+              </div>
+          </div>
+          </nb-card-header>
+
+
+          
+        <nb-card-body>
+          <p *ngIf="selectedFilter === 'singleEvse'">Belegungsstatus per EvseId: {{ evseIdInput }} am {{startDate}} <span *ngIf="endDate">- {{endDate}}</span></p>
+
+          <p *ngIf="selectedFilter === 'allEvse'">Belegungsstatus alle EvseId am {{startDate}} <span *ngIf="endDate">- {{endDate}}</span></p>
+          <p *ngIf="selectedFilter === 'regierungsbezirke'">Belegungsstatus : {{ selectedArea }} am {{startDate}} <span *ngIf="endDate">- {{endDate}}</span></p>
+          <p *ngIf="selectedFilter === 'kreise'">Belegungsstatus : {{ selectedArea }} am {{startDate}} <span *ngIf="endDate">- {{endDate}}</span></p>
+
+
+            <ngx-charts-line-chart
+
+  [scheme]="colorScheme"
+  [results]="chartData"
+
+  [xAxis]="showXAxis"
+  [yAxis]="showYAxis"
+  [legend]="showLegend"
+  [showXAxisLabel]="xAxisLabel"
+  [showYAxisLabel]="yAxisLabel"
+  [xAxisLabel]="xAxisLabel"
+  [yAxisLabel]="yAxisLabel"
+
+>
+</ngx-charts-line-chart>
+
+            
+        </nb-card-body>
+        
+    </nb-card>
+   
+</div>

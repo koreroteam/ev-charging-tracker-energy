@@ -1,0 +1,91 @@
+<!-- <div class="row">
+  <div class="col-lg-12">
+    <nb-card>
+      <nb-card-header>Entwicklung der Ladepunkte in Deutschland 01.01.2017 - 01.04.2022</nb-card-header>
+      <nb-card-body>
+        <chart type="bar" [data]="data" [options]="options" class="echart"></chart>
+      </nb-card-body>
+    </nb-card>
+  </div> -->
+
+  <!-- <div class="col-xxl-7">
+    <ngx-ecommerce-charts></ngx-ecommerce-charts>
+  </div> -->
+
+
+<!-- <div class="row">
+  <div class="col-xxl-9">
+    <ngx-country-orders></ngx-country-orders>
+  </div>
+
+  <div class="col-xxl-3">
+    <ngx-progress-section></ngx-progress-section>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xxl-9">
+    <ngx-ecommerce-visitors-analytics></ngx-ecommerce-visitors-analytics>
+  </div>
+
+  <div class="col-xxl-3">
+    <ngx-user-activity></ngx-user-activity>
+  </div>
+</div> -->
+
+<div>
+  <h1 style="text-align: center; color: red;">Herzlich Willkommen beim „EV Charging Tracker“ des BDEW</h1> <br>
+
+  <h6 style="text-align: center;">Auf den folgenden Seiten finden Sie genaue Zahlen und Fakten zur deutschen Ladeinfrastruktur.</h6><br>
+</div>
+<br>
+
+
+<div style="display: flex; justify-content: center;">
+
+
+  <button nbButton shape="square"  (click)="navigateToChargePoint()"  class="my-button button-1" style="background-color:f1f6f4; width: 250px; height: 200px; box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19); margin-right: 20px;margin-bottom: 20px;border: 1px solid black; border-radius: 8px">
+    <nb-icon icon="bar-chart-outline" style="font-size: 3rem;"></nb-icon>
+    <span class="mx-2">Anzahl Ladepunkte</span>
+  </button>
+
+  <button nbButton shape="square" (click)="navigateToLeistung()"  class="my-button button-2"style="background-color:f1f6f4; width: 250px; height: 200px;  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19); margin-right: 20px; margin-bottom: 20px;border: 1px solid black; border-radius: 8px">
+    <nb-icon icon="bar-chart-outline" style="font-size: 3rem;"></nb-icon>
+    <span class="mx-2">Leistung Ladepunkte</span>
+  </button>
+
+  <button nbButton shape="square" (click)="navigateToList()"  class="my-button button-3" style="background-color:f1f6f4; width: 250px; height: 200px;  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19); margin-right: 20px; margin-bottom: 20px;border: 1px solid black; border-radius: 8px">
+    <nb-icon icon="list-outline" style="font-size: 3rem;"></nb-icon>
+    <span class="mx-2">Liste Ladepunkte</span>
+  </button>
+
+  <button nbButton shape="square" (click)="navigateToKarte()" class="my-button button-4"style="background-color:f1f6f4; width: 250px; height: 200px;  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19); margin-right: 20px; margin-bottom: 20px;border: 1px solid black; border-radius: 8px">
+    <nb-icon icon="map-outline" style="font-size: 3rem;"></nb-icon>
+    <span class="mx-2">Karte Ladepunkte</span>
+  </button>
+</div>
+
+
+<div style="display: flex; justify-content: center;">
+  <button nbButton shape="square" (click)="navigateToHeatKarte()" class="my-button button-5" style="background-color:f1f6f4; width: 250px; height: 200px;  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19); margin-right: 20px; margin-bottom: 20px;border-radius: 8px;border: 1px solid black">
+    <nb-icon icon="map-outline" style="font-size: 3rem;"></nb-icon>
+    <span class="mx-2">Heat Map Ladepunkte</span>
+  </button>
+
+  <button nbButton shape="square" (click)="navigateToBelegung()"  class="my-button button-6"style="background-color: f1f6f4; width: 250px; height: 200px;  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19); margin-right: 20px; margin-bottom: 20px;border-radius: 8px;border: 1px solid black">
+    <nb-icon icon="flash" style="font-size: 3rem;"></nb-icon>
+    <span class="mx-2">Belegungsstatus</span>
+  </button>
+
+  <button nbButton shape="square" (click)="navigateToBelegungZeit()" class="my-button button-7"style="background-color:f1f6f4; width: 250px; height: 200px;  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19); margin-right: 20px; margin-bottom: 20px;border: 1px solid black; border-radius: 8px">
+    <nb-icon icon="activity-outline" style="font-size: 3rem;"></nb-icon>
+    <span class="mx-2">Belegungszeit</span>
+  </button>
+</div>
+
+
+
+
+
+
+

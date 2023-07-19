@@ -1,0 +1,27 @@
+.echart{
+    height: 100px;
+}
+
+.bdew-heading {
+    background-color: #c20000;
+}
+
+.bdew-gesamt {
+    background-color: #000000;
+}
+
+.bdew-tag {
+    background-color: #ffe5e5;
+}
+
+.bdew-nacht {
+    background-color: #d9d9d9;
+}
+
+.centered-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
