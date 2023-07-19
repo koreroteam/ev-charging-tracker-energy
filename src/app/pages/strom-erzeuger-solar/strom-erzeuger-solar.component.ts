@@ -59,38 +59,27 @@ export class StromErzeugerSolarComponent implements OnInit, AfterViewInit {
   
   private async initMap(): Promise<void> {
     this.createMap();
-  
-    if (this.zipCodeFilterOption === 'all') {
       const chargePointsData = await this.getChargePointsDataZipCode();
       const data = await this.fetchData();
       this.renderMapZipCode(chargePointsData, data);
-    } else if (this.zipCodeFilterOption === 'twoDigits') {
-      const chargePointsData = await this.getChargePointsDataZipCode();
-      const data = await this.fetchData();
-      this.renderMapZipCode(chargePointsData, data);
-    } else if (this.zipCodeFilterOption === 'regierungsbezirke') {
-      this.renderRegierungsbezirkMap();
-    }else if(this.zipCodeFilterOption === 'kreise'){
-      this.renderKreiseMap();
-
-    }
+    
   }
 
-  public async switchMap(view: string): Promise<void> {
-    if (view === 'all') {
-      this.zipCodeFilterOption = 'all';
-      await this.initMap();
-    } else if (view === '2-stellig') {
-      this.zipCodeFilterOption = 'twoDigits';
-      await this.initMap();
-    } else if (view === 'regierungsbezirke') {
-      this.zipCodeFilterOption = 'regierungsbezirke';
-      this.renderRegierungsbezirkMap();
-    }else if(view ==='kreise'){
-      this.zipCodeFilterOption = 'kreise';
-      this.renderKreiseMap()
-    }
-  }
+  // public async switchMap(view: string): Promise<void> {
+  //   if (view === 'all') {
+  //     this.zipCodeFilterOption = 'all';
+  //     await this.initMap();
+  //   } else if (view === '2-stellig') {
+  //     this.zipCodeFilterOption = 'twoDigits';
+  //     await this.initMap();
+  //   } else if (view === 'regierungsbezirke') {
+  //     this.zipCodeFilterOption = 'regierungsbezirke';
+  //     this.renderRegierungsbezirkMap();
+  //   }else if(view ==='kreise'){
+  //     this.zipCodeFilterOption = 'kreise';
+  //     this.renderKreiseMap()
+  //   }
+  // }
   
   
   private createMap(): void {
@@ -116,7 +105,7 @@ export class StromErzeugerSolarComponent implements OnInit, AfterViewInit {
   private async getChargePointsDataZipCode(): Promise<any> {
     const chargePointsData$ = this.zipCodeFilterOption === 'twoDigits'
       ? this.apiService.getChargePointsCountByZipCode2Digits()
-      : this.apiService.getChargePointsCountByZipCode();
+      : this.apiService.getStromInfraCountByZipCode();
   
       const chargePointsData = await (await chargePointsData$).toPromise();
   

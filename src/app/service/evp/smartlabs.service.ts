@@ -60,6 +60,11 @@ export class SmartLabService {
         return this.http.get(this.baseURL + '/zip-code-summary', { 'headers': headers })
     }
 
+    async getStromInfraCountByZipCode(): Promise<Observable<any>> {
+      const headers = { 'content-type': 'application/json' }
+      return this.http.get(this.baseURL + '/solar', { 'headers': headers })
+  }
+
     async getChargePointsCountByZipCode2Digits(): Promise<Observable<any>> {
         const headers = { 'content-type': 'application/json' }
         return this.http.get(this.baseURL + '/chargePoints/accumulatedForFirstTwoDigits', { 'headers': headers })
