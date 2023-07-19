@@ -27,6 +27,7 @@ import { ChargingInfraHeatMapOccupiedTimeComponent } from './charging-infra-heat
 import { ChargingInfraHeatMapOccupiedTimePercentageComponent } from './charging-infra-heat-map-occupied-time-percentage/charging-infra-heat-map-occupied-time-percentage.component';
 import { ChargingInfraHeatMapBevsNumberComponent } from './charging-infra-heat-map-bevs-number/charging-infra-heat-map-bevs-number.component';
 import { ChargingInfraHeatMapBevsPowerComponent } from './charging-infra-heat-map-bevs-power/charging-infra-heat-map-bevs-power.component';
+import { StromErzeugerSolarComponent } from './strom-erzeuger-solar/strom-erzeuger-solar.component';
 
 
 const routes: Routes = [{
@@ -128,6 +129,10 @@ const routes: Routes = [{
     {
       path:'charging-infra-heat-map-bevs-power',
       component:ChargingInfraHeatMapBevsPowerComponent,
+    },
+    {
+      path:'strom-erzeuger-solar',
+      component:StromErzeugerSolarComponent,
     },
     {
       path: 'layout',

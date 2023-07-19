@@ -103,6 +103,17 @@ export const MENU_ITEMS: NbMenuItem[] = [
   },
       ],
    }, 
+   {
+    title: 'Heat Map Energy Erzeuger',
+    icon: 'map-outline',
+    children: [
+      
+       {
+        title: 'Energy Erzeuger Solar',
+        link: '/pages/strom-erzeuger-solar',
+      }
+    ],
+  },
   /* {
     title: 'Heat Map Ladepunkte',
     icon: 'map-outline',

@@ -37,6 +37,8 @@ import { ChargingInfraHeatMapOccupiedTimeComponent } from './charging-infra-heat
 import { ChargingInfraHeatMapOccupiedTimePercentageComponent } from './charging-infra-heat-map-occupied-time-percentage/charging-infra-heat-map-occupied-time-percentage.component';
 import { ChargingInfraHeatMapBevsNumberComponent } from './charging-infra-heat-map-bevs-number/charging-infra-heat-map-bevs-number.component';
 import { ChargingInfraHeatMapBevsPowerComponent } from './charging-infra-heat-map-bevs-power/charging-infra-heat-map-bevs-power.component';
+import { StromErzeugerSolarComponent } from './strom-erzeuger-solar/strom-erzeuger-solar.component';
+
 
 
 @NgModule({
@@ -89,6 +91,7 @@ import { ChargingInfraHeatMapBevsPowerComponent } from './charging-infra-heat-ma
     ChargingInfraHeatMapOccupiedTimePercentageComponent,
     ChargingInfraHeatMapBevsNumberComponent,
     ChargingInfraHeatMapBevsPowerComponent,
+    StromErzeugerSolarComponent,
   ],
 })
 export class PagesModule {
