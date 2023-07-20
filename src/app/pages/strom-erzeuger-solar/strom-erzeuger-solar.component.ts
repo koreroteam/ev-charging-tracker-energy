@@ -160,8 +160,8 @@ export class StromErzeugerSolarComponent implements OnInit, AfterViewInit {
         }
   
         const popupContent = this.zipCodeFilterOption === 'twoDigits'
-          ? `PLZ 2-stellig: ${zipcode}<br>Anzahl Ladepunkte: ${chargePointsCount}`
-          : `PLZ: ${zipcode}<br>Anzahl Ladepunkte: ${chargePointsCount}`;
+          ? `PLZ 2-stellig: ${zipcode}<br>Anzahl Strom Erzeuger Solar: ${chargePointsCount}`
+          : `PLZ: ${zipcode}<br>Anzahl Strom Erzeuger Solar: ${chargePointsCount}`;
 
           layer.on('mouseover', () => {
             layer.bindPopup(popupContent).openPopup();
