@@ -104,16 +104,31 @@ export const MENU_ITEMS: NbMenuItem[] = [
       ],
    }, 
    {
-    title: 'Heat Map Energy Erzeuger',
+    title: 'Heat Map Strom Erzeuger',
     icon: 'map-outline',
     children: [
-      
-       {
-        title: 'Energy Erzeuger Solar',
+      {
+        title: 'Anzahl Strom Erzeuger',
+        children: [
+      {
+        title: 'Strom Erzeuger Solar',
         link: '/pages/strom-erzeuger-solar',
-      }
+      },
+      
+      ],
+      },  
+      { 
+        title: 'Ladeleistung',
+        children: [    
+      {
+        title:'Strom Erzeuger Solar',
+        link:'/pages/strom-erzeuger-solar-netto-leistung',
+      },
+      
     ],
   },
+      ],
+   },
   /* {
     title: 'Heat Map Ladepunkte',
     icon: 'map-outline',

@@ -38,6 +38,7 @@ import { ChargingInfraHeatMapOccupiedTimePercentageComponent } from './charging-
 import { ChargingInfraHeatMapBevsNumberComponent } from './charging-infra-heat-map-bevs-number/charging-infra-heat-map-bevs-number.component';
 import { ChargingInfraHeatMapBevsPowerComponent } from './charging-infra-heat-map-bevs-power/charging-infra-heat-map-bevs-power.component';
 import { StromErzeugerSolarComponent } from './strom-erzeuger-solar/strom-erzeuger-solar.component';
+import { StromErzeugerSolarNettoLeistungComponent } from './strom-erzeuger-solar-netto-leistung/strom-erzeuger-solar-netto-leistung.component';
 
 
 
@@ -92,6 +93,7 @@ import { StromErzeugerSolarComponent } from './strom-erzeuger-solar/strom-erzeug
     ChargingInfraHeatMapBevsNumberComponent,
     ChargingInfraHeatMapBevsPowerComponent,
     StromErzeugerSolarComponent,
+    StromErzeugerSolarNettoLeistungComponent,
   ],
 })
 export class PagesModule {

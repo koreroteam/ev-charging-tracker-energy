@@ -13,11 +13,11 @@ import * as htmlToImage from 'html-to-image';
 
 
 @Component({
-  selector: 'ngx-strom-erzeuger-solar',
-  templateUrl: './strom-erzeuger-solar.component.html',
-  styleUrls: ['./strom-erzeuger-solar.component.scss']
+  selector: 'strom-erzeuger-solar-netto-Leistung',
+  templateUrl: './strom-erzeuger-solar-netto-Leistung.component.html',
+  styleUrls: ['./strom-erzeuger-solar-netto-Leistung.component.scss']
 })
-export class StromErzeugerSolarComponent implements OnInit, AfterViewInit {
+export class StromErzeugerSolarNettoLeistungComponent implements OnInit, AfterViewInit {
   @ViewChild('draggableLegend', { static: false }) draggableLegend: ElementRef;
 
   private active = false;
@@ -87,7 +87,7 @@ export class StromErzeugerSolarComponent implements OnInit, AfterViewInit {
       this.map.remove();
     }
   
-    this.map = L.map('heatMapContainerSolar', {
+    this.map = L.map('heatMapContainerSolarLeistung', {
       center: [51.5200, 9.4050],
       zoom: 6
     });
@@ -105,7 +105,7 @@ export class StromErzeugerSolarComponent implements OnInit, AfterViewInit {
   private async getChargePointsDataZipCode(): Promise<any> {
     const chargePointsData$ = this.zipCodeFilterOption === 'twoDigits'
       ? this.apiService.getChargePointsCountByZipCode2Digits()
-      : this.apiService.getStromInfraCountByZipCode();
+      : this.apiService.getStromInfraSolarNettoLeistungByZipCode();
   
       const chargePointsData = await (await chargePointsData$).toPromise();
   
@@ -134,7 +134,7 @@ export class StromErzeugerSolarComponent implements OnInit, AfterViewInit {
       style: (feature) => {
         const zipcode = feature.properties.postcode;
         const chargePointsCountKey = this.getChargePointsCountKey(zipcode);
-        const chargePointsCount = chargePointsData[chargePointsCountKey] || 0;
+        const chargePointsCount = chargePointsData[chargePointsCountKey]|| 0;
   
         const fillColor = this.zipCodeFilterOption === 'twoDigits'
           ? this.getFillColor(chargePointsCount,thresholds)
@@ -151,7 +151,7 @@ export class StromErzeugerSolarComponent implements OnInit, AfterViewInit {
       onEachFeature: (feature, layer) => {
         const zipcode = feature.properties.postcode;
         const chargePointsCountKey = this.getChargePointsCountKey(zipcode);
-        const chargePointsCount = chargePointsData[chargePointsCountKey] || 0;
+        const chargePointsCount = chargePointsData[chargePointsCountKey]|| 0;
 
         if(this.zipCodeFilterOption === 'twoDigits'){
           this.popupDataZipCode2D.push([zipcode,chargePointsCount])
@@ -160,8 +160,8 @@ export class StromErzeugerSolarComponent implements OnInit, AfterViewInit {
         }
   
         const popupContent = this.zipCodeFilterOption === 'twoDigits'
-          ? `PLZ 2-stellig: ${zipcode}<br>Anzahl Ladepunkte: ${chargePointsCount}`
-          : `PLZ: ${zipcode}<br>Anzahl Ladepunkte: ${chargePointsCount}`;
+          ? `PLZ 2-stellig: ${zipcode}<br>Strom Erzeuger Solar Nettonennleistungen: ${chargePointsCount}`
+          : `PLZ: ${zipcode}<br>Strom Erzeuger Solar Nettonennleistungen: ${chargePointsCount.toFixed(2)}`;
 
           layer.on('mouseover', () => {
             layer.bindPopup(popupContent).openPopup();
@@ -827,6 +827,7 @@ public downloadCSV(filename: string, data: any[], headerLabel: string): void {
 
 
   
+
 
 
 
