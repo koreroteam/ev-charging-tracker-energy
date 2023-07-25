@@ -13,7 +13,7 @@ import * as htmlToImage from 'html-to-image';
 
 
 @Component({
-  selector: 'strom-erzeuger-solar-netto-Leistung',
+  selector: 'ngx-strom-erzeuger-solar-netto-Leistung',
   templateUrl: './strom-erzeuger-solar-netto-Leistung.component.html',
   styleUrls: ['./strom-erzeuger-solar-netto-Leistung.component.scss']
 })
