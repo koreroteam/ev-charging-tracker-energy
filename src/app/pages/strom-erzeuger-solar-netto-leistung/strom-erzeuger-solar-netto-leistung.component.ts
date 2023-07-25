@@ -13,9 +13,9 @@ import * as htmlToImage from 'html-to-image';
 
 
 @Component({
-  selector: 'ngx-strom-erzeuger-solar-netto-Leistung',
-  templateUrl: './strom-erzeuger-solar-netto-Leistung.component.html',
-  styleUrls: ['./strom-erzeuger-solar-netto-Leistung.component.scss']
+  selector: 'ngx-strom-erzeuger-solar-netto-leistung',
+  templateUrl: './strom-erzeuger-solar-netto-leistung.component.html',
+  styleUrls: ['./strom-erzeuger-solar-netto-leistung.component.scss']
 })
 export class StromErzeugerSolarNettoLeistungComponent implements OnInit, AfterViewInit {
   @ViewChild('draggableLegend', { static: false }) draggableLegend: ElementRef;
