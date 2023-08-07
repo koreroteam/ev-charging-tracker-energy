@@ -7,7 +7,32 @@
       <button nbButton shape="round" >Suche</button>
     </div>
     <br>
-    
+    <nb-select [(ngModel)]="selectedTime" (selectedChange)="onTimeSelected(selectedTime)" class="mx-2" id='selectedFilter'>
+
+
+      <nb-option value="10:00">10:00</nb-option>
+      <nb-option value="10:15">10:15</nb-option>
+      <nb-option value="10:30">10:30</nb-option>
+      <nb-option value="10:45">10:45</nb-option>
+      <nb-option value="11:00">11:00</nb-option>
+
+      <nb-option value="11:15">11:15</nb-option>
+      <nb-option value="11:30">11:30</nb-option>
+      <nb-option value="11:45">11:45</nb-option>
+
+      <nb-option value="12:00">12:00</nb-option>
+      <nb-option value="12:15">11:15</nb-option>
+      <nb-option value="12:30">11:30</nb-option>
+      <nb-option value="12:45">11:45</nb-option>
+
+      <nb-option value="13:00">13:00</nb-option>
+      <nb-option value="13:15">13:15</nb-option>
+      <nb-option value="13:30">13:30</nb-option>
+      <nb-option value="13:45">13:45</nb-option>
+      <nb-option value="13:00">14:00</nb-option>
+
+      <!-- <nb-option value="country">Land</nb-option> -->
+  </nb-select>
     
     
   

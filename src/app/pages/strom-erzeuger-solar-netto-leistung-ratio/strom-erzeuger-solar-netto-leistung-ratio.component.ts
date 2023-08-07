@@ -12,6 +12,15 @@ import * as htmlToImage from 'html-to-image';
 
 
 
+interface ChargePointData {
+  id: number;
+  ratio: string;
+  createdAt: string;
+  zipCode: string;
+  totalMaximumPower: number;
+  totalNettoProduction: number;
+}
+
 
 @Component({
   selector: 'ngx-strom-erzeuger-solar-netto-leistung-ratio',
@@ -52,19 +61,44 @@ export class StromErzeugerSolarNettoLeistungRatioComponent implements OnInit, Af
 
 
 
+  selectedTime: string;
+
+  
+  async onTimeSelected(time: string) {
+    const {filteredChargePointsData, thresholds} = await this.getChargePointsDataZipCode(time);
+    const data = await this.fetchData();
+    this.renderMapZipCode({filteredChargePointsData, thresholds}, data);
+}
+
 
 
   
+  
+//   async filterDataByTime() {
+//     const chargePointsData$ = this.apiService.getStromRatio();
+  
+//     (await chargePointsData$).pipe(
+//       map(data => data.filter(item => {
+//         const createdAtTime = new Date(item.createdAt).getHours() + ":" + ("0" + new Date(item.createdAt).getMinutes()).slice(-2);
+//         return createdAtTime === this.selectedTime;
+//       }))
+//     ).subscribe(async (filteredData) => {
+//         console.log(filteredData);
+//         const data = await this.fetchData();
+//         this.renderMapZipCode({filteredChargePointsData: filteredData, thresholds: filteredData.thresholds}, data); 
+//     });
+// }
 
 
   
   private async initMap(): Promise<void> {
     this.createMap();
-      const chargePointsData = await this.getChargePointsDataZipCode();
-      const data = await this.fetchData();
-      this.renderMapZipCode(chargePointsData, data);
-    
-  }
+    this.selectedTime = "10:00"
+    const chargePointsData = await this.getChargePointsDataZipCode(this.selectedTime);
+    const data = await this.fetchData();
+    this.renderMapZipCode({filteredChargePointsData: chargePointsData.filteredChargePointsData, thresholds: chargePointsData.thresholds}, data);
+}
+
 
   // public async switchMap(view: string): Promise<void> {
   //   if (view === 'all') {
@@ -103,44 +137,62 @@ export class StromErzeugerSolarNettoLeistungRatioComponent implements OnInit, Af
     // tiles.addTo(this.map);
   }
   
-  private async getChargePointsDataZipCode(): Promise<any> {
-    const chargePointsData$ = this.zipCodeFilterOption === 'twoDigits'
-      ? this.apiService.getChargePointsCountByZipCode2Digits()
-      : this.apiService.getStromInfraSolarNettoLeistungByZipCode();
-  
-      const chargePointsData = await (await chargePointsData$).toPromise();
-  
-      const chargePointsCounts = Object.values(chargePointsData);
-      chargePointsCounts.sort((a, b) => Number(a) - Number(b));
-      console.log(chargePointsCounts)
 
-    
-      const thresholds = [0, 0.2, 0.4, 0.6, 0.8].map(percent => {
+
+  private async getChargePointsDataZipCode(selectedTime: string): Promise<any> {
+    const chargePointsData$ = await (await this.apiService.getStromRatio()).toPromise() as ChargePointData[];
+
+    // Fetch the GeoJSON data
+    const geoJSONData = await this.http.get('https://raw.githubusercontent.com/yetzt/postleitzahlen/main/data/postleitzahlen.small.geojson').toPromise() as any;
+
+    // Extract the zip codes from the GeoJSON data
+    const geoJSONZipCodes: string[] = geoJSONData.features.map(feature => {
+       
+            return feature.properties.postcode;
+        
+        
+    }).filter(zip => zip !== null);
+
+    const filteredChargePointsData = chargePointsData$.filter((item: ChargePointData) => {
+        const createdAtTime = new Date(item.createdAt).getHours() + ":" + ("0" + new Date(item.createdAt).getMinutes()).slice(-2);
+        
+        // Only include items with zip codes that exist in the GeoJSON data
+        return createdAtTime === selectedTime && geoJSONZipCodes.includes(item.zipCode);
+    });
+
+    const chargePointsCounts = filteredChargePointsData.map(data => Number(data.ratio));
+    chargePointsCounts.sort((a, b) => a - b);
+
+    const thresholds = [0, 0.2, 0.4, 0.6, 0.8].map(percent => {
         const index = Math.round(percent * (chargePointsCounts.length - 1));
         return chargePointsCounts[index];
-      });
-      console.log(thresholds)
-    
-      return { chargePointsData, thresholds };
-  }
+    });
+
+    return { filteredChargePointsData, thresholds };
+}
+
+
+
   
   private async fetchData(): Promise<any> {
     return this.fetchZipcodeData().toPromise();
   }
   
-  private renderMapZipCode({chargePointsData, thresholds}: {chargePointsData: any, thresholds: number[]}, data: any): void {
+  private renderMapZipCode({filteredChargePointsData, thresholds}: {filteredChargePointsData: ChargePointData[], thresholds: number[]}, data: any): void {
     const zipcodeFeatures = {};
+
+    if (this.geoJsonLayer) {
+      this.geoJsonLayer.remove();
+  }
   
+
     this.geoJsonLayer = L.geoJSON(data, {
       style: (feature) => {
         const zipcode = feature.properties.postcode;
-        const chargePointsCountKey = this.getChargePointsCountKey(zipcode);
-        const chargePointsCount = chargePointsData[chargePointsCountKey]|| 0;
-  
-        const fillColor = this.zipCodeFilterOption === 'twoDigits'
-          ? this.getFillColor(chargePointsCount,thresholds)
-          : this.getFillColor(chargePointsCount,thresholds);
-  
+        const matchedData = filteredChargePointsData.find(item => item.zipCode === zipcode);
+        const chargePointsCount = matchedData ? Number(matchedData.ratio) : 0;
+        const fillColor = this.getFillColor(chargePointsCount, thresholds);
+
         return {
           color: fillColor,
           weight: 1,
@@ -151,285 +203,36 @@ export class StromErzeugerSolarNettoLeistungRatioComponent implements OnInit, Af
   
       onEachFeature: (feature, layer) => {
         const zipcode = feature.properties.postcode;
-        const chargePointsCountKey = this.getChargePointsCountKey(zipcode);
-        const chargePointsCount = chargePointsData[chargePointsCountKey]|| 0;
+        const matchedData = filteredChargePointsData.find(item => item.zipCode === zipcode);
+        const chargePointsCount = matchedData ? Number(matchedData.ratio) : 0;
 
-        if(this.zipCodeFilterOption === 'twoDigits'){
-          this.popupDataZipCode2D.push([zipcode,chargePointsCount])
-        }else if(this.zipCodeFilterOption === "all"){
-          this.popupDataZipCode.push([zipcode,chargePointsCount])
+        if(this.zipCodeFilterOption === "all"){
+          this.popupDataZipCode.push([zipcode, chargePointsCount]);
         }
-  
-        const popupContent = this.zipCodeFilterOption === 'twoDigits'
-          ? `PLZ 2-stellig: ${zipcode}<br>Strom Erzeuger Solar Nettonennleistungen: ${chargePointsCount}`
-          : `PLZ: ${zipcode}<br>Strom Erzeuger Solar Nettonennleistungen: ${chargePointsCount.toFixed(2)}`;
 
-          layer.on('mouseover', () => {
-            layer.bindPopup(popupContent).openPopup();
-             });
- 
-            layer.on('mouseout', () => {
-            layer.closePopup();
-             });
- 
-  
-      layer.bindPopup(popupContent);
-      
-    
+        const popupContent = `PLZ: ${zipcode}<br>Ratio: ${chargePointsCount.toFixed(5)}<br>time: ${this.selectedTime}`;
+
+        layer.on('mouseover', () => {
+          layer.bindPopup(popupContent).openPopup();
+        });
+
+        layer.on('mouseout', () => {
+          layer.closePopup();
+        });
+
+        layer.bindPopup(popupContent);
         zipcodeFeatures[zipcode] = layer;
       },
     }).addTo(this.map);
-  
+
     this.zipcodeFeatures = zipcodeFeatures;
-  }
+}
+  
+  
   
 
+  
  
-  private renderRegierungsbezirkMap(): void {
-    const regierungsbezirkFeatures = {};
-  
-    this.apiService.getChargePointsByDistricts().then((chargePointsByDistricts) => {
-      this.getRegierungsbezirkData().subscribe((data) => {
-        if (this.geoJsonLayer) {
-          this.map.removeLayer(this.geoJsonLayer);
-        }
-
-        
-  
-        const mergedGeoJSON = this.mergeRegierungsbezirke(data);
-        const jsonBezirke = new Set(Object.keys(chargePointsByDistricts));
-        const geoJsonBezirke = [];
-  
-      
-        const mergeMapping = {
-          'Luneburg': 'Niedersachsen',
-          'Hannover': 'Niedersachsen',
-          'Weser-Ems': 'Niedersachsen',
-          'Braunschweig': 'Niedersachsen',
-          'Leipzig': 'Sachsen',
-          'Dresden': 'Sachsen',
-          'Chemnitz': 'Sachsen',
-          'Halle': 'Sachsen-Anhalt',
-          'Dessau': 'Sachsen-Anhalt',
-          'Magdeburg': 'Sachsen-Anhalt',
-          'Rheinhessen-Pfalz':'Rheinland-Pfalz',
-          'Koblenz':'Rheinland-Pfalz',
-          'Trier':'Rheinland-Pfalz',
-        };
-  
-        let mergedChargePointsByDistricts = {};
-        for (const [key, value] of Object.entries(chargePointsByDistricts)) {
-          const newKey = mergeMapping[key] || key;
-          mergedChargePointsByDistricts[newKey] = (mergedChargePointsByDistricts[newKey] || 0) + value;
-        }
-  
-        const districtNames = mergedGeoJSON.features.map(feature => feature.properties.NAME_2);
-  
-        const filteredChargePointsByDistricts = Object.entries(mergedChargePointsByDistricts)
-          .filter(([key, value]) => districtNames.includes(key))
-          .reduce((obj, [key, value]) => {
-            obj[key] = value;
-            return obj;
-          }, {});
-  
-        // Compute the thresholds
-        const chargePointsCounts = Object.values(filteredChargePointsByDistricts);
-        chargePointsCounts.sort((a, b) => Number(a) - Number(b));
-        
-        const thresholds = [0, 0.2, 0.4, 0.6, 0.8].map(percent => {
-          const index = Math.round(percent * (chargePointsCounts.length - 1));
-          return Number(chargePointsCounts[index]);
-        });
-        console.log(thresholds)
-    
-        this.geoJsonLayer = L.geoJSON(mergedGeoJSON, {
-          style: (feature) => {
-            const name = feature.properties.NAME_2;
-            geoJsonBezirke.push(name)
-
-            const count = chargePointsByDistricts[name] ?? 0;
-            const fillColor = this.getFillColor(count,thresholds);
-           // console.log(fillColor,name,count)
-    
-            return {
-              color: '#000',
-              weight: 1,
-              opacity: 0.5,
-              fillOpacity: 0.5,
-              fillColor: fillColor,
-            };
-          },
-  
-          onEachFeature: (feature, layer) => {
-            const name = feature.properties.NAME_2;
-            const count = chargePointsByDistricts[name] ?? 0;
-            this.popupDataRegierungsbezirk.push([name,count]);
-  
-            const popupContent = `Regierungsbezirk: ${name}<br>Anzahl Ladepunkte: ${count}`;
-
-            layer.on('mouseover', () => {
-              layer.bindPopup(popupContent).openPopup();
-               });
-   
-              layer.on('mouseout', () => {
-              layer.closePopup();
-               });
-   
-  
-            layer.bindPopup(popupContent);
-            regierungsbezirkFeatures[name] = layer;
-            jsonBezirke.delete(name);
-          },
-        }).addTo(this.map);
-       
-        this.regierungsbezirkFeatures = regierungsbezirkFeatures;
-        console.log("Counties in GeoJSON file:", geoJsonBezirke);
-        console.log("Counties in JSON file not found on the map:", Array.from(jsonBezirke));
-      });
-      
-    });
-  }
-
-  private async renderKreiseMap(): Promise<void> {
-    const kreiseFeatures = {};
-  
-    const kreiseDataUrl = '/assets/vg250_krs.geojson';
-  
-   
-    const chargePointAreas = await this.apiService.getChargePointsByArea();
-    const chargePointsByKreise = chargePointAreas.reduce((acc, area) => {
-    const county = area.administrative_area_level_3;
-
-    if (!acc[county]) {
-    acc[county] = 0;
-                }
-   acc[county]++;
-   return acc;
-   }, {});
-
-   const chargePointsCounts = Object.values(chargePointsByKreise);
-        chargePointsCounts.sort((a, b) => Number(a) - Number(b));
-  
-      
-        const thresholds = [0, 0.2, 0.4, 0.6, 0.8].map(percent => {
-          const index = Math.round(percent * (chargePointsCounts.length - 1));
-          return Number(chargePointsCounts[index]);
-        });
-
-  this.http.get(kreiseDataUrl).subscribe((data: any) => {
-  
-        if (this.geoJsonLayer) {
-          this.map.removeLayer(this.geoJsonLayer);
-        }
-  
-        const jsonCounties = new Set(Object.keys(chargePointsByKreise));
-        const geoJsonCounties = [];
-        const chargePointNr = [];
-  
-        this.geoJsonLayer = L.geoJSON(data, {
-          style: (feature) => {
-            const kreiseName = feature.properties.GEN;
-            geoJsonCounties.push(kreiseName);
-            const chargePoints = chargePointsByKreise[kreiseName] || 0;
-            chargePointNr.push(chargePoints)
-            
-            const color = this.getFillColor(chargePoints,thresholds);
-            return {
-              fillColor: color,
-              weight: 1,
-              opacity: 0.5,
-              color: 'black',
-              dashArray: '3',
-              fillOpacity: 0.5
-            };
-          },
-          onEachFeature: (feature, layer) => {
-            const kreiseName = feature.properties.GEN;
-            const chargePoints = chargePointsByKreise[kreiseName] || 0;
-            this.popupDataKreise.push([kreiseName,chargePoints])
-          
-            const popupContent = `Landkreis: ${kreiseName}<br>Anzahl Ladepunkte: ${chargePoints}`;
-            
-            layer.on('mouseover', () => {
-              layer.bindPopup(popupContent).openPopup();
-               });
-   
-              layer.on('mouseout', () => {
-              layer.closePopup();
-               });
-   
-            layer.bindPopup(popupContent);
-            kreiseFeatures[kreiseName] = layer;
-          
-            jsonCounties.delete(kreiseName);
-          }
-          
-        }).addTo(this.map);
-        this.kreiseFeatures = kreiseFeatures;
-  
-        console.log("Counties in GeoJSON file:", geoJsonCounties);
-        console.log("Counties in JSON file not found on the map:", Array.from(jsonCounties));
-        console.log("ChargePoint in JSON loaded: ", chargePointNr)
-      
-      });
-    
-  }
-  
-  
-
-  
-  private mergeRegierungsbezirke(geoJSONData: any): any {
-   
-    const mergeMapping = {
-     'Luneburg': 'Niedersachsen',
-          'Hannover': 'Niedersachsen',
-          'Weser-Ems': 'Niedersachsen',
-          'Braunschweig': 'Niedersachsen',
-          'Leipzig': 'Sachsen',
-          'Dresden': 'Sachsen',
-          'Chemnitz': 'Sachsen',
-          'Halle': 'Sachsen-Anhalt',
-          'Dessau': 'Sachsen-Anhalt',
-          'Magdeburg': 'Sachsen-Anhalt',
-          'Rheinhessen-Pfalz':'Rheinland-Pfalz',
-          'Koblenz':'Rheinland-Pfalz',
-          'Trier':'Rheinland-Pfalz',
-    };
-  
-    const featuresToMerge = {};
-    const newFeatures = geoJSONData.features.filter((feature) => {
-      const name = feature.properties.NAME_2;
-      if (mergeMapping[name]) {
-        if (!featuresToMerge[mergeMapping[name]]) {
-          featuresToMerge[mergeMapping[name]] = [];
-        }
-        featuresToMerge[mergeMapping[name]].push(feature);
-        return false;
-      }
-      return true;
-    });
-  
-    for (const stateName in featuresToMerge) {
-      const mergedPolygon = featuresToMerge[stateName].reduce((merged, feature, index) => {
-        if (index === 0) {
-          return feature;
-        } else {
-          return turf.union(merged, feature);
-        }
-      }, null);
-  
-      mergedPolygon.properties = {
-        ...mergedPolygon.properties,
-        NAME_2: stateName,
-      };
-      newFeatures.push(mergedPolygon);
-    }
-  
-    return { ...geoJSONData, features: newFeatures };
-  }
-
-  
-
   
 
   public onInputChange(event: Event): void {
@@ -619,6 +422,10 @@ export class StromErzeugerSolarNettoLeistungRatioComponent implements OnInit, Af
   }
 
 private getFillColor(density: number, thresholds: number[]): string {
+  if (!thresholds || thresholds.length < 5) {
+    console.error("Thresholds array is not properly defined or is too short:", thresholds);
+    return 'rgba(0, 0, 0, 0)';  
+}
     if (density <= thresholds[1]) {
         return 'rgba(243, 249, 255, 1)';
     } else if (density <= thresholds[2]) {
