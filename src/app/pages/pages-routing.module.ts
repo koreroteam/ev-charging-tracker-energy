@@ -29,6 +29,7 @@ import { ChargingInfraHeatMapBevsNumberComponent } from './charging-infra-heat-m
 import { ChargingInfraHeatMapBevsPowerComponent } from './charging-infra-heat-map-bevs-power/charging-infra-heat-map-bevs-power.component';
 import { StromErzeugerSolarComponent } from './strom-erzeuger-solar/strom-erzeuger-solar.component';
 import { StromErzeugerSolarNettoLeistungComponent } from './strom-erzeuger-solar-netto-leistung/strom-erzeuger-solar-netto-leistung.component';
+import { StromErzeugerSolarNettoLeistungRatioComponent } from './strom-erzeuger-solar-netto-leistung-ratio/strom-erzeuger-solar-netto-leistung-ratio.component';
 
 
 const routes: Routes = [{
@@ -140,6 +141,10 @@ const routes: Routes = [{
       component: StromErzeugerSolarNettoLeistungComponent,
     },
     {
+      path:'strom-erzeuger-solar-netto-leistung-ratio',
+      component: StromErzeugerSolarNettoLeistungRatioComponent,
+    },
+    {
       path: 'layout',
       loadChildren: () => import('./layout/layout.module')
         .then(m => m.LayoutModule),
@@ -212,3 +217,4 @@ const routes: Routes = [{
 })
 export class PagesRoutingModule {
 }
+

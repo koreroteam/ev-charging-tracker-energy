@@ -39,6 +39,7 @@ import { ChargingInfraHeatMapBevsNumberComponent } from './charging-infra-heat-m
 import { ChargingInfraHeatMapBevsPowerComponent } from './charging-infra-heat-map-bevs-power/charging-infra-heat-map-bevs-power.component';
 import { StromErzeugerSolarComponent } from './strom-erzeuger-solar/strom-erzeuger-solar.component';
 import { StromErzeugerSolarNettoLeistungComponent } from './strom-erzeuger-solar-netto-leistung/strom-erzeuger-solar-netto-leistung.component';
+import { StromErzeugerSolarNettoLeistungRatioComponent } from './strom-erzeuger-solar-netto-leistung-ratio/strom-erzeuger-solar-netto-leistung-ratio.component';
 
 
 
@@ -63,8 +64,8 @@ import { StromErzeugerSolarNettoLeistungComponent } from './strom-erzeuger-solar
     NgxChartsModule,
     NbDatepickerModule,
     FormsModule,
-    ReactiveFormsModule
-
+    ReactiveFormsModule,
+   
 
   ],
   declarations: [
@@ -94,7 +95,9 @@ import { StromErzeugerSolarNettoLeistungComponent } from './strom-erzeuger-solar
     ChargingInfraHeatMapBevsPowerComponent,
     StromErzeugerSolarComponent,
     StromErzeugerSolarNettoLeistungComponent,
+    StromErzeugerSolarNettoLeistungRatioComponent,
   ],
 })
 export class PagesModule {
 }
+

@@ -127,6 +127,16 @@ export const MENU_ITEMS: NbMenuItem[] = [
       
     ],
   },
+  { 
+    title: 'Ratio',
+    children: [    
+  {
+    title:'Strom Erzeuger Solar Ratio',
+    link:'/pages/strom-erzeuger-solar-netto-leistung-ratio',
+  },
+  
+],
+},
       ],
    },
   /* {
@@ -182,3 +192,4 @@ export const MENU_ITEMS: NbMenuItem[] = [
    // ],
  // },
 ];
+
