@@ -65,6 +65,11 @@ export class SmartLabService {
       return this.http.get(this.baseURL + '/solar', { 'headers': headers })
   }
 
+  async getStromRatio(): Promise<Observable<any>> {
+    const headers = { 'content-type': 'application/json' }
+    return this.http.get(this.baseURL + '/solarRatio', { 'headers': headers })
+}
+
   async getStromInfraSolarNettoLeistungByZipCode(): Promise<Observable<any>> {
     const headers = { 'content-type': 'application/json' }
     return this.http.get(this.baseURL + '/solarNetto', { 'headers': headers })
