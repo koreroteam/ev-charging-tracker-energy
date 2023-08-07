@@ -122,7 +122,7 @@ export class StromErzeugerSolarNettoLeistungRatioComponent implements OnInit, Af
       this.map.remove();
     }
   
-    this.map = L.map('heatMapContainerSolarLeistung', {
+    this.map = L.map('heatMapContainerSolarLeistungRatio', {
       center: [51.5200, 9.4050],
       zoom: 6
     });
@@ -635,7 +635,6 @@ public downloadCSV(filename: string, data: any[], headerLabel: string): void {
 
 
   
-
 
 
 
