@@ -154,8 +154,13 @@ export class StromErzeugerSolarNettoLeistungRatioComponent implements OnInit, Af
     }).filter(zip => zip !== null);
 
     const filteredChargePointsData = chargePointsData$.filter((item: ChargePointData) => {
-        const createdAtTime = new Date(item.createdAt).getHours() + ":" + ("0" + new Date(item.createdAt).getMinutes());
+      const date = new Date(item.createdAt);
+      date.setMinutes(date.getMinutes() - 120);
+      const createdAtTime = date.getHours() + ":" + ("0" + date.getMinutes()).slice(-2);
+      
+
         
+        console.log(createdAtTime)
         // Only include items with zip codes that exist in the GeoJSON data
         return createdAtTime === selectedTime && geoJSONZipCodes.includes(item.zipCode);
     });
