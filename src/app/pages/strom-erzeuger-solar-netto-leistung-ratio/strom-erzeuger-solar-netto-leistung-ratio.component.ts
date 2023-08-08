@@ -59,40 +59,51 @@ export class StromErzeugerSolarNettoLeistungRatioComponent implements OnInit, Af
   public popupDataZipCode2D: any[] = [];
   private addedHeaderLabels = new Set<string>();
 
+  times = [
+    "10:00", "10:15", "10:30", "10:45",
+    "11:00", "11:15", "11:30", "11:45",
+    "12:00", "12:15", "12:30", "12:45",
+    "13:00", "13:15", "13:30", "13:45", "14:00"
+];
+  sliderValue: number = 0;  
+  selectedTime: string = this.times[this.sliderValue];
 
 
-  selectedTime: string;
-
-  
-  async onTimeSelected(time: string) {
-    const {filteredChargePointsData, thresholds} = await this.getChargePointsDataZipCode(time);
-    const data = await this.fetchData();
-    this.renderMapZipCode({filteredChargePointsData, thresholds}, data);
+  onSliderChange(value: number) {
+    this.selectedTime = this.times[value];
+    this.refreshData(this.selectedTime);
 }
 
 
 
   
-  
-//   async filterDataByTime() {
-//     const chargePointsData$ = this.apiService.getStromRatio();
-  
-//     (await chargePointsData$).pipe(
-//       map(data => data.filter(item => {
-//         const createdAtTime = new Date(item.createdAt).getHours() + ":" + ("0" + new Date(item.createdAt).getMinutes()).slice(-2);
-//         return createdAtTime === this.selectedTime;
-//       }))
-//     ).subscribe(async (filteredData) => {
-//         console.log(filteredData);
-//         const data = await this.fetchData();
-//         this.renderMapZipCode({filteredChargePointsData: filteredData, thresholds: filteredData.thresholds}, data); 
-//     });
+//   async onTimeSelected(time: string) {
+//     const {filteredChargePointsData, thresholds} = await this.getChargePointsDataZipCode(time);
+//     const data = await this.fetchData();
+//     this.renderMapZipCode({filteredChargePointsData, thresholds}, data);
 // }
+
+
+
+  
+onTimeSelected(selectedTime: string) {
+  this.refreshData(selectedTime);
+}
+
+async refreshData(selectedTime: string) {
+  const chargePointsData = await this.getChargePointsDataZipCode(selectedTime);
+  const geoData = await this.fetchData();
+  
+  this.renderMapZipCode(chargePointsData, geoData);
+}
+
+
 
 
   
   private async initMap(): Promise<void> {
     this.createMap();
+    
     this.selectedTime = "10:00"
     const chargePointsData = await this.getChargePointsDataZipCode(this.selectedTime);
     const data = await this.fetchData();
@@ -100,23 +111,12 @@ export class StromErzeugerSolarNettoLeistungRatioComponent implements OnInit, Af
 }
 
 
-  // public async switchMap(view: string): Promise<void> {
-  //   if (view === 'all') {
-  //     this.zipCodeFilterOption = 'all';
-  //     await this.initMap();
-  //   } else if (view === '2-stellig') {
-  //     this.zipCodeFilterOption = 'twoDigits';
-  //     await this.initMap();
-  //   } else if (view === 'regierungsbezirke') {
-  //     this.zipCodeFilterOption = 'regierungsbezirke';
-  //     this.renderRegierungsbezirkMap();
-  //   }else if(view ==='kreise'){
-  //     this.zipCodeFilterOption = 'kreise';
-  //     this.renderKreiseMap()
-  //   }
-  // }
   
-  
+// public startMapAutoRefresh(): void {
+//   this.startAutoRefreshMap();
+// }
+
+
   private createMap(): void {
     if (this.map) {
       this.map.remove();
@@ -137,6 +137,40 @@ export class StromErzeugerSolarNettoLeistungRatioComponent implements OnInit, Af
     // tiles.addTo(this.map);
   }
   
+
+//   private generateTimeSlots(): string[] {
+//     const slots: string[] = [];
+//     let date = new Date(2023, 0, 1, 10, 0);  // January is 0 in JavaScript's Date object
+//     const endDate = new Date(2023, 0, 1, 14, 0);
+//     while (date <= endDate) {
+//         slots.push(date.getHours().toString().padStart(2, '0') + ':' + date.getMinutes().toString().padStart(2, '0'));
+//         date.setMinutes(date.getMinutes() + 15);
+//     }
+//     return slots;
+// }
+
+// public async startAutoRefreshMap(): Promise<void> {
+//   const timeSlots = this.generateTimeSlots();
+//   let currentIndex = 0;
+
+//   //5 seconds
+//   const refreshInterval = 2000; 
+
+//   const intervalID = setInterval(async () => {
+//       if (currentIndex >= timeSlots.length) {
+//           clearInterval(intervalID);  
+//           return;
+//       }
+      
+//       this.selectedTime = timeSlots[currentIndex];
+//       const chargePointsData = await this.getChargePointsDataZipCode(this.selectedTime);
+//       const data = await this.fetchData();
+//       this.renderMapZipCode({filteredChargePointsData: chargePointsData.filteredChargePointsData, thresholds: chargePointsData.thresholds}, data);
+      
+//       currentIndex++;
+//   }, refreshInterval);
+// }
+
 
 
   private async getChargePointsDataZipCode(selectedTime: string): Promise<any> {
@@ -199,10 +233,12 @@ export class StromErzeugerSolarNettoLeistungRatioComponent implements OnInit, Af
         const fillColor = this.getFillColor(chargePointsCount, thresholds);
 
         return {
-          color: fillColor,
-          weight: 1,
+          fillColor: fillColor,
+          weight: 0.7,
           opacity: 0.5,
-          fillOpacity: 0.5,
+          color: 'grey',
+          dashArray: '3',
+          fillOpacity: 1
         };
       },
   
@@ -432,15 +468,15 @@ private getFillColor(density: number, thresholds: number[]): string {
     return 'rgba(0, 0, 0, 0)';  
 }
     if (density <= thresholds[1]) {
-        return 'rgba(243, 249, 255, 1)';
+        return 'rgba(255,255,255)';
     } else if (density <= thresholds[2]) {
-        return 'rgba(175, 209, 231, 1)';
+        return 'rgba(76, 153, 0)';
     } else if (density <= thresholds[3]) {
-        return 'rgba(62, 142, 196, 1)';
+        return 'rgba(0, 135, 127)';
     } else if (density <= thresholds[4]) {
-        return 'rgba(8, 48, 107, 1)';
+        return 'rgba(0, 111, 122)';
     } else {
-        return 'rgba(0, 0, 55, 1)';
+        return 'rgba(0, 76, 76)';
     }
 }
 
@@ -501,6 +537,38 @@ private getFillColor(density: number, thresholds: number[]): string {
   // }
   // }
   
+
+
+  // public async switchMap(view: string): Promise<void> {
+  //   if (view === 'all') {
+  //     this.zipCodeFilterOption = 'all';
+  //     await this.initMap();
+  //   } else if (view === '2-stellig') {
+  //     this.zipCodeFilterOption = 'twoDigits';
+  //     await this.initMap();
+  //   } else if (view === 'regierungsbezirke') {
+  //     this.zipCodeFilterOption = 'regierungsbezirke';
+  //     this.renderRegierungsbezirkMap();
+  //   }else if(view ==='kreise'){
+  //     this.zipCodeFilterOption = 'kreise';
+  //     this.renderKreiseMap()
+  //   }
+  // }
+
+  //   async filterDataByTime() {
+//     const chargePointsData$ = this.apiService.getStromRatio();
+  
+//     (await chargePointsData$).pipe(
+//       map(data => data.filter(item => {
+//         const createdAtTime = new Date(item.createdAt).getHours() + ":" + ("0" + new Date(item.createdAt).getMinutes()).slice(-2);
+//         return createdAtTime === this.selectedTime;
+//       }))
+//     ).subscribe(async (filteredData) => {
+//         console.log(filteredData);
+//         const data = await this.fetchData();
+//         this.renderMapZipCode({filteredChargePointsData: filteredData, thresholds: filteredData.thresholds}, data); 
+//     });
+// }
   
 
   constructor(private apiService: SmartLabService, 

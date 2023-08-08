@@ -1,13 +1,24 @@
 <nb-card>
+
+
   <nb-card-header>
     Filter
-    <div class="zipcode-filter">
+    <div class="zipcode-filter" >
       <br>
       <input nbInput [(ngModel)]="inputRegierungsbezirk" type="text" placeholder="Gebiet eingeben" (input)="onInputChange($event)" />&nbsp;
       <button nbButton shape="round" >Suche</button>
     </div>
     <br>
-    <nb-select [(ngModel)]="selectedTime" (selectedChange)="onTimeSelected(selectedTime)" class="mx-2" id='selectedFilter'>
+
+    <div class="slider-container">
+      <input type="range" [(ngModel)]="sliderValue" (change)="onSliderChange($event.target.value)" min="0" max="15" step="1" class="mx-2 time-slider" id="timeSlider">
+      <div class="time-labels">
+          <span *ngFor="let time of times">{{ time }}</span>
+      </div>
+  </div>
+
+
+    <!-- <nb-select [(ngModel)]="selectedTime" (selectedChange)="onTimeSelected($event)" class="mx-2" id='selectedFilter'>
 
 
       <nb-option value="10:00">10:00</nb-option>
@@ -21,9 +32,9 @@
       <nb-option value="11:45">11:45</nb-option>
 
       <nb-option value="12:00">12:00</nb-option>
-      <nb-option value="12:15">11:15</nb-option>
-      <nb-option value="12:30">11:30</nb-option>
-      <nb-option value="12:45">11:45</nb-option>
+      <nb-option value="12:15">12:15</nb-option>
+      <nb-option value="12:30">12:30</nb-option>
+      <nb-option value="12:45">12:45</nb-option>
 
       <nb-option value="13:00">13:00</nb-option>
       <nb-option value="13:15">13:15</nb-option>
@@ -31,11 +42,14 @@
       <nb-option value="13:45">13:45</nb-option>
       <nb-option value="13:00">14:00</nb-option>
 
-      <!-- <nb-option value="country">Land</nb-option> -->
-  </nb-select>
     
+  </nb-select> -->
     
-  
+  <!-- <nb-option value="country">Land</nb-option> -->
+  <!-- <button (click)="startMapAutoRefresh()">Start Auto Refresh</button> -->
+
+    
+  <br>
 Ansicht:&nbsp; &nbsp;
 <!-- <nb-select [(selected)]="zipCodeFilterOption">
   <nb-option value="regierungsbezirke" (click)="switchMap('regierungsbezirke')">Regierungsbezirke</nb-option>
@@ -53,6 +67,10 @@ Ansicht:&nbsp; &nbsp;
 <div class="row">
   <div class="col-12">
     <p><b>Heat Map: Nettonennleistungen an Strom Erzeuger Solar </b>
+      <br>
+    
+     
+    
           <span class="float-right px-2"><button nbButton  size="small" status="danger" shape="round"
                   (click)='downloadImage("jpeg")'>JPEG</button></span>
           <span class="float-right"><button nbButton  size="small" status="danger" shape="round"
@@ -77,7 +95,7 @@ Ansicht:&nbsp; &nbsp;
                       CSV-Export
                     </button>&nbsp;
                   </span>
-          </p>
+        
 
   </div>
 </div>
@@ -88,30 +106,34 @@ Ansicht:&nbsp; &nbsp;
        
           <div class="legend-container"  #draggableLegend>
             <div *ngIf="zipCodeFilterOption === 'all'" #legend id="legend" class="legend">
-            <p><b>Perzentile der Nettonennleistungen 
+            <p><b>Ratio von Bedarf und Netto Produktion(Solar)
               <br>an Strom Erzeuger Strom
               <br>je PLZ-Gebiet:</b></p>
+              <h1>{{   ''+selectedTime +'' }}</h1>
                 <div class="legend-item">
-                <div class="color" style="background-color: rgba(243, 249, 255, 1)"></div>
+                <div class="color" style="background-color: rgba(255, 255, 255, 1)"></div>
                 <div class="label">untere 20 %</div>
               </div>
               <div class="legend-item">
-                <div class="color" style="background-color: rgba(175, 209, 231, 1)"></div>
+                <div class="color" style="background-color: rgba(76, 153, 0)"></div>
                 <div class="label">21-40 %</div>
               </div>
               <div class="legend-item">
-                <div class="color" style="background-color: rgba(62, 142, 196, 1)"></div>
+                <div class="color" style="background-color: rgba(0, 135, 127)"></div>
                 <div class="label">41-60 %</div>
               </div>
               <div class="legend-item">
-                <div class="color" style="background-color: rgba(8, 48, 107, 1)"></div>
+                <div class="color" style="background-color: rgba(0, 111, 122)"></div>
                 <div class="label">61-80 %</div>
               </div>
               <div class="legend-item">
-                <div class="color" style="background-color: rgba(0, 0, 55, 1)"></div>
+                <div class="color" style="background-color: rgba(0, 76, 76)"></div>
                 <div class="label">obere 20 %</div>
               </div>
+              
             </div>
+
+            
 
             <div *ngIf="zipCodeFilterOption === 'twoDigits'" #legend2Digits id="legend2Digits" class="legend">
             <p><b>Perzentile der Anzahl an Ladepunkten

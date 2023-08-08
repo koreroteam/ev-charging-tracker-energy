@@ -2,6 +2,9 @@
 
 @include nb-install-component() {
 
+
+
+
   nb-card-body {
     padding: 0;
   }
@@ -29,6 +32,7 @@
   top: 150px; 
   right: 20px; 
   z-index: 5000;
+
 }
 .legend {
   background-color: white;
@@ -41,6 +45,8 @@
   z-index: 1000;
   margin-top: -140px;
 }
+
+
 
 
 // #legend {
@@ -58,10 +64,31 @@
   width: 20px;
   height: 20px;
   margin-right: 10px;
-  opacity: 0.6;
+  opacity: 1;
 }
 
+.slider-container {
+  width: 100%;
+  position: relative;
+}
 
+.time-slider {
+  width: 100%;
+  margin: 20px 0;
+}
+
+.time-labels {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 10px; 
+  position: relative;
+}
+
+.time-labels span {
+  position: relative;
+  bottom: 30px; 
+  font-size: 12px;
+}
 
 
 
