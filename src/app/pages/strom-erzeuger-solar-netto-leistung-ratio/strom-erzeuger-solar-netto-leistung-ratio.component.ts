@@ -463,10 +463,7 @@ async refreshData(selectedTime: string) {
   }
 
 private getFillColor(density: number, thresholds: number[]): string {
-  if (!thresholds || thresholds.length < 5) {
-    console.error("Thresholds array is not properly defined or is too short:", thresholds);
-    return 'rgba(0, 0, 0, 0)';  
-}
+  
     if (density <= thresholds[1]) {
         return 'rgba(255,255,255)';
     } else if (density <= thresholds[2]) {

@@ -617,19 +617,21 @@ export class StromErzeugerSolarNettoLeistungComponent implements OnInit, AfterVi
     return zipcode;
   }
 
-private getFillColor(density: number, thresholds: number[]): string {
+  private getFillColor(density: number, thresholds: number[]): string {
+  
     if (density <= thresholds[1]) {
-        return 'rgba(243, 249, 255, 1)';
+        return 'rgba(255,255,255)';
     } else if (density <= thresholds[2]) {
-        return 'rgba(175, 209, 231, 1)';
+        return 'rgba(76, 153, 0)';
     } else if (density <= thresholds[3]) {
-        return 'rgba(62, 142, 196, 1)';
+        return 'rgba(0, 135, 127)';
     } else if (density <= thresholds[4]) {
-        return 'rgba(8, 48, 107, 1)';
+        return 'rgba(0, 111, 122)';
     } else {
-        return 'rgba(0, 0, 55, 1)';
+        return 'rgba(0, 76, 76)';
     }
 }
+
 
 
   // private getFillColor(chargePoints: number): string {

@@ -1,4 +1,4 @@
-@import '../../@theme/styles/themes';
+ @import '../../@theme/styles/themes';
 
 @include nb-install-component() {
 
@@ -6,6 +6,7 @@
 
 
   nb-card-body {
+   
     padding: 0;
   }
 
@@ -23,18 +24,20 @@
   }
 }
 
-.map-container {
+::ng-deep .map-container {
+  font-family:  "Biome W01 Regular",sans-serif;
   position: relative;
 }
 
-.legend-container {
+ .legend-container {
   position: absolute;
   top: 150px; 
   right: 20px; 
   z-index: 5000;
+ 
 
 }
-.legend {
+::ng-deep .legend {
   background-color: white;
   border-radius: 5px;
   box-shadow: 0 1px 2px rgba(0,0,0,0.2);
@@ -44,6 +47,7 @@
   padding: 10px;
   z-index: 1000;
   margin-top: -140px;
+  font-family:  "Biome W01 Regular",sans-serif;
 }
 
 
@@ -90,7 +94,20 @@
   font-size: 12px;
 }
 
+// :root, body, html {
+//   --nb-font-primary: "Biome W01 Regular", sans-serif;
+// }
 
+// body, html {
+//   font-family: "Biome W01 Regular", sans-serif !important;
+// }
 
-
-
+.label {
+ font-family: "Biome W01 Regular", sans-serif !important;
+}
+.leaflet-container{
+  font-family: "Biome W01 Regular", sans-serif !important;
+}
+.legend{
+  font-family: "Biome W01 Regular", sans-serif !important;
+}

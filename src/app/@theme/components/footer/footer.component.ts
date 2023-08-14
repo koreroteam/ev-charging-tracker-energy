@@ -5,7 +5,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./footer.component.scss'],
   template: `
     <span class="created-by">
+    
+    <link href="https://db.onlinewebfonts.com/c/dba3e777ccc7fa4a896dcf7e7f5b3bfb?family=Biome+W01+Regular" rel="stylesheet">
       @ CopyRights Reserved <b><a href="https://www.bdew.de" target="_blank">BDEW</a></b> 2023
+     
     </span>
    <!--  <div class="socials">
       <a href="#" target="_blank" class="ion ion-social-github"></a>
