@@ -112,9 +112,9 @@ async refreshData(selectedTime: string) {
 
 
   
-// public startMapAutoRefresh(): void {
-//   this.startAutoRefreshMap();
-// }
+public startMapAutoRefresh(): void {
+  this.startAutoRefreshMap();
+}
 
 
   private createMap(): void {
@@ -138,38 +138,38 @@ async refreshData(selectedTime: string) {
   }
   
 
-//   private generateTimeSlots(): string[] {
-//     const slots: string[] = [];
-//     let date = new Date(2023, 0, 1, 10, 0);  // January is 0 in JavaScript's Date object
-//     const endDate = new Date(2023, 0, 1, 14, 0);
-//     while (date <= endDate) {
-//         slots.push(date.getHours().toString().padStart(2, '0') + ':' + date.getMinutes().toString().padStart(2, '0'));
-//         date.setMinutes(date.getMinutes() + 15);
-//     }
-//     return slots;
-// }
+  private generateTimeSlots(): string[] {
+    const slots: string[] = [];
+    let date = new Date(2023, 0, 1, 10, 0);  // January is 0 in JavaScript's Date object
+    const endDate = new Date(2023, 0, 1, 14, 0);
+    while (date <= endDate) {
+        slots.push(date.getHours().toString().padStart(2, '0') + ':' + date.getMinutes().toString().padStart(2, '0'));
+        date.setMinutes(date.getMinutes() + 15);
+    }
+    return slots;
+}
 
-// public async startAutoRefreshMap(): Promise<void> {
-//   const timeSlots = this.generateTimeSlots();
-//   let currentIndex = 0;
+public async startAutoRefreshMap(): Promise<void> {
+  const timeSlots = this.generateTimeSlots();
+  let currentIndex = 0;
 
-//   //5 seconds
-//   const refreshInterval = 2000; 
+  //5 seconds
+  const refreshInterval = 4000; 
 
-//   const intervalID = setInterval(async () => {
-//       if (currentIndex >= timeSlots.length) {
-//           clearInterval(intervalID);  
-//           return;
-//       }
+  const intervalID = setInterval(async () => {
+      if (currentIndex >= timeSlots.length) {
+          clearInterval(intervalID);  
+          return;
+      }
       
-//       this.selectedTime = timeSlots[currentIndex];
-//       const chargePointsData = await this.getChargePointsDataZipCode(this.selectedTime);
-//       const data = await this.fetchData();
-//       this.renderMapZipCode({filteredChargePointsData: chargePointsData.filteredChargePointsData, thresholds: chargePointsData.thresholds}, data);
+      this.selectedTime = timeSlots[currentIndex];
+      const chargePointsData = await this.getChargePointsDataZipCode(this.selectedTime);
+      const data = await this.fetchData();
+      this.renderMapZipCode({filteredChargePointsData: chargePointsData.filteredChargePointsData, thresholds: chargePointsData.thresholds}, data);
       
-//       currentIndex++;
-//   }, refreshInterval);
-// }
+      currentIndex++;
+  }, refreshInterval);
+}
 
 
 
@@ -246,12 +246,14 @@ async refreshData(selectedTime: string) {
         const zipcode = feature.properties.postcode;
         const matchedData = filteredChargePointsData.find(item => item.zipCode === zipcode);
         const chargePointsCount = matchedData ? Number(matchedData.ratio) : 0;
+        const totalElectricityDemand =  matchedData ? Number(matchedData.totalMaximumPower) : 0;
+        const totalNettoProduction = matchedData ? Number(matchedData.totalNettoProduction) : 0;
 
         if(this.zipCodeFilterOption === "all"){
           this.popupDataZipCode.push([zipcode, chargePointsCount]);
         }
 
-        const popupContent = `PLZ: ${zipcode}<br>Ratio: ${chargePointsCount.toFixed(5)}<br>time: ${this.selectedTime}`;
+        const popupContent = `PLZ: ${zipcode}<br>Ratio: ${chargePointsCount.toFixed(5)}<br>Zeit: ${this.selectedTime}<br>Gesamtstrombedarf: ${totalElectricityDemand}<br>Netto Production: ${totalNettoProduction.toFixed(2)}`;
 
         layer.on('mouseover', () => {
           layer.bindPopup(popupContent).openPopup();

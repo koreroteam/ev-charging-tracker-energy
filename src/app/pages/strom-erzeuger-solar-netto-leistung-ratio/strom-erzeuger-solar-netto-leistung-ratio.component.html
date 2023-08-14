@@ -18,6 +18,8 @@
     </div>
     <br>
 
+    <!-- <button  nbButton style="font-family: 'Biome W01 Regular', sans-serif;" (click)="startMapAutoRefresh()">Start Auto Refresh</button> -->
+
     <div class="slider-container">
       <input type="range" [(ngModel)]="sliderValue" (change)="onSliderChange($event.target.value)" min="0" max="15" step="1" class="mx-2 time-slider" id="timeSlider">
       <div class="time-labels">
@@ -53,11 +55,9 @@
     
   </nb-select> -->
     
-  <!-- <nb-option value="country">Land</nb-option> -->
-  <!-- <button (click)="startMapAutoRefresh()">Start Auto Refresh</button> -->
+  <!-- <nb-option value="country">Land</nb-option>  -->
+ <!-- <button  nbButton (click)="startMapAutoRefresh()">Start Auto Refresh</button> -->
 
-    
-  <br>
 Ansicht:&nbsp; &nbsp;
 <!-- <nb-select [(selected)]="zipCodeFilterOption">
   <nb-option value="regierungsbezirke" (click)="switchMap('regierungsbezirke')">Regierungsbezirke</nb-option>
@@ -74,7 +74,7 @@ Ansicht:&nbsp; &nbsp;
 
 <div class="row" >
   <div class="col-12">
-    <p  style="font-family: 'Biome W01 Regular', sans-serif;">Heat Map: Ratio von Bedarf und Netto Produktion Solar</p>
+    <p  class="float-left px-2" style="font-family: 'Biome W01 Regular', sans-serif;">Heat Map: Ratio von Bedarf und Netto Produktion Solar</p>
           <span class="float-right px-2"><button nbButton  style="font-family: 'Biome W01 Regular', sans-serif;" size="small" status="danger" shape="round"
                   (click)='downloadImage("jpeg")'>JPEG</button></span>
           <span class="float-right"><button nbButton style="font-family: 'Biome W01 Regular', sans-serif;" size="small" status="danger" shape="round"
@@ -87,16 +87,16 @@ Ansicht:&nbsp; &nbsp;
                
   </div>
 </div>
-<br>
+
 <div class="map-container" id="print">
     <div class="map-frame">
         <div id="heatMapContainerSolarLeistungRatio"></div>
        
           <div class="legend-container"   #draggableLegend>
             <div *ngIf="zipCodeFilterOption === 'all'" #legend id="legend" class="legend">
-            <p><b>Ratio zwischen Strombedarf und -Erzeugung
+            <p><b  style="font-family: 'Biome W01 Regular', sans-serif;">Ratio zwischen Strombedarf und -Erzeugung
               <br>(Nettoproduktion PV) je PLZ:</b></p>
-              <h1>{{   ''+selectedTime +'' }}</h1>
+              <h1  style="font-family: 'Biome W01 Regular', sans-serif;">{{   ''+selectedTime +'' }}</h1>
                 <div class="legend-item">
                 <div class="color" style="background-color: rgba(255, 255, 255, 1)"></div>
                 <div class="label">untere 20 %</div>
