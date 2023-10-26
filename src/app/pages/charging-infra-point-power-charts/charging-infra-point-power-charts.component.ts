@@ -58,39 +58,10 @@ export class ChargingInfraPointPowerChartsComponent implements OnInit{
     this.endDate = moment().format('YYYY-MM-DD');
     this.startDate = moment().subtract(7, 'days').format('YYYY-MM-DD');
     const param = `startDate=${this.startDate}&endDate=${this.endDate}`;
-    const june29_2023 = moment('2023-06-29', 'YYYY-MM-DD')
     
-    const endDateForComparison = moment(this.endDate, 'YYYY-MM-DD');
-    const startDateForComparison = moment(this.startDate, 'YYYY-MM-DD');
-    const april20_2023 = moment('2023-04-20', 'YYYY-MM-DD');
-  
-    const paramObj = (paramString: string) => {
-      const obj: any = {};
-      paramString.split('&').forEach(pair => {
-        const [key, value] = pair.split('=');
-        obj[key] = value;
-      });
-      return obj;
-    };
-  
-    const paramStr = (paramObj: any) => {
-      return Object.entries(paramObj).map(([key, value]) => `${key}=${value}`).join('&');
-    };
-  
-    const currentParamObj = paramObj(param);
-  
-   
-   
-    const aprilData$ = (await this.apiService.getCharttDataApril(paramStr({ ...currentParamObj,endDate: june29_2023.clone().subtract(1, 'days').format('YYYY-MM-DD') }))).pipe(map(response => response));
-    const JuneData$ = (await this.apiService.getCharttDataJune(paramStr({ ...currentParamObj, startDate: june29_2023.format('YYYY-MM-DD') }))).pipe(map(response => response));
-      
-  
-    forkJoin([aprilData$,JuneData$]).subscribe(([aprilData,juneData]: [any[],any[]]) => {
-         const combinedData = aprilData.concat(juneData);
-         this.processData(combinedData);
-       });
-  
-  }
+    const data = await (await this.apiService.getCharttDataCombined(param)).toPromise();
+    this.processData(data);
+}
 
   async getChargepointGraph() {
     const param = this.buildparams();

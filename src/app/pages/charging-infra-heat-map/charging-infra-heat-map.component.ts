@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef, Renderer2, AfterViewInit, Hos
 import { NbThemeService } from '@nebular/theme';
 import * as L from 'leaflet';
 import { SmartLabService } from '../../service/evp/smartlabs.service';
-import { CountryOrdersMapService } from '../e-commerce/country-orders/map/country-orders-map.service';
+
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -703,7 +703,7 @@ private getFillColor(density: number, thresholds: number[]): string {
 
   constructor(private apiService: SmartLabService, 
     private theme: NbThemeService, 
-    private ecMapService: CountryOrdersMapService, 
+    
     private httpClient: HttpClient, 
     private renderer: Renderer2,
     private router: Router,
