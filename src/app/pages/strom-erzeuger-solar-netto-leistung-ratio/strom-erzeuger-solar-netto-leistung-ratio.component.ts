@@ -572,7 +572,7 @@ private getFillColor(density: number, thresholds: number[]): string {
 
   constructor(private apiService: SmartLabService, 
     private theme: NbThemeService, 
-    private ecMapService: CountryOrdersMapService, 
+   
     private httpClient: HttpClient, 
     private renderer: Renderer2,
     private router: Router,
