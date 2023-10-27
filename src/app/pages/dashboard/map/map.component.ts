@@ -18,6 +18,8 @@ import * as turf from '@turf/turf';
 export class MapComponent implements OnInit, AfterViewInit {
   @ViewChild('draggableLegend', { static: false }) draggableLegend: ElementRef;
 
+
+
   private active = false;
   private currentX = 0;
   private currentY = 0;
@@ -83,11 +85,15 @@ export class MapComponent implements OnInit, AfterViewInit {
     if (this.map) {
       this.map.remove();
     }
+    document.getElementById('heatMapContainer').style.backgroundColor = "#006f7a";
+    document.getElementById('heatMapContainer').style.height = "400px";
+
   
     this.map = L.map('heatMapContainer', {
       center: [51.5200, 9.4050],
       zoom: 6
     });
+
     
   
     // const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {

@@ -81,3 +81,22 @@
  font-size: 10px; 
 }
 
+.chart-container {
+  display: flex; /* establishes a flex container */
+  justify-content: center; /* center items horizontally, in this case, the chart */
+  align-items: center; /* center items vertically */
+  border: 2px solid white; 
+  padding: 20px; 
+  margin: 35px; 
+  background-color: #006f7a; 
+  border-radius: 25px; 
+  height: 400px; 
+  width: 550px;
+  font-family: 'Biome W01 Regular', sans-serif;;
+ 
+}
+
+
+.chart-container:hover {
+  background-color:#00877f; /* Change the background color on hover */
+}

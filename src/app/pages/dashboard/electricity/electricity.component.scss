@@ -89,3 +89,17 @@
     }
   }
 }
+
+.chart-container {
+  border: 2px solid white; 
+  padding: 20px; /* Adjust padding if necessary */
+  margin: 0px; /* Adjust margin if necessary */
+  background-color: #006f7a; /* Same background color as the status card */
+  border-radius: 25px; /* Rounded corners like the status card */
+  display: inline-block; /* Helps contain the child elements */
+  font-family: 'Biome W01 Regular', sans-serif;
+}
+
+.chart-container:hover {
+  background-color:#00877f; /* Change the background color on hover */
+}

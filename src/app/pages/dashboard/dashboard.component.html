@@ -1,7 +1,7 @@
 <div class="row">
   <div class="row">
     <!-- Status cards container -->
-    <div class="col-xl-3 col-lg-2"> <!-- This is approximately 1/6 of the row (2 out of 12 columns) -->
+    <div class="col-xl-3 col-lg-2" style="font-family: 'Biome W01 Regular', sans-serif;"> <!-- This is approximately 1/6 of the row (2 out of 12 columns) -->
       <!-- <div *ngFor="let statusCard of statusCards">
         <div class="status-card">
           <div class="status-icon">
@@ -12,24 +12,45 @@
         </div>
       </div> -->
       <div *ngIf="totalNumberCard" class="status-card">
+        <nb-icon [icon]="totalNumberCard.iconClass"></nb-icon>
         <div>{{ totalNumberCard.title }}</div> 
         <div  class="center-content">{{ totalNumberCard.dataValue }}</div>        
       </div>
+      <br>
       <div *ngIf="totalPowerCard" class="status-card">
+        <nb-icon [icon]="totalPowerCard.iconClass"></nb-icon>
         <div>{{ totalPowerCard.title }}</div> 
         <div  class="center-content">{{ totalPowerCard.powerValue }}</div>        
       </div>
+      <br>
       <div *ngIf="totalOccupiedTimeCard" class="status-card">
-        <div>{{ totalOccupiedTimeCard.title }}</div> 
-        <div  class="center-content">{{ totalOccupiedTimeCard.powerValue }}</div>        
+        <nb-icon [icon]="totalOccupiedTimeCard.iconClass"></nb-icon>
+        <div>{{ totalOccupiedTimeCard.title }}</div>
+        
+        <div class="value-and-indicator">
+          <!-- The value display -->
+          <div class="center-content" style="padding-top: 30px;">{{ totalOccupiedTimeCard.powerValue }} Minuten</div>
+          
+          <!-- Conditional triangle based on powerValue -->
+          <div *ngIf="totalOccupiedTimeCard.powerValue > 0" class="triangle-container">
+            <svg width="20" height="20" viewBox="0 0 20 20">
+              <polygon points="10,0 20,20 0,20" style="fill:red;" />
+            </svg>
+          </div>
+        </div>
       </div>
+      
+      <!-- Template when there's no triangle -->
+      <ng-template #noTriangle></ng-template>
+      
     </div>
   </div>
   
   
+  
 
   <!-- Electricity chart container -->
-  <div class="col-xl-5 col-lg-5 custom-vertical-size">
+  <div class="col-xl-5 col-lg-5 custom-vertical-size tighten" style="margin-left: -15px">
    <ngx-occupiedTimeStatus></ngx-occupiedTimeStatus>
    <ngx-map></ngx-map>
 
@@ -38,14 +59,16 @@
 
  
 
-  <div class="col-xl-4 col-lg-4"> 
+  <div class="col-xl-4 col-lg-4  tighten"> 
     <div class="component-container">
       <ngx-electricity></ngx-electricity>
-    </div>
-    <div class="component-container">
+      <br>
+      <br>
+      <br>
+<br>
       <ngx-occupiedTimeLine></ngx-occupiedTimeLine>
     </div>
-  </div>
+   
   
 
 </div>

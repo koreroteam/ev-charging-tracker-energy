@@ -86,3 +86,9 @@ $nb-themes: nb-register-theme((
   slide-out-shadow-color: 0 4px 14px 0 #8f9bb3,
   slide-out-shadow-color-rtl: 0 4px 14px 0 #8f9bb3,
 ), dark, dark);
+.nb-menu {
+  background-color: #00877f; 
+}
+body {
+  background-color: #006f7a; /* or whatever corresponds to your color schema */
+}

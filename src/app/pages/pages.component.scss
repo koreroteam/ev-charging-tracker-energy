@@ -1,5 +1,5 @@
 @import '../@theme/styles/themes';
-
+@import url(https://db.onlinewebfonts.com/c/1c6b6cddab6609324d9016562358e0cd?family=Biome+W04+Regular);
 @include nb-install-component() {
   ::ng-deep router-outlet + * {
     display: block;
@@ -17,3 +17,6 @@
   }
 }
 
+.font{
+  font-family: "Biome W04 Regular", sans-serif;
+}

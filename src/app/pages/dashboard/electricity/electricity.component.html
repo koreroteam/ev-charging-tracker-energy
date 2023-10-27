@@ -2,8 +2,8 @@
  
     
         <nb-card-body>
-       
-          <ngx-charts-bar-vertical-stacked 
+          <div class="chart-container">
+          <ngx-charts-bar-vertical-stacked class="status-card"
           [scheme]="colorScheme" 
           [view]="[500,250]" 
           [results]="results" 
@@ -14,7 +14,7 @@
           [yAxisLabel]="yAxisLabel">
           (select)="onSelect($event)">
           </ngx-charts-bar-vertical-stacked>
-          
+          </div>
       </nb-card-body>
       
    

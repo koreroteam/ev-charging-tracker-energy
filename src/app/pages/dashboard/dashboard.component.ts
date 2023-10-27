@@ -5,7 +5,7 @@ import { SolarData } from '../../@core/data/solar'
 import { SmartLabService } from '../../service/evp/smartlabs.service';
 import * as moment from 'moment';
 import { from } from 'rxjs';
-;
+import { NbMenuItem } from '@nebular/theme';
 
 interface CardSettings {
   title: string;
@@ -22,11 +22,13 @@ interface CardSettings {
 })
 export class DashboardComponent implements OnDestroy, OnInit {
 
+  
   private alive = true;
   anzahlLadepunkteData: number;
   leistungLadepunkteData: number;
 
   solarValue: number;
+  
   totalNumberCard: CardSettings = {
     title: 'Anzahl der Ladepunkte erhöht',
     iconClass: 'bar-chart-outline',

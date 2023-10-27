@@ -1,6 +1,7 @@
 @import '../../@theme/styles/themes';
 @import '~bootstrap/scss/mixins/breakpoints';
 @import '~@nebular/theme/styles/global/breakpoints';
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap');
 
 @include nb-install-component() {
   .solar-card nb-card-header {
@@ -30,7 +31,7 @@ html, body {
 .column {
   display: flex;
   flex-direction: column; /* Makes the graphs stack vertically. */
-  padding: 10px;
+  padding: 0px;
 }
 
 .column-1 {
@@ -49,6 +50,11 @@ html, body {
   background-color: #f3f3f3;
 }
 
+.tighten {
+  margin: 0; /* or any specific value */
+  padding: 0; /* or any specific value */
+}
+
 .graph {
   flex-grow: 1; /* This allows the graphs to take up equal amount of space in their container. */
   margin: 10px;
@@ -64,13 +70,14 @@ html, body {
 
 .status-card {
   border: 2px solid white; 
-  padding: 20px; /* Decreased padding to make more space between cards */
-  margin: 50px; /* Increased margin to make more space between cards */
+  padding: 30px; /* Decreased padding to make more space between cards */
+  margin: 20px; /* Increased margin to make more space between cards */
   text-align: center;
-  background-color: #f0f0f0; 
+  background-color: #006f7a; 
   width: 150px;
-  height: 300px;
+  height: 250px;
   transition: background-color 0.3s; /* Adding a smooth transition effect */
+  border-radius: 25px; /* Makes the corners rounded */
 }
 
 .center-content {
@@ -83,10 +90,22 @@ html, body {
 
 
 .status-card:hover {
-  background-color: #ccc; /* Change the background color on hover */
+  background-color:#00877f; /* Change the background color on hover */
 }
 
 .component-container {
   margin-bottom: 200px; /* Add margin to create space between components */
   padding: 10px; /* Add padding for additional spacing if needed */
+}
+
+
+.value-and-indicator {
+  display: flex; /* arrange child elements in a row */
+  align-items: center; /* vertically align the triangle and text */
+}
+.triangle-container {
+  margin-left: 10px; /* or however much space you want between the text and the triangle */
+  margin-top: 15px;
+  display: flex;
+  align-items: center; /* aligns the triangle vertically */
 }

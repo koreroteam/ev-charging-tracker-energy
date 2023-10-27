@@ -4,70 +4,73 @@
         <!-- <p>Selected Date: </p> -->
    
         <div class="row"  >
+        
           <div class="col-4">
-            <nb-card >
-                  <nb-card-header class="bdew-gesamt">
-                      <p class="text-center small-text" >Gesamt</p>
-                  </nb-card-header>
-                  <nb-card-body>
-                      <div echarts [options]="intotalOccupiedoption" class="echart">
+            <nb-card class="chart-container" >
+                
+                     
+             
+                  <nb-card-body >
+                    <h6 class="text-center" style="font-family: 'Biome W01 Regular', sans-serif;">Gesamt</h6>
+                      <div echarts [options]="intotalOccupiedoption" class="echart" >
                       </div>
-                      <p class="text-center pr-4 small-text">Belegt</p>
+                      <p class="text-center pr-4 small-text"style="font-family: 'Biome W01 Regular', sans-serif;">Belegt</p>
                   </nb-card-body>
                   <nb-card-body class="pt-0">
                       <div echarts [options]="intotalAvailableoption" class="echart">
                       </div>
-                      <p class="text-center pr-4 small-text">Verfügbar</p>
+                      <p class="text-center pr-4 small-text"style="font-family: 'Biome W01 Regular', sans-serif;">Verfügbar</p>
                   </nb-card-body>
                   <nb-card-body class="pt-0">
-                      <div echarts [options]="othersOption" class="echart">
+                      <div echarts [options]="othersOption" class="echart" >
                       </div>
-                      <p class="text-center pr-4 small-text">Sonstiges</p>
+                      <p class="text-center pr-4 small-text" style="font-family: 'Biome W01 Regular', sans-serif;">Sonstiges</p>
                   </nb-card-body>
               </nb-card>
           </div>
           <div class="col-4">
-            <nb-card>
-                  <nb-card-header class="text-center bdew-tag">
-                      <h6>Tag</h6>
-                  </nb-card-header>
+            <nb-card class="chart-container">
+                 
                   <nb-card-body>
+                    <h6 class="text-center"style="font-family: 'Biome W01 Regular', sans-serif;">Tag</h6>
                       <div echarts [options]="byDayOccupiedoption" class="echart">
                       </div>
-                      <p class="text-center pr-5 small-text">Belegt</p>
+                      <p class="text-center pr-4 small-text"style="font-family: 'Biome W01 Regular', sans-serif;">Belegt</p>
                   </nb-card-body>
                   <nb-card-body class="pt-0">
                       <div echarts [options]="byDayAvailableoption" class="echart">
                       </div>
-                      <p class="text-center pr-5 small-text">Verfügbar</p>
+                      <p class="text-center pr-4 small-text"style="font-family: 'Biome W01 Regular', sans-serif;">Verfügbar</p>
                   </nb-card-body>
                   <nb-card-body class="pt-0">
                       <div echarts [options]="byDayOthersoption" class="echart">
                       </div>
-                      <p class="text-center pr-5 small-text">Sonstiges</p>
+                      <p class="text-center pr-4 small-text"style="font-family: 'Biome W01 Regular', sans-serif;">Sonstiges</p>
                   </nb-card-body>
               </nb-card>
           </div>
           <div class="col-4">
-            <nb-card class="small-text">
-                  <nb-card-header class="bdew-nacht">
-                      <h6 class="text-center small-text">Nacht</h6>
-                  </nb-card-header>
+            <nb-card class="chart-container">
+                 
                   <nb-card-body>
+                    <h6 class="text-center"style="font-family: 'Biome W01 Regular', sans-serif;">Nacht</h6>
                       <div echarts [options]="byNightOccupiedoption" class="echart">
                       </div>
-                      <p class="text-center pr-5 small-text">Belegt</p>
+                      <p class="text-center pr-4 small-text"style="font-family: 'Biome W01 Regular', sans-serif;">Belegt</p>
                   </nb-card-body>
                   <nb-card-body class="pt-0">
                       <div echarts [options]="byNightAvailableoption" class="echart">
                       </div>
-                      <p class="text-center pr-5 small-text">Verfügbar</p>
+                      <p class="text-center pr-4 small-text"style="font-family: 'Biome W01 Regular', sans-serif;">Verfügbar</p>
                   </nb-card-body>
                   <nb-card-body class="pt-0">
                       <div echarts [options]="byNightOthersoption" class="echart">
                       </div>
-                      <p class="text-center pr-5 small-text">Sonstiges</p>
+                      <p class="text-center pr-4 small-text"style="font-family: 'Biome W01 Regular', sans-serif;">Sonstiges</p>
                   </nb-card-body>
               </nb-card>
+            </div>
+        </div>
+      
          
       

@@ -6,17 +6,17 @@
  background-color: #c20000;
 }
 
-.bdew-gesamt {
- background-color: #000000;
-}
+// .bdew-gesamt {
+//  background-color: #000000;
+// }
 
-.bdew-tag {
- background-color: #ffe5e5;
-}
+// .bdew-tag {
+//  background-color: #ffe5e5;
+// }
 
-.bdew-nacht {
- background-color: #d9d9d9;
-}
+// .bdew-nacht {
+//  background-color: #d9d9d9;
+// }
 
 .centered-container {
  display: flex;
@@ -30,3 +30,18 @@
  font-size: 10px; 
 }
 
+.chart-container {
+  background-color: #006f7a;
+  width: 100px;
+  margin: 20px;
+  margin-top: 0%;
+  margin-left: 30px;
+padding: -10px;
+  margin-right: 10px;
+  border-radius: 50px; /* Rounded corners like the status card */
+  display: inline-block; /* Helps contain the child elements */
+}
+
+.chart-container:hover {
+  background-color:#00877f; /* Change the background color on hover */
+}
