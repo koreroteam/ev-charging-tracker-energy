@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { NbThemeService } from '@nebular/theme';
 import * as moment from 'moment';
 import * as htmlToImage from 'html-to-image';
@@ -40,7 +40,7 @@ export class ChargingInfraPointPowerChartsComponent implements OnInit{
     domain: ['#46aa28', '#0068af', '#c20000'],
   };
   themeSubscription: any;
-  filterForm = new FormControl('');
+  filterForm = new UntypedFormControl('');
   params: String[] = [];
   powerType: any;
   region: any;

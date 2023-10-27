@@ -6,7 +6,7 @@ import { Electricity, ElectricityChart, ElectricityData } from '../../../@core/d
 import { takeWhile } from 'rxjs/operators';
 import { concatMap, map } from 'rxjs/operators';
 import { forkJoin } from 'rxjs';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 
 @Component({
   selector: 'ngx-electricity',
@@ -71,7 +71,7 @@ export class ElectricityComponent implements OnDestroy {
     domain: ['#46aa28', '#0068af', '#c20000']
   };
 
-  filterForm = new FormControl('');
+  filterForm = new UntypedFormControl('');
   startDate = moment().subtract(7, 'days').format('YYYY-MM-DD');
   endDate = moment().format('YYYY-MM-DD');
 

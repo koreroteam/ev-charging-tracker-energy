@@ -2,7 +2,7 @@ import { Component, OnInit,  NgModule } from '@angular/core';
 import { NbThemeService } from '@nebular/theme';
 import { SmartLabService } from '../../service/evp/smartlabs.service';
 import * as htmlToImage from 'html-to-image';
-import {FormGroup, FormControl } from '@angular/forms';
+import {UntypedFormGroup, UntypedFormControl } from '@angular/forms';
 import * as moment from 'moment';
 import { forkJoin, of } from 'rxjs';
 import { concatMap, map } from 'rxjs/operators';
@@ -61,15 +61,15 @@ export class ChargingInfraPointMonthChartsComponent implements OnInit {
     domain: ['#46aa28', '#0068af', '#c20000']
   };
 
-  filterForm = new FormControl('');
+  filterForm = new UntypedFormControl('');
   filterValue: any;
 
   
  
 
-  monthRangeForm = new FormGroup({
-    startMonth: new FormControl(''),
-    endMonth: new FormControl(''),
+  monthRangeForm = new UntypedFormGroup({
+    startMonth: new UntypedFormControl(''),
+    endMonth: new UntypedFormControl(''),
   });
 
   onSubmit() {

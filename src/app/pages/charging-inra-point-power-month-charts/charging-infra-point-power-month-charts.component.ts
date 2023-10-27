@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import {FormGroup,  FormControl } from '@angular/forms';
+import {UntypedFormGroup,  UntypedFormControl } from '@angular/forms';
 import { NbThemeService } from '@nebular/theme';
 import * as moment from 'moment';
 import * as htmlToImage from 'html-to-image';
@@ -45,7 +45,7 @@ export class ChargingInfraPointPowerMonthChartsComponent implements OnInit{
     domain: ['#46aa28', '#0068af', '#c20000'],
   };
   themeSubscription: any;
-  filterForm = new FormControl('');
+  filterForm = new UntypedFormControl('');
   params: String[] = [];
   powerType: any;
   region: any;
@@ -53,9 +53,9 @@ export class ChargingInfraPointPowerMonthChartsComponent implements OnInit{
   endDate = moment().format('YYYY-MM-DD');
   showInput: string = '#';
 
-  monthRangeForm = new FormGroup({
-    startMonth: new FormControl(''),
-    endMonth: new FormControl(''),
+  monthRangeForm = new UntypedFormGroup({
+    startMonth: new UntypedFormControl(''),
+    endMonth: new UntypedFormControl(''),
   });
   filterValue: any;
 

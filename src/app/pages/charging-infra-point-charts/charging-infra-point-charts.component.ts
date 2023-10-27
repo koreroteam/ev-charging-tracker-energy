@@ -2,13 +2,13 @@ import { Component, OnInit,  NgModule } from '@angular/core';
 import { NbThemeService } from '@nebular/theme';
 import { SmartLabService } from '../../service/evp/smartlabs.service';
 import * as htmlToImage from 'html-to-image';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import * as moment from 'moment';
 import { forkJoin, of } from 'rxjs';
 import { concatMap, map } from 'rxjs/operators';
 import { mergeMap } from 'rxjs/operators';
 import { CDK_CONNECTED_OVERLAY_SCROLL_STRATEGY_PROVIDER_FACTORY } from '@angular/cdk/overlay/overlay-directives';
-import { isNull } from '@angular/compiler/src/output/output_ast';
+
 
 
 
@@ -58,7 +58,7 @@ export class ChargingInfraPointChartsComponent implements OnInit {
     domain: ['#46aa28', '#0068af', '#c20000']
   };
 
-  filterForm = new FormControl('');
+  filterForm = new UntypedFormControl('');
   startDate = moment().subtract(7, 'days').format('YYYY-MM-DD');
   endDate = moment().format('YYYY-MM-DD');
 

@@ -2,7 +2,7 @@ import { Component, OnInit,  NgModule } from '@angular/core';
 import { NbThemeService } from '@nebular/theme';
 import { SmartLabService } from '../../service/evp/smartlabs.service';
 import * as htmlToImage from 'html-to-image';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import * as moment from 'moment';
 import { forkJoin, of } from 'rxjs';
 import { concatMap, map } from 'rxjs/operators';
@@ -61,13 +61,13 @@ export class ChargingInfraPointWeekChartsComponent implements OnInit {
     domain: ['#46aa28', '#0068af', '#c20000']
   };
 
-  filterForm = new FormControl('');
+  filterForm = new UntypedFormControl('');
   selectedFilter: string;
   selectedFilterValue: string = '';
 
-  weekRangeForm = new FormGroup({
-    startWeek: new FormControl(''),
-    endWeek: new FormControl(''),
+  weekRangeForm = new UntypedFormGroup({
+    startWeek: new UntypedFormControl(''),
+    endWeek: new UntypedFormControl(''),
   });
   filterValue: any;
 

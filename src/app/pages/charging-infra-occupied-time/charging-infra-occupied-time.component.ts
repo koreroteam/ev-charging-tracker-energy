@@ -2,7 +2,7 @@ import { Component, OnInit,  NgModule } from '@angular/core';
 import { NbThemeService } from '@nebular/theme';
 import { SmartLabService } from '../../service/evp/smartlabs.service';
 import * as htmlToImage from 'html-to-image';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import * as moment from 'moment';
 
 
@@ -59,7 +59,7 @@ export class ChargingInfraOccupiedTimeComponent implements OnInit {
     domain: ['#0068af', '#576874', '#46aa28', '#99c200', '#003457']
   };
 
-  filterForm = new FormControl('');
+  filterForm = new UntypedFormControl('');
   chartData: any[] = [];
   public evseIdInput: String
 

@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { NbThemeService } from '@nebular/theme';
 import * as moment from 'moment';
 import * as htmlToImage from 'html-to-image';
@@ -13,7 +13,7 @@ import { SmartLabService } from '../../service/evp/smartlabs.service';
 
 export class ChargingInfraPointPowerWeekChartsComponent implements OnInit{
   
-  constructor(private theme: NbThemeService, private apiService: SmartLabService,private fb: FormBuilder) {
+  constructor(private theme: NbThemeService, private apiService: SmartLabService,private fb: UntypedFormBuilder) {
     this.weekRangeForm = this.fb.group({
       startWeek: [null],
       endWeek: [null],
@@ -44,7 +44,7 @@ export class ChargingInfraPointPowerWeekChartsComponent implements OnInit{
     domain: ['#46aa28', '#0068af', '#c20000'],
   };
   themeSubscription: any;
-  filterForm = new FormControl('');
+  filterForm = new UntypedFormControl('');
   params: String[] = [];
   powerType: any;
   region: any;
@@ -52,9 +52,9 @@ export class ChargingInfraPointPowerWeekChartsComponent implements OnInit{
   endDate = moment().format('YYYY-MM-DD');
   showInput: string = '#';
 
-  weekRangeForm = new FormGroup({
-    startWeek: new FormControl(''),
-    endWeek: new FormControl(''),
+  weekRangeForm = new UntypedFormGroup({
+    startWeek: new UntypedFormControl(''),
+    endWeek: new UntypedFormControl(''),
   });
 
   filterValue: any;
