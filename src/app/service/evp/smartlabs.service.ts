@@ -123,8 +123,8 @@ export class SmartLabService {
     
     
 
-      async getChargePointOccupiedTimeTotal(date: string): Promise<any> {
-        const params = new HttpParams().set('date', date);
+      async getChargePointOccupiedTimeTotal(param:any): Promise<any> {
+        const params = new HttpParams().set('date', param);
         const headers = { 'content-type': 'application/json' };
         return this.http.get(this.baseURL + '/OccupiedTimeSummaryTotal', { 'headers': headers, 'params': params }).toPromise();
       }
@@ -238,6 +238,17 @@ export class SmartLabService {
             return this.http.get(this.baseURL + '/getSmartLabData/' + ChargePointInfo.evseId, { 'headers': headers })
         }
     }
+
+    async getChargePointInfoSummary(param:any): Promise<Observable<any>> {
+      const headers = { 'content-type': 'application/json' }
+      let url='/chargePointSummary';
+      if(param){
+          url += '?'+param;
+      }
+      return this.http.get(this.baseURL + url, { 'headers': headers })
+      
+  }
+
 
     async exportCSVReport(pageNo) {
         return this.http.get(this.baseURL + '/getChargePointReport?pageNo='+pageNo, { responseType: 'blob' as 'json', observe: 'response' as 'response' })

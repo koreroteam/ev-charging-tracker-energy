@@ -43,6 +43,7 @@ import { StromErzeugerSolarNettoLeistungRatioComponent } from './strom-erzeuger-
 
 
 
+
 @NgModule({
   imports: [
     PagesRoutingModule,
@@ -96,6 +97,7 @@ import { StromErzeugerSolarNettoLeistungRatioComponent } from './strom-erzeuger-
     StromErzeugerSolarComponent,
     StromErzeugerSolarNettoLeistungComponent,
     StromErzeugerSolarNettoLeistungRatioComponent,
+  
   ],
 })
 export class PagesModule {

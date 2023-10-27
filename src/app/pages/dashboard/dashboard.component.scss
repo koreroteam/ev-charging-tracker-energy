@@ -14,3 +14,79 @@
     }
   }
 }
+
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+.dashboard {
+  display: flex;
+  height: 100vh; /* This makes container take the full height of the viewport. */
+  width: 100vw;  /* This makes container take the full width of the viewport. */
+}
+
+.column {
+  display: flex;
+  flex-direction: column; /* Makes the graphs stack vertically. */
+  padding: 10px;
+}
+
+.column-1 {
+  flex: 1;  /* Takes up 1/6 of the container, as 1 is 1/6 of 6. */
+  background-color: #f3f3f3; /*  can remove or change the colors */
+}
+
+.column-2 {
+  flex: 2;  /* Takes up 1/2 of the container, as 3 is half of 6. */
+  background-size: 50%;
+   background-color: #ddd;
+}
+
+.column-3 {
+ // flex: 2;  /* Takes up 1/3 of the container, as 2 is 1/3 of 6. */
+  background-color: #f3f3f3;
+}
+
+.graph {
+  flex-grow: 1; /* This allows the graphs to take up equal amount of space in their container. */
+  margin: 10px;
+  background-color: white; 
+}
+
+.custom-vertical-size {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.status-card {
+  border: 2px solid white; 
+  padding: 20px; /* Decreased padding to make more space between cards */
+  margin: 50px; /* Increased margin to make more space between cards */
+  text-align: center;
+  background-color: #f0f0f0; 
+  width: 150px;
+  height: 300px;
+  transition: background-color 0.3s; /* Adding a smooth transition effect */
+}
+
+.center-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50%; /* or any fixed height you prefer */
+  text-align: center;
+}
+
+
+.status-card:hover {
+  background-color: #ccc; /* Change the background color on hover */
+}
+
+.component-container {
+  margin-bottom: 200px; /* Add margin to create space between components */
+  padding: 10px; /* Add padding for additional spacing if needed */
+}
