@@ -3,9 +3,12 @@
 // @nebular out of the box themes
 @import '~@nebular/theme/styles/themes';
 
+
 $nb-themes: nb-register-theme((
   layout-padding-top: 2.25rem,
-
+  header-height: 110px,
+ 
+  font-family: 'Biome W01 Regular, sans-serif',
   menu-item-icon-margin: 0 0.5rem 0 0,
 
   card-height-tiny: 13.5rem,

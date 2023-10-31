@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit,ElementRef, HostListener } from '@angular/core';
 import { NbThemeService } from '@nebular/theme';
 import { takeWhile } from 'rxjs/operators' ;
 import { SolarData } from '../../@core/data/solar'
@@ -26,8 +26,12 @@ export class DashboardComponent implements OnDestroy, OnInit {
   private alive = true;
   anzahlLadepunkteData: number;
   leistungLadepunkteData: number;
+  public startDate: string;
+  public endDate: string;
 
   solarValue: number;
+
+  private prevScrollpos = window.pageYOffset;
   
   totalNumberCard: CardSettings = {
     title: 'Anzahl der Ladepunkte erhöht',
@@ -88,6 +92,7 @@ export class DashboardComponent implements OnDestroy, OnInit {
   constructor(private themeService: NbThemeService,
               private solarService: SolarData,
               private apiService: SmartLabService,
+              private el: ElementRef,
               ) {
     this.themeService.getJsTheme()
       .pipe(takeWhile(() => this.alive))
@@ -109,18 +114,34 @@ export class DashboardComponent implements OnDestroy, OnInit {
     try {
       const today = moment().format('YYYY-MM-DD'); 
       const yesterday = moment().subtract(1, 'days').format('YYYY-MM-DD');
+
+
+      const yesterdayData = moment().subtract(2, 'days');
+      const todayData =  moment().subtract(1, 'days');
+      const startDateData = yesterdayData.startOf('day').toDate(); 
+      const endDateData = todayData.startOf('day').toDate(); 
+    
+      this.startDate = startDateData.toISOString();
+      this.endDate = endDateData.toISOString();
+
+
       const param = `startDate=${yesterday}&endDate=${today}`;
       console.log(param)
 
       const occupiedTimeData =  await this.apiService.getChargePointOccupiedTimeTotalRange(yesterday,today);
+      let filteredOccupiedTimeData = occupiedTimeData.filter(datum => new Date(datum.createdAt) >= startDateData && new Date(datum.createdAt) <= endDateData);
+      console.log(filteredOccupiedTimeData)
       const data =  await (await this.apiService.getCharttDataCombined(param)).toPromise();
 
       console.log("occupiedTimeData: ",occupiedTimeData)
 
     
       if (data && data.length > 0) {
-        const yesterdayOccupied = occupiedTimeData[0]
-        const todayOccupied = occupiedTimeData[1]
+        const yesterdayOccupied = filteredOccupiedTimeData[0]
+        console.log("yesterdayData:", yesterdayOccupied)
+        
+        const todayOccupied = filteredOccupiedTimeData [1]
+        console.log("todayData:", todayOccupied)
         const yesterdayData = data[0];
         const todayData = data[1]; 
 
@@ -131,10 +152,14 @@ export class DashboardComponent implements OnDestroy, OnInit {
 
         const yesterdayTotalOccupied = yesterdayOccupied.occupiedDayTime + yesterdayOccupied.occupiedNightTime ;
         const todayTotalOccupied = todayOccupied.occupiedDayTime + todayOccupied.occupiedNightTime;
+        // console.log("yesterday occupied Daytime:",yesterdayOccupied.occupiedDayTime)
+        // console.log("yesterday occupied nighttime:",yesterdayOccupied.occupiedNightTime)
+        // console.log("today occupied Daytime:",todayOccupied.occupiedDayTime)
+        // console.log("today occupied nighttime:",todayOccupied.occupiedNightTime)
 
-        console.log("today's data: ",todayData)
-        console.log("value: ",todayData.value)
-        console.log("power: ",todayData.totalPower)
+        // console.log("today's data: ",todayData)
+        // console.log("value: ",todayData.value)
+        // console.log("power: ",todayData.totalPower)
 
        
        
@@ -177,5 +202,17 @@ export class DashboardComponent implements OnDestroy, OnInit {
 
   ngOnDestroy() {
     this.alive = false;
+  }
+
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    console.log("mouse move")
+    const currentScrollPos = window.pageYOffset;
+    if (this.prevScrollpos > currentScrollPos) {
+      this.el.nativeElement.style.top = '0';
+    } else {
+      this.el.nativeElement.style.top = '-120px'; // Adjust this value to match the height of your navbar
+    }
+    this.prevScrollpos = currentScrollPos;
   }
 }

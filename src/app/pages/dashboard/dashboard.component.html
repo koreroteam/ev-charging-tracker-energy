@@ -28,8 +28,11 @@
         <div>{{ totalOccupiedTimeCard.title }}</div>
         
         <div class="value-and-indicator">
-          <!-- The value display -->
-          <div class="center-content" style="padding-top: 30px;">{{ totalOccupiedTimeCard.powerValue }} Minuten</div>
+          <!-- The value display with comma for every 3 digits -->
+          <div class="center-content" style="padding-top: 30px;">
+            {{ totalOccupiedTimeCard.powerValue | number }}
+            Minuten
+          </div>
           
           <!-- Conditional triangle based on powerValue -->
           <div *ngIf="totalOccupiedTimeCard.powerValue > 0" class="triangle-container">
@@ -39,6 +42,7 @@
           </div>
         </div>
       </div>
+      
       
       <!-- Template when there's no triangle -->
       <ng-template #noTriangle></ng-template>

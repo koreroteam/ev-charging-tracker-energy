@@ -240,11 +240,13 @@ export class OccupiedTimeStatusComponent {
                   color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
                     {
                       offset: 0,
-                      color: solarTheme.gradientLeft,
+                    //  color: 'rgba(0,111,122,0.5)',
+                    color: 'rgba(0,137,131,0.5)',
                     },
                     {
                       offset: 1,
-                      color: solarTheme.gradientRight,
+                    //  color: 'rgba(0,137,131,0.5)',
+                    color: 'rgba(0,111,122,0.5)',
                     },
                   ]),
                   shadowColor: solarTheme.shadowColor,

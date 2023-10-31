@@ -1,3 +1,4 @@
+
 @import '~bootstrap/scss/mixins/breakpoints';
 @import '~@nebular/theme/styles/global/breakpoints';
 @import '../../styles/themes';
@@ -6,21 +7,37 @@
   display: flex;
   justify-content: space-between;
   width: 100%;
+  align-items: flex-start;
+  height: 120px;
+
+   
 
   .logo-container {
+    margin-top: 5px;
+
     display: flex;
     align-items: center;
     width: calc(#{nb-theme(sidebar-width)+4} - #{nb-theme(header-padding)});
+   
   }
 
+  
+
   nb-action {
-    height: auto;
-    display: flex;
-    align-content: center;
+    
+        display: flex;
+    margin-top: 25px;
+       
+    font-family:   'Biome W01 Regular', sans-serif;
+        text-align: left;
+        
+
   }
 
   nb-user {
     cursor: pointer;
+   
+   
   }
 
   ::ng-deep nb-search button {
@@ -30,8 +47,11 @@
   .header-container {
     display: flex;
     align-items: center;
-    width: auto;
-
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+   // overflow: auto;
+    height: auto; 
     .sidebar-toggle {
       @include nb-ltr(padding-right, 1.25rem);
       @include nb-rtl(padding-left, 1.25rem);
@@ -67,4 +87,54 @@
       display: none;
     }
   }
+
+
 }
+
+btn-secondary:hover {
+  background-color: #CBD0CF; 
+  color: #000; /* Change text color on hover */
+ 
+}
+
+
+.dropdown-menu {
+  display: none;
+  position: flex;
+  border: 1px solid white; // Set a border color
+  border-radius: 0; // Remove border-radius to have sharp edges
+  opacity:90%;
+ 
+  background: linear-gradient(to bottom, white,#CBD0CF);
+
+  
+  &.show {
+      display: block;
+  }
+}
+
+
+.dropdown-submenu-a .dropdown-menu {
+    position: absolute;
+   top: -2px;  // Set top to 0 to align with the main dropdown
+    left: 100%;
+    opacity: 90%;
+    border-left: 0;  // Remove the left border to merge with the main dropdown
+    background: linear-gradient(to bottom, white,#CBD0CF);
+
+    
+}
+
+.dropdown-submenu-b .dropdown-menu {
+  position: absolute;
+  top: -2px; 
+  left: 100%;
+  opacity: 90%;
+  border-left: 0;  // Remove the left border to merge with the main dropdown
+  background: linear-gradient(to bottom, white,#CBD0CF);
+//203​,208​,207
+  
+}
+
+
+
