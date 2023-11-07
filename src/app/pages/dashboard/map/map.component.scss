@@ -84,12 +84,10 @@
 .map-container {
   border: 2px solid white; 
   padding: 20px; /* Adjust padding based on your design preference */
-  margin:30px; /* Adjust margin based on your design preference */
-  background-color: #006f7a; /* This sets the background color */
+  margin:20px; /* Adjust margin based on your design preference */
   border-radius: 25px; /* This applies the rounded corners */
-  /* Additional properties to ensure layout doesn't break */
   display: block; /* Change to 'inline-block' if it should only take up as much space as needed */
-  width: 150px; /* Or specify a width if necessary */
-  height: 200px;
+  width: 150px; 
+  height: 100px;
   margin-top: 0px;
 }

@@ -85,7 +85,7 @@ export class MapComponent implements OnInit, AfterViewInit {
     if (this.map) {
       this.map.remove();
     }
-    document.getElementById('heatMapContainer').style.backgroundColor = "#006f7a";
+    document.getElementById('heatMapContainer').style.backgroundColor = "rgba(85,90,96,0.3)";
     document.getElementById('heatMapContainer').style.height = "400px";
 
   
@@ -176,11 +176,10 @@ export class MapComponent implements OnInit, AfterViewInit {
            // console.log(fillColor,name,count)
     
             return {
-              color: '#000',
+              color: fillColor,
               weight: 1,
-              opacity: 0.5,
-              fillOpacity: 0.5,
-              fillColor: fillColor,
+              opacity: 1,
+              fillOpacity: 0.8,
             };
           },
   
@@ -542,19 +541,46 @@ export class MapComponent implements OnInit, AfterViewInit {
     return zipcode;
   }
 
-private getFillColor(density: number, thresholds: number[]): string {
+  private getFillColor(density: number, thresholds: number[]): string {
     if (density <= thresholds[1]) {
-        return 'rgba(243, 249, 255, 1)';
+        return 'RGBA(0,111,122, 0.1)';
     } else if (density <= thresholds[2]) {
-        return 'rgba(175, 209, 231, 1)';
+        return 'RGBA(0,111,122, 0.4)';
     } else if (density <= thresholds[3]) {
-        return 'rgba(62, 142, 196, 1)';
+        return 'RGBA(0,111,122, 0.7)';
     } else if (density <= thresholds[4]) {
-        return 'rgba(8, 48, 107, 1)';
+        return 'RGBA(0,111,122,1)';
     } else {
-        return 'rgba(0, 0, 55, 1)';
+        return 'RGBA(220, 189, 35, 1)';
     }
 }
+//   private getFillColor(density: number, thresholds: number[]): string {
+//     if (density <= thresholds[1]) {
+//         return 'rgba(85, 90, 96, 0.1)';
+//     } else if (density <= thresholds[2]) {
+//         return 'rgba(85, 90, 96, 0.4)';
+//     } else if (density <= thresholds[3]) {
+//         return 'rgba(85, 90, 96, 0.7)';
+//     } else if (density <= thresholds[4]) {
+//         return 'rgba(85, 90, 96, 1)';
+//     } else {
+//         return 'rgba(220, 189, 35, 1)';
+//     }
+// }
+
+// private getFillColor(density: number, thresholds: number[]): string {
+//     if (density <= thresholds[1]) {
+//         return 'rgba(243, 249, 255, 1)';
+//     } else if (density <= thresholds[2]) {
+//         return 'rgba(175, 209, 231, 1)';
+//     } else if (density <= thresholds[3]) {
+//         return 'rgba(62, 142, 196, 1)';
+//     } else if (density <= thresholds[4]) {
+//         return 'rgba(8, 48, 107, 1)';
+//     } else {
+//         return 'rgba(0, 0, 55, 1)';
+//     }
+// }
 
 
   // private getFillColor(chargePoints: number): string {

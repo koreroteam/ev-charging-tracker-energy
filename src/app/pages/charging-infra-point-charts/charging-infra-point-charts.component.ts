@@ -52,10 +52,11 @@ export class ChargingInfraPointChartsComponent implements OnInit {
   region: any;
   selectedFilter: string;
   selectedFilterValue: string = '';
+ 
 
   showInput: any = '#';
   colorScheme = {
-    domain: ['#46aa28', '#0068af', '#c20000']
+    domain: ['#006F7A', '#00877F', '#DCBD23']
   };
 
   filterForm = new UntypedFormControl('');

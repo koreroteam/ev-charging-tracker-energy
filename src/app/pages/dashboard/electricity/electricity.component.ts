@@ -68,7 +68,7 @@ export class ElectricityComponent implements OnDestroy {
 
   showInput: any = '#';
   colorScheme = {
-    domain: ['#46aa28', '#0068af', '#c20000']
+    domain: ['#555A60', '#00877F', '#DCBD23']
   };
 
   filterForm = new UntypedFormControl('');

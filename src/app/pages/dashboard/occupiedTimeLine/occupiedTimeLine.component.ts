@@ -62,7 +62,7 @@ export class OccupiedTimeLineComponent implements OnInit {
   region: any;
   showInput: any = '#';
   colorScheme = {
-    domain: ['#0068af', '#576874', '#46aa28', '#99c200', '#003457']
+    domain: ['#DCBD23', '#576874', '#46aa28', '#99c200', '#003457']
   };
 
   //filterForm = new FormControl('');
