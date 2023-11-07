@@ -1,22 +1,22 @@
-<nb-card>
+<nb-card >
     <nb-card-header class="bdew-heading">
-        <h3 class="text-center text-white">Dynamische Daten - Statistik</h3>
-        <h6 class="text-center text-white">EvseID : <span class="text-white"><input fieldSize="tiny" type="text" class="mx-2" id="filterValue"  nbInput [(ngModel)]="inputId" >
+        <h3 class="text-center text-white font">Dynamische Daten - Statistik</h3>
+        <h6 class="text-center text-white font">EvseID : <span class="text-white"><input fieldSize="tiny" type="text" class="mx-2 font" id="filterValue"  nbInput [(ngModel)]="inputId" >
            
-                <button nbButton  status="success" shape="round" (click)='filterButtonClick()' size="tiny">Filter</button>
+                <button nbButton  status="success" shape="round"style="background-color: rgba(0,135,127); border-color: rgba(0,135,127);" (click)='filterButtonClick()' size="small" class="font">Filter</button>
           
 
 </span></h6>
         <br>
         <div style="display: flex; align-items: center; justify-content: center;">
-            <h6 class="text-center text-white">Gebiet : </h6>&nbsp;&nbsp;
+            <h6 class="text-center text-white font">Gebiet : </h6>&nbsp;&nbsp;
             <nb-select [(ngModel)]="selectedFilter" id='selectedFilter'>
-              <nb-option value="regierungsbezirke">Regierungsbezirk</nb-option>
-              <nb-option value="kreise">Landkreis</nb-option>
+              <nb-option value="regierungsbezirke" class="font">Regierungsbezirk</nb-option>
+              <nb-option value="kreise" class="font">Landkreis</nb-option>
             </nb-select>&nbsp;&nbsp;
             <br>
             <ng-container *ngIf="selectedFilter === 'regierungsbezirke'" >
-              <nb-select id="bezirkSelect" [(ngModel)]="selectedArea">
+              <nb-select class="font" id="bezirkSelect" [(ngModel)]="selectedArea">
                 <nb-option value="Schleswig-Holstein">Schleswig-Holstein</nb-option>
                 <nb-option value="Hamburg">Hamburg</nb-option>
                 <nb-option value="Niedersachsen">Niedersachsen</nb-option>
@@ -51,9 +51,9 @@
               </nb-select>
             </ng-container>
             <ng-container *ngIf="selectedFilter === 'kreise'">
-              <input nbInput type="text" id="kreisInput" [(ngModel)]="selectedArea" placeholder="Bezirk/Kreis eingeben" />
+              <input nbInput class="font" type="text" id="kreisInput" [(ngModel)]="selectedArea" placeholder="Bezirk/Kreis eingeben" />
             </ng-container>&nbsp;&nbsp;
-            <button nbButton shape="round"(click)='areaButtonClick()'>Suche</button>
+            <button nbButton class="font text-white"  size="small"style="background-color: rgba(0,135,127); border-color: rgba(0,135,127);" shape="round"(click)='areaButtonClick()'>Suche</button>
           </div>
           
           <br>
@@ -68,30 +68,34 @@
               </div>
             </div><br>
             <div class="text-center">
-                <button nbButton (click)="allEvseIdsButtonClick() " >Alle EvseId's</button>
+                <button class="font text-white" shape="round"  style="background-color: rgba(0,135,127); border-color: rgba(0,135,127);" nbButton (click)="allEvseIdsButtonClick() " >Alle EvseId's</button>
               </div>
               
       
               <div class="row">
                 <div class="col-12">
                 
-                        <span class="float-right px-2"><button nbButton  size="small" status="danger" shape="round"
-                                (click)='downloadImage("jpeg")'>JPEG</button></span>
-                        <span class="float-right"><button nbButton  size="small" status="danger" shape="round"
-                                (click)='downloadImage("png")'>png</button></span>
+                  <span class="float-right px-2"> 
+                    <button nbButton size="small" class="font" status="danger" shape="round" style="background-color: rgba(0,135,127); border-color: rgba(0,135,127);"
+                      (click)='downloadImage("jpeg")'>JPEG
+                    </button>
+                  </span>
+                  
+                        <span class="float-right"><button nbButton  size="small" status="danger" shape="round"  style="background-color: rgba(0,135,127); border-color: rgba(0,135,127);"
+                                (click)='downloadImage("png")' class="font">png</button></span>
                                 <span class="float-right">
-                                  <button nbButton *ngIf="selectedFilter === 'regierungsbezirke'" size="small" status="danger" shape="round" (click)="downloadCSV('regierungsbezirk-data.csv', printDataRegierungsbezirk,'Regierungsbezirk')">
+                                  <button nbButton *ngIf="selectedFilter === 'regierungsbezirke'" class="font" style="background-color: rgba(0,135,127); border-color: rgba(0,135,127);"size="small" status="danger" shape="round" (click)="downloadCSV('regierungsbezirk-data.csv', printDataRegierungsbezirk,'Regierungsbezirk')">
                                     CSV-Export
                                   </button>&nbsp;
                                 </span>
                                 <span class="float-right">
-                                  <button nbButton *ngIf="selectedFilter === 'kreise'" size="small" status="danger" shape="round" (click)="downloadCSV('kreise-data.csv', printDataKreise,'Landkreise')">
+                                  <button nbButton *ngIf="selectedFilter === 'kreise'" class="font"  style="background-color: rgba(0,135,127); border-color: rgba(0,135,127);"size="small" status="danger" shape="round" (click)="downloadCSV('kreise-data.csv', printDataKreise,'Landkreise')">
                                     CSV-Export
                                   </button>&nbsp;
-                                  <button nbButton *ngIf="selectedFilter === 'singleEvse'" size="small" status="danger" shape="round" (click)="downloadCSV('evseId-data.csv', printDataSingleEvse,'EvseID')">
+                                  <button nbButton *ngIf="selectedFilter === 'singleEvse'"class="font" style="background-color: rgba(0,135,127); border-color: rgba(0,135,127);" size="small" status="danger" shape="round" (click)="downloadCSV('evseId-data.csv', printDataSingleEvse,'EvseID')">
                                     CSV-Export
                                   </button>&nbsp;
-                                  <button nbButton *ngIf="selectedFilter === 'allEvse'" size="small" status="danger" shape="round" (click)="downloadCSV('AllevseId-data.csv', printAllEvse,'All EvseID')">
+                                  <button nbButton *ngIf="selectedFilter === 'allEvse'"class="font" style="background-color: rgba(0,135,127); border-color: rgba(0,135,127);" size="small" status="danger" shape="round" (click)="downloadCSV('AllevseId-data.csv', printAllEvse,'All EvseID')">
                                     CSV-Export
                                   </button>&nbsp;
                                 </span>
@@ -104,79 +108,79 @@
         
     </nb-card-header>
    
-    <nb-card-body id="print" style="background-color: white;">
-      <p *ngIf="selectedFilter === 'singleEvse'">Belegungsstatus per EvseId: {{ inputId }} am {{startDate}} <span *ngIf="endDate">- {{endDate}}</span></p>
+    <nb-card-body id="print" style="background-color: white;" >
+      <p class="font" *ngIf="selectedFilter === 'singleEvse'">Belegungsstatus per EvseId: {{ inputId }} am {{startDate}} <span *ngIf="endDate">- {{endDate}}</span></p>
 
-      <p *ngIf="selectedFilter === 'allEvse'">Belegungsstatus alle EvseId am {{startDate}} <span *ngIf="endDate">- {{endDate}}</span></p>
-      <p *ngIf="selectedFilter === 'regierungsbezirke'">Belegungsstatus : {{ selectedArea }} am {{startDate}} <span *ngIf="endDate">- {{endDate}}</span></p>
-      <p *ngIf="selectedFilter === 'kreise'">Belegungsstatus : {{ selectedArea }} am {{startDate}} <span *ngIf="endDate">- {{endDate}}</span></p>
+      <p class="font" *ngIf="selectedFilter === 'allEvse'">Belegungsstatus alle EvseId am {{startDate}} <span *ngIf="endDate">- {{endDate}}</span></p>
+      <p class="font" *ngIf="selectedFilter === 'regierungsbezirke'">Belegungsstatus : {{ selectedArea }} am {{startDate}} <span *ngIf="endDate">- {{endDate}}</span></p>
+      <p class="font" *ngIf="selectedFilter === 'kreise'">Belegungsstatus : {{ selectedArea }} am {{startDate}} <span *ngIf="endDate">- {{endDate}}</span></p>
         <div>
             <!-- <p>Selected Date: </p> -->
           </div>
         <div class="row"  >
             <div class="col-4">
                 <nb-card>
-                    <nb-card-header class="bdew-gesamt">
-                        <h6 class="text-center text-white">Gesamt</h6>
+                    <nb-card-header class="bdew-gesamt font">
+                        <h6 class="text-center font">Gesamt</h6>
                     </nb-card-header>
                     <nb-card-body>
                         <div echarts [options]="intotalOccupiedoption" class="echart">
                         </div>
-                        <p class="text-center pr-5">Belegt (Ladevorgang)</p>
+                        <p class="text-center pr-5 font">Belegt (Ladevorgang)</p>
                     </nb-card-body>
                     <nb-card-body class="pt-0">
                         <div echarts [options]="intotalAvailableoption" class="echart">
                         </div>
-                        <p class="text-center pr-5">Verfügbar</p>
+                        <p class="text-center pr-5 font">Verfügbar</p>
                     </nb-card-body>
                     <nb-card-body class="pt-0">
                         <div echarts [options]="othersOption" class="echart">
                         </div>
-                        <p class="text-center pr-5">Sonstiges (Außer Betrieb, Unbekannt, Reserviert)</p>
+                        <p class="text-center pr-5 font">Sonstiges (Außer Betrieb, Unbekannt, Reserviert)</p>
                     </nb-card-body>
                 </nb-card>
             </div>
             <div class="col-4">
                 <nb-card>
                     <nb-card-header class="text-center bdew-tag">
-                        <h6>Tag</h6>
+                        <h6 class="font">Tag</h6>
                     </nb-card-header>
                     <nb-card-body>
                         <div echarts [options]="byDayOccupiedoption" class="echart">
                         </div>
-                        <p class="text-center pr-5">Belegt (Ladevorgang)</p>
+                        <p class="text-center pr-5 font">Belegt (Ladevorgang)</p>
                     </nb-card-body>
                     <nb-card-body class="pt-0">
                         <div echarts [options]="byDayAvailableoption" class="echart">
                         </div>
-                        <p class="text-center pr-5">Verfügbar</p>
+                        <p class="text-center pr-5 font">Verfügbar</p>
                     </nb-card-body>
                     <nb-card-body class="pt-0">
                         <div echarts [options]="byDayOthersoption" class="echart">
                         </div>
-                        <p class="text-center pr-5">Sonstiges (Außer Betrieb, Unbekannt, Reserviert)</p>
+                        <p class="text-center pr-5 font">Sonstiges (Außer Betrieb, Unbekannt, Reserviert)</p>
                     </nb-card-body>
                 </nb-card>
             </div>
             <div class="col-4">
                 <nb-card>
                     <nb-card-header class="bdew-nacht">
-                        <h6 class="text-center">Nacht</h6>
+                        <h6 class="text-center font">Nacht</h6>
                     </nb-card-header>
                     <nb-card-body>
                         <div echarts [options]="byNightOccupiedoption" class="echart">
                         </div>
-                        <p class="text-center pr-5">Belegt (Ladevorgang)</p>
+                        <p class="text-center pr-5 font">Belegt (Ladevorgang)</p>
                     </nb-card-body>
                     <nb-card-body class="pt-0">
                         <div echarts [options]="byNightAvailableoption" class="echart">
                         </div>
-                        <p class="text-center pr-5">Verfügbar</p>
+                        <p class="text-center pr-5 font">Verfügbar</p>
                     </nb-card-body>
                     <nb-card-body class="pt-0">
                         <div echarts [options]="byNightOthersoption" class="echart">
                         </div>
-                        <p class="text-center pr-5">Sonstiges (Außer Betrieb, Unbekannt, Reserviert)</p>
+                        <p class="text-center pr-5 font">Sonstiges (Außer Betrieb, Unbekannt, Reserviert)</p>
                     </nb-card-body>
                 </nb-card>
             </div>

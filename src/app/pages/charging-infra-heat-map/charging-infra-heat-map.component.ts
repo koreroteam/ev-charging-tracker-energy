@@ -97,7 +97,10 @@ export class ChargingInfraHeatMapComponent implements OnInit, AfterViewInit {
     if (this.map) {
       this.map.remove();
     }
-  
+   document.getElementById('heatMapContainer').style.backgroundColor = "rgba(85,90,96,0.3)";
+   
+ 
+
     this.map = L.map('heatMapContainer', {
       center: [51.5200, 9.4050],
       zoom: 6
@@ -154,8 +157,8 @@ export class ChargingInfraHeatMapComponent implements OnInit, AfterViewInit {
         return {
           color: fillColor,
           weight: 1,
-          opacity: 0.5,
-          fillOpacity: 0.5,
+          opacity: 1,
+          fillOpacity: 0.8,
         };
       },
   
@@ -262,11 +265,10 @@ export class ChargingInfraHeatMapComponent implements OnInit, AfterViewInit {
            // console.log(fillColor,name,count)
     
             return {
-              color: '#000',
+              color: fillColor,
               weight: 1,
-              opacity: 0.5,
-              fillOpacity: 0.5,
-              fillColor: fillColor,
+              opacity: 1,
+              fillOpacity: 0.8,
             };
           },
   
@@ -350,7 +352,7 @@ export class ChargingInfraHeatMapComponent implements OnInit, AfterViewInit {
               opacity: 0.5,
               color: 'black',
               dashArray: '3',
-              fillOpacity: 0.5
+              fillOpacity: 0.8
             };
           },
           onEachFeature: (feature, layer) => {
@@ -630,15 +632,15 @@ export class ChargingInfraHeatMapComponent implements OnInit, AfterViewInit {
 
 private getFillColor(density: number, thresholds: number[]): string {
     if (density <= thresholds[1]) {
-        return 'rgba(243, 249, 255, 1)';
+        return 'RGBA(0,111,122, 0.1)';
     } else if (density <= thresholds[2]) {
-        return 'rgba(175, 209, 231, 1)';
+        return 'RGBA(0,111,122, 0.4)';
     } else if (density <= thresholds[3]) {
-        return 'rgba(62, 142, 196, 1)';
+        return 'RGBA(0,111,122, 0.7)';
     } else if (density <= thresholds[4]) {
-        return 'rgba(8, 48, 107, 1)';
+        return 'RGBA(0,111,122,1)';
     } else {
-        return 'rgba(0, 0, 55, 1)';
+        return 'RGBA(220, 189, 35, 1)';
     }
 }
 

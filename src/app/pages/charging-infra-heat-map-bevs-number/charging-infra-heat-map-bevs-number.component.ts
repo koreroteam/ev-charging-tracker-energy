@@ -61,6 +61,7 @@ export class ChargingInfraHeatMapBevsNumberComponent implements OnInit, AfterVie
       center: [51.5200, 9.4050],
       zoom: 6,
     });
+    document.getElementById('heatMapContainerBEVsNumber').style.backgroundColor = "rgba(85,90,96,0.3)";
   
     // const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     //   maxZoom: 18,
@@ -109,12 +110,10 @@ export class ChargingInfraHeatMapBevsNumberComponent implements OnInit, AfterVie
           const color = this.getFillColor(rate,thresholds);
        //   console.log(color)
           return {
-            fillColor: color,
+            color: color,
             weight: 1,
-            opacity: 0.5,
-            color: 'black',
-            dashArray: '3',
-            fillOpacity: 0.5
+            opacity: 1,
+            fillOpacity: 0.8,
           };
         },
        
@@ -192,17 +191,17 @@ export class ChargingInfraHeatMapBevsNumberComponent implements OnInit, AfterVie
   
   private getFillColor(density: number, thresholds: number[]): string {
     if (density <= thresholds[1]) {
-        return 'rgba(243, 249, 255, 1)';
-    } else if (density <= thresholds[2]) {
-        return 'rgba(175, 209, 231, 1)';
-    } else if (density <= thresholds[3]) {
-        return 'rgba(62, 142, 196, 1)';
-    } else if (density <= thresholds[4]) {
-        return 'rgba(8, 48, 107, 1)';
-    } else {
-        return 'rgba(0, 0, 55, 1)';
-    }
-}
+      return 'RGBA(0,111,122, 0.1)';
+  } else if (density <= thresholds[2]) {
+      return 'RGBA(0,111,122, 0.4)';
+  } else if (density <= thresholds[3]) {
+      return 'RGBA(0,111,122, 0.7)';
+  } else if (density <= thresholds[4]) {
+      return 'RGBA(0,111,122,1)';
+  } else {
+      return 'RGBA(220, 189, 35, 1)';
+  }
+  }
   
   private searchKreise(inputText: string): string[]{
     const kreiseName = Object.keys(this.kreiseFeatures);

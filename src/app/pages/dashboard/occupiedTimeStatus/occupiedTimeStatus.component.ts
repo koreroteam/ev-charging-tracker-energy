@@ -241,12 +241,12 @@ export class OccupiedTimeStatusComponent {
                     {
                       offset: 0,
                     //  color: 'rgba(0,111,122,0.5)',
-                    color: 'rgba(0,137,131,0.5)',
+                    color: 'rgba(220,189,35)',
                     },
                     {
                       offset: 1,
                     //  color: 'rgba(0,137,131,0.5)',
-                    color: 'rgba(0,111,122,0.5)',
+                    color: 'rgba(220,189,35)',
                     },
                   ]),
                   shadowColor: solarTheme.shadowColor,

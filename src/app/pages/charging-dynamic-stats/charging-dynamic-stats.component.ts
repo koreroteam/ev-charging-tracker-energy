@@ -596,9 +596,9 @@ export class ChargingDynamicStatsComponent implements OnInit, AfterViewInit, OnD
                   position: 'center',
                   formatter: '{d}%',
                   textStyle: {
-                    fontSize: '22',
+                    fontSize: '10',
                     fontFamily: config.variables.fontSecondary,
-                    fontWeight: '600',
+                    fontWeight: '300',
                     color: config.variables.fgHeading,
                   },
                 },
@@ -611,11 +611,13 @@ export class ChargingDynamicStatsComponent implements OnInit, AfterViewInit, OnD
                   color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
                     {
                       offset: 0,
-                      color: solarTheme.gradientLeft,
+                    //  color: 'rgba(0,111,122,0.5)',
+                    color: 'rgba(220,189,35)',
                     },
                     {
                       offset: 1,
-                      color: solarTheme.gradientRight,
+                    //  color: 'rgba(0,137,131,0.5)',
+                    color: 'rgba(220,189,35)',
                     },
                   ]),
                   shadowColor: solarTheme.shadowColor,
