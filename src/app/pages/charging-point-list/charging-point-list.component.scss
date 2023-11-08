@@ -4,3 +4,72 @@
     font-size: 1rem !important;
     align-items: end;
 }
+
+.font{
+    font-family:  "Biome W01 Regular",sans-serif;
+  }
+
+
+
+//font of serach result
+:host ::ng-deep ng2-smart-table tbody > tr > td:first-child {
+    font-family:  "Biome W01 Regular",sans-serif;
+}
+
+//cell layout
+// :host ::ng-deep ng2-smart-table tbody > tr > td {
+//     border-bottom: 1px solid grey;
+//     font-size: .875em;
+//     padding: .375em .75em;
+// }
+// :host ::ng-deep ng2-smart-table tbody > tr > th > a {
+//     color: red;
+//     text-decoration: none;
+//     font-size: small;
+//     font-weight: bold;
+// }
+
+
+:host ::ng-deep ng2-smart-table {
+
+    table {
+    tbody,
+    thead {
+      tr {
+        td {
+          ng2-smart-table-cell {
+            font-family:  "Biome W01 Regular",sans-serif;
+    
+          }
+        }
+        th {
+             font-family:  "Biome W01 Regular",sans-serif;
+          .sort {
+            font-family:  "Biome W01 Regular",sans-serif;
+          }
+        }
+      }
+    }
+    }
+    }
+
+/* clickable paging number */
+:host ::ng-deep a.ng2-smart-page-link.page-link {
+    text-align: center;
+    vertical-align: middle;
+
+    font-weight: bold;
+    line-height: 6px;
+    font-family:  "Biome W01 Regular",sans-serif;
+}
+
+/* selected paging number */
+:host  ::ng-deep span.ng2-smart-page-link.page-link {
+    text-align: center;
+    vertical-align: middle;
+
+    font-weight: bold;
+    font-family:  "Biome W01 Regular",sans-serif;
+}
+
+

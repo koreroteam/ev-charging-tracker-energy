@@ -74,7 +74,7 @@ export class ChargingInfraHeatMapOccupiedTimePercentageComponent implements OnIn
       center: [51.5200, 9.4050],
       zoom: 6,
     });
-  
+    document.getElementById('heatMapOccupiedPercentage').style.backgroundColor = "rgba(85,90,96,0.3)";
     // const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     //   maxZoom: 18,
     //   minZoom: 3,
@@ -143,11 +143,10 @@ export class ChargingInfraHeatMapOccupiedTimePercentageComponent implements OnIn
         
   
           return {
-            color: '#000',
+            color: fillColor,
             weight: 1,
-            opacity: 0.5,
-            fillOpacity: 0.5,
-            fillColor: fillColor,
+            opacity: 1,
+            fillOpacity: 0.8,
           };
         },
   
@@ -187,6 +186,22 @@ export class ChargingInfraHeatMapOccupiedTimePercentageComponent implements OnIn
     });
 
   }else if(this.selectedFilter === 'kreise'){
+    
+    const OccupiedTimePercentages = filteredData.map(a => {
+      const areas = filteredData.filter(b => b.administrativeAreaLevel3 === a.administrativeAreaLevel3);
+      const occupiedTime = areas.reduce((sum, area) => sum + area.totalOccupiedDaytime + area.totalOccupiedNighttime, 0);
+      const evseIdCount = areas.reduce((sum, item) => sum + item.evseIdCount, 0);
+      return occupiedTime / (evseIdCount * 24 * 60);
+    }).filter(val => val > 0 && !isNaN(val));;
+  
+    const sortedPercentages = OccupiedTimePercentages.sort((a, b) => a - b);
+    const thresholds = [0,0.2, 0.4, 0.6, 0.8].map(percent => {
+      const index = Math.round(percent * (sortedPercentages.length - 1));
+      return sortedPercentages[index];
+    });
+    console.log(sortedPercentages)
+    console.log(thresholds)
+    
     this.http.get(kreiseDataUrl).subscribe((data: any) => {
       if (this.geoJsonLayer) {
         this.map.removeLayer(this.geoJsonLayer);
@@ -197,20 +212,18 @@ export class ChargingInfraHeatMapOccupiedTimePercentageComponent implements OnIn
           const areas = filteredData.filter(a => a.administrativeAreaLevel3 === kreiseName);
           const occupiedTime = areas.reduce((sum, area) => sum + area.totalOccupiedDaytime + area.totalOccupiedNighttime, 0);
           const evseIdCount = areas.reduce((sum, item) => sum + item.evseIdCount, 0);
-          const OccupiedTimePercentage = ((occupiedTime / (evseIdCount * 24 * 60)) * 100).toFixed(2) + '%';
+          const OccupiedTimePercentage = Number((occupiedTime/(evseIdCount*24*60)).toFixed(2))
           console.log("occupiedTime: ", OccupiedTimePercentage)
 
          
          
-          const color = this.getFillColorKreise(OccupiedTimePercentage);
+          const color = this.getFillColor(OccupiedTimePercentage,thresholds);
           
           return {
-            fillColor: color,
+            color: color,
             weight: 1,
-            opacity: 0.5,
-            color: 'black',
-            dashArray: '3',
-            fillOpacity: 0.5
+            opacity: 1,
+            fillOpacity: 0.8,
           };
         },
         onEachFeature: (feature, layer) => {
@@ -499,18 +512,17 @@ export class ChargingInfraHeatMapOccupiedTimePercentageComponent implements OnIn
 
   private getFillColor(density: number, thresholds: number[]): string {
     if (density <= thresholds[1]) {
-      return 'rgba(243, 249, 255, 1)';
-    } else if (density <= thresholds[2]) {
-      return 'rgba(175, 209, 231, 1)';
-    } else if (density <= thresholds[3]) {
-      return 'rgba(62, 142, 196, 1)';
-    } else if (density <= thresholds[4]) {
-      return 'rgba(8, 48, 107, 1)';
-    } else if(density > thresholds[4]){
-      return 'rgba(0, 0, 55, 1)';
-    }
-}
-
+      return 'RGBA(0,111,122, 0.1)';
+  } else if (density <= thresholds[2]) {
+      return 'RGBA(0,111,122, 0.4)';
+  } else if (density <= thresholds[3]) {
+      return 'RGBA(0,111,122, 0.7)';
+  } else if (density <= thresholds[4]) {
+      return 'RGBA(0,111,122,1)';
+  } else {
+      return 'RGBA(220, 189, 35, 1)';
+  }
+  }
 
   
   private getFillColorBezirk(occupiedTimePercentage: string): string {

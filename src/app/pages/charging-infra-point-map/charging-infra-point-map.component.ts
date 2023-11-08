@@ -53,14 +53,14 @@ export class ChargingInfraPointMapComponent implements OnInit, AfterViewInit {
       center: [51.5200, 9.4050],
       zoom: 6
     });
-    const warningMaper = L.divIcon({
-      html: '<i class="fa fa-solid fa-circle fa-1x text-warning"></i>',
-      className: 'myDivIcon'
-    });
-    const dangerMaper = L.divIcon({
-      html: '<i class="fa fa-solid fa-circle fa-1x text-danger"></i>',
-      className: 'myDivIcon'
-    });
+    // const warningMaper = L.divIcon({
+    //   html: '<i class="fa fa-solid fa-circle fa-1x text-warning"></i>',
+    //   className: 'myDivIcon'
+    // });
+    // const dangerMaper = L.divIcon({
+    //   html: '<i class="fa fa-solid fa-circle fa-1x text-danger"></i>',
+    //   className: 'myDivIcon'
+    // });
     const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 18,
       minZoom: 3,
@@ -74,10 +74,11 @@ export class ChargingInfraPointMapComponent implements OnInit, AfterViewInit {
           data as any,
           {
             style: () => ({
-              "color": "black",
+              "color": "rgba(0,111,122)",
               "weight": 1,
               "opacity": 1,
               fillOpacity: 0,
+           
             })
           }).addTo(this.map);
       });
@@ -117,7 +118,7 @@ export class ChargingInfraPointMapComponent implements OnInit, AfterViewInit {
 
   iconHtmlGenerator() {
     return L.divIcon({
-      html: '<img src="assets/images/map-marker.svg" width="50px" height="50px">',
+      html: '<img src="assets/images/map-marker.svg" width="100px" height="50px">',
       className: 'myDivIcon'
     });
   }
@@ -138,7 +139,7 @@ export class ChargingInfraPointMapComponent implements OnInit, AfterViewInit {
   }
 
   getRandomColor() {
-    let colors = ['#C20000', '#E2463E', '#FF7F7F', '#FFB3B4', '#FFE5E5', '#C20000', '#C20000']; // add your color codes
+    let colors = ['#C20000', '#E2463E', '#FF7F7F', '#FFB3B4', '#FFE5E5', '#C20000', '#C20000']; 
     return colors[Math.floor(Math.random() * colors.length)];
   }
 

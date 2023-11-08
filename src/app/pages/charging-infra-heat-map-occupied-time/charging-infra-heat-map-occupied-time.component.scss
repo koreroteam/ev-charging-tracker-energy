@@ -20,15 +20,21 @@
   }
 }
 
+
 .map-container {
-  position: relative;
+  border: 2px solid white; 
+  padding: 20px;
+  border-radius: 25px; 
+  display: block; 
+  margin-top: 10px;
 }
 
 .legend-container {
   position: absolute;
-  top: 150px; 
-  right: 20px; 
+  top: 600px; 
+  right: 100px; 
   z-index: 5000;
+  border-radius: 50px;
 }
 .legend {
   background-color: white;
@@ -58,9 +64,19 @@
   width: 20px;
   height: 20px;
   margin-right: 10px;
-  opacity: 0.6;
+  opacity: 0.8;
+}
+.font{
+  font-family:  "Biome W01 Regular",sans-serif;
 }
 
+
+.label {
+  font-family: "Biome W01 Regular", sans-serif !important;
+ }
+ .leaflet-container{
+   font-family: "Biome W01 Regular", sans-serif !important;
+ }
 
 
 

@@ -56,7 +56,7 @@ export class ChargingInfraOccupiedTimeComponent implements OnInit {
   region: any;
   showInput: any = '#';
   colorScheme = {
-    domain: ['#0068af', '#576874', '#46aa28', '#99c200', '#003457']
+    domain: ['rgba(0,111,122)', 'rgba(0,135,127)', 'rgba(220,189,35)','rgba(85,90,96)', 'rgba(203,208,207)']
   };
 
   filterForm = new UntypedFormControl('');

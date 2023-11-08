@@ -19,3 +19,24 @@
     text-decoration: none;
   }
 }
+
+.map-container {
+  border: 2px solid white; 
+  padding: 20px; 
+  border-radius: 25px; 
+  display: block; 
+  margin-top: 10px;
+}
+.font{
+  font-family:  "Biome W01 Regular",sans-serif;
+}
+
+
+
+.label {
+  font-family: "Biome W01 Regular", sans-serif !important;
+ }
+ .leaflet-container{
+   font-family: "Biome W01 Regular", sans-serif !important;
+ }
+

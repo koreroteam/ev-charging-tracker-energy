@@ -11,7 +11,8 @@ import { title } from 'process';
 @Component({
   selector: 'ngx-charging-point-list',
   templateUrl: './charging-point-list.component.html',
-  styleUrls: ['./charging-point-list.component.scss']
+  styleUrls: ['./charging-point-list.component.scss'],
+  
 })
 
 export class ChargingPointListComponent implements OnInit {
@@ -42,9 +43,7 @@ export class ChargingPointListComponent implements OnInit {
       evseID: {
         title: 'EvseID',
         type: 'string',
-        // valuePrepareFunction: (value) => {
-        //   return `<a href="/pages/charging-dynamic-stats?evseID=${value}">${value}</a>`;
-        // },
+       
       },
       // chargingStationID: {
       //   title: 'StationID',
@@ -99,6 +98,9 @@ export class ChargingPointListComponent implements OnInit {
         title:'LadepunktID',
         type:'string',
       },
+    },
+    attr: {
+      class: 'table table-bordered'
     },
   };
 

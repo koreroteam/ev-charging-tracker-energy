@@ -1,59 +1,19 @@
-<nb-card>
-  <nb-card-header>
-    Filter
+<nb-card style="background: linear-gradient(to top, rgba(255, 255, 255, 0.5), rgba(0, 111, 122, 0.3)); border-radius: 20px;">
+  <nb-card-header class="font">
+
     <div style="display: flex;  justify-content: center;">
-      <h6> Ansicht:</h6>&nbsp;&nbsp;&nbsp;&nbsp;
+      <h6 class="font" style="margin-top: 10px;"> Ansicht:</h6>&nbsp;&nbsp;&nbsp;&nbsp;
       <nb-select [(ngModel)]="selectedFilter" id='selectedFilter'>
-       
         <nb-option value="regierungsbezirke">Regierungsbezirke</nb-option>
         <nb-option value="kreise">Landkreise</nb-option>
       </nb-select>&nbsp;&nbsp;
       <br>
-      <!-- <ng-container *ngIf="selectedFilter === 'regierungsbezirke'" >
-        <nb-select (selectedChange)="onInputChange($event)" id="bezirkSelect" [(ngModel)]="selectedArea">
-          <nb-option value="Schleswig-Holstein">Schleswig-Holstein</nb-option>
-          <nb-option value="Hamburg">Hamburg</nb-option>
-          <nb-option value="Niedersachsen">Niedersachsen</nb-option>
-          <nb-option value="Bremen">Bremen</nb-option>
-          <nb-option value="Düsseldorf">Düsseldorf</nb-option>
-          <nb-option value="Köln">Köln</nb-option>
-          <nb-option value="Munster">Munster</nb-option>
-          <nb-option value="Detmold">Detmold</nb-option>
-          <nb-option value="Arnsberg">Arnsberg</nb-option>
-          <nb-option value="Darmstadt">Darmstadt</nb-option>
-          <nb-option value="Gießen">Gießen</nb-option>
-          <nb-option value="Kassel">Kassel</nb-option>
-          <nb-option value="Rheinland-Pfalz">Rheinland-Pfalz</nb-option>
-          <nb-option value="Freiburg">Freiburg</nb-option>
-          <nb-option value="Tübingen">Tübingen</nb-option>
-          <nb-option value="Oberbayern">Oberbayern</nb-option>
-          <nb-option value="Niederbayern">Niederbayern</nb-option>
-          <nb-option value="Oberpfalz">Oberpfalz</nb-option>
-          <nb-option value="Oberfranken">Oberfranken</nb-option>
-          <nb-option value="Mittelfranken">Mittelfranken</nb-option>
-          <nb-option value="Schwaben">Schwaben</nb-option>
-          <nb-option value="Unterfranken">Unterfranken</nb-option>
-          <nb-option value="Saarland">Saarland</nb-option>
-          <nb-option value="Berlin">Berlin</nb-option>
-          <nb-option value="Brandenburg">Brandenburg</nb-option>
-          <nb-option value="Mecklenburg-Vorpommern">Mecklenburg-Vorpommern</nb-option>
-          <nb-option value="Sachsen-Anhalt">Sachsen-Anhalt</nb-option>
-          <nb-option value="Thüringen">Thüringen</nb-option>
-          <nb-option value="Sachsen">Sachsen</nb-option>
-          <nb-option value="Stuttgart">Stuttgart</nb-option>
-          <nb-option value="Karlsruhe">Karlsruhe</nb-option>
-        </nb-select>
-      </ng-container> -->
       <ng-container *ngIf="selectedFilter === 'kreise'">
-        <input nbInput (input)="onInputChange($event.target.value)" type="text" id="kreisInput" [(ngModel)]="selectedArea" placeholder="Gebiet eingeben" />
+        <input class="font" nbInput (input)="onInputChange($event.target.value)" type="text" id="kreisInput" [(ngModel)]="selectedArea" placeholder="Gebiet eingeben" />
       </ng-container>&nbsp;&nbsp;
-      <button nbButton shape="round" (click)="renderRegierungsbezirkMap()">Suche</button>
-
-
-    </div>
-    
+      <button nbButton status="danger" shape="round"  class="font" style="background-color:'rgba(0,135,127)';border: 'rgba(0,135,127)';" (click)="renderRegierungsbezirkMap()">Suche</button>
+    </div>   
     <br>
-
     <div class="row justify-content-center">
       <div class="col-md-3">
         <div class="input-group">
@@ -62,27 +22,24 @@
         </div>
       </div>
     </div>
-    
-    
-
 </nb-card-header>
 </nb-card>
 <br>
 
 <div class="row">
   <div class="col-12">
-    <p><b>Heat Map: Geladene Minuten</b>
-          <span class="float-right px-2"><button nbButton  size="small" status="danger" shape="round"
+    <p class="font"><b>Heat Map: Geladene Minuten</b>
+          <span class="float-right px-2"><button nbButton  class="font" style="background-color:'rgba(0,135,127)';border: 'rgba(0,135,127)';"  size="small" status="danger" shape="round"
                   (click)='downloadImage("jpeg")'>JPEG</button></span>
-          <span class="float-right"><button nbButton  size="small" status="danger" shape="round"
+          <span class="float-right"><button nbButton  size="small" status="danger" shape="round"  class="font" style="background-color:'rgba(0,135,127)';border: 'rgba(0,135,127)';" 
                   (click)='downloadImage("png")'>png</button></span>
                   <span class="float-right">
-                    <button nbButton *ngIf="selectedFilter === 'regierungsbezirke'" size="small" status="danger" shape="round" (click)="downloadCSV('regierungsbezirk-data.csv', popupDataRegierungsbezirk,'Regierungsbezirk')">
+                    <button nbButton  class="font" style="background-color:'rgba(0,135,127)';border: 'rgba(0,135,127)';"  *ngIf="selectedFilter === 'regierungsbezirke'" size="small" status="danger" shape="round" (click)="downloadCSV('regierungsbezirk-data.csv', popupDataRegierungsbezirk,'Regierungsbezirk')">
                       CSV-Export
                     </button>&nbsp;
                   </span>
                   <span class="float-right">
-                    <button nbButton *ngIf="selectedFilter === 'kreise'" size="small" status="danger" shape="round" (click)="downloadCSV('kreise-data.csv', popupDataKreise,'Landkreise')">
+                    <button nbButton  class="font" style="background-color:'rgba(0,135,127)';border: 'rgba(0,135,127)';" *ngIf="selectedFilter === 'kreise'" size="small" status="danger" shape="round" (click)="downloadCSV('kreise-data.csv', popupDataKreise,'Landkreise')">
                       CSV-Export
                     </button>&nbsp;
                   </span>
@@ -96,57 +53,57 @@
     <div id="heatMapOccupiedTime"></div>
     <div class="legend-container" #draggableLegend>
       <div *ngIf="selectedFilter === 'regierungsbezirke'" id="legendBezirk" class="legend">
-          <p><b>Perzentile der geladenen Minuten
+          <p class="font"><b>Perzentile der geladenen Minuten
           <br>je Regierungsbezirk:</b></p>
           <div class="legend-item">
-            <div class="color" style="background-color: rgba(243, 249, 255, 1)"></div>
-            <div class="label">untere 20 %</div>
+            <div class="color" style="background-color:  RGBA(0,111,122,0.1)"></div>
+            <div class="label font">untere 20 %</div>
           </div>
           <div class="legend-item">
-            <div class="color" style="background-color: rgba(175, 209, 231, 1)"></div>
-            <div class="label">21-40 %</div>
+            <div class="color" style="background-color:  RGBA(0,111,122,0.4)"></div>
+            <div class="label font">21-40 %</div>
           </div>
           <div class="legend-item">
-            <div class="color" style="background-color: rgba(62, 142, 196, 1)"></div>
-            <div class="label">41-60 %</div>
+            <div class="color" style="background-color: RGBA(0,111,122,0.7)"></div>
+            <div class="label font">41-60 %</div>
           </div>
           <div class="legend-item">
-            <div class="color" style="background-color: rgba(8, 48, 107, 1)"></div>
-            <div class="label">61-80 %</div>
+            <div class="color" style="background-color: RGBA(0,111,122,1)"></div>
+            <div class="label font">61-80 %</div>
           </div>
           <div class="legend-item">
-            <div class="color" style="background-color: rgba(0, 0, 55, 1)"></div>
-            <div class="label">obere 20 %</div>
-        </div>
+            <div class="color" style="background-color: RGBA(220, 189, 35, 1)"></div>
+            <div class="label font">obere 20 %</div>
+          </div>
      
       </div>
    
   
     <div *ngIf="selectedFilter === 'kreise'"  id="kreise" class="legend">
-   <p><b>Perzentile der geladenen Minuten
+   <p class="font"><b>Perzentile der geladenen Minuten
           <br>je Landkreis:</b></p>
           <div class="legend-item">
-            <div class="color" style="background-color: rgba(243, 249, 255, 1)"></div>
-            <div class="label">untere 20 %</div>
+            <div class="color" style="background-color:  RGBA(0,111,122,0.1)"></div>
+            <div class="label font">untere 20 %</div>
           </div>
           <div class="legend-item">
-            <div class="color" style="background-color: rgba(175, 209, 231, 1)"></div>
-            <div class="label">21-40 %</div>
+            <div class="color" style="background-color:  RGBA(0,111,122,0.4)"></div>
+            <div class="label font">21-40 %</div>
           </div>
           <div class="legend-item">
-            <div class="color" style="background-color: rgba(62, 142, 196, 1)"></div>
-            <div class="label">41-60 %</div>
+            <div class="color" style="background-color: RGBA(0,111,122,0.7)"></div>
+            <div class="label font">41-60 %</div>
           </div>
           <div class="legend-item">
-            <div class="color" style="background-color: rgba(8, 48, 107, 1)"></div>
-            <div class="label">61-80 %</div>
+            <div class="color" style="background-color: RGBA(0,111,122,1)"></div>
+            <div class="label font">61-80 %</div>
           </div>
           <div class="legend-item">
-            <div class="color" style="background-color: rgba(0, 0, 55, 1)"></div>
-            <div class="label">obere 20 %</div>
+            <div class="color" style="background-color: RGBA(220, 189, 35, 1)"></div>
+            <div class="label font">obere 20 %</div>
+          </div>
       </div>
-      </div>
-    <div id="selectedDate"></div>
+    <div class="font" id="selectedDate"></div>
   </div>
 </div>
 </div>

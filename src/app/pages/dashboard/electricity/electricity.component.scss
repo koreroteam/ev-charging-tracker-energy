@@ -91,15 +91,17 @@
 }
 
 .chart-container {
-  border: 2px solid white; 
+  border: 2px solid white;
   padding: 20px; /* Adjust padding if necessary */
   margin: 0px; /* Adjust margin if necessary */
   background-color: #006f7a; /* Same background color as the status card */
   border-radius: 25px; /* Rounded corners like the status card */
   display: inline-block; /* Helps contain the child elements */
   font-family: 'Biome W01 Regular', sans-serif;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* Horizontal offset, vertical offset, blur radius, color */
 }
 
 .chart-container:hover {
-  background-color:#00877f; /* Change the background color on hover */
+  background-color: #00877f; /* Change the background color on hover */
+  box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.3); /* Slightly larger shadow for hover effect */
 }

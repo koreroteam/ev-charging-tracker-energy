@@ -42,8 +42,9 @@ export class ChargingInfraPointPowerMonthChartsComponent implements OnInit{
   yAxisLabel = 'Total Power';
   legendTitle = 'Leistungsklasse'
   colorScheme = {
-    domain: ['#46aa28', '#0068af', '#c20000'],
+    domain: ['#006F7A', '#00877F', '#DCBD23']
   };
+
   themeSubscription: any;
   filterForm = new UntypedFormControl('');
   params: String[] = [];

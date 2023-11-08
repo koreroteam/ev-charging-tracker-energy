@@ -1,16 +1,19 @@
-<nb-card>
-  <nb-card-header>
+<nb-card style="border-radius: 25px;">
+  <nb-card-header class="font"  style="background: linear-gradient(to top, rgba(255, 255, 255, 0.5), rgba(0, 111, 122, 0.3)); border-radius: 20px;">
     Öffentliche Ladepunkte in Deutschland - Liste 
-    <p>Qualitätsmanagement: 20.04.2023</p>
+    <p class="font">Qualitätsmanagement: 20.04.2023</p>
    <!--  <nb-select placeholder="Select Showcase" [(selected)]="selectedItem" (selectedChange)="changeLocation($event)">
       <nb-option [value]="option" *ngFor="let option of options">Batch {{option+1}}</nb-option>
     </nb-select> -->
 
-    <span class="px-2 float-right"><button class="btn btn-primary" (click)='getReport()'>Export</button></span>
+    <span class="px-2 float-right"><button  style="background-color:'rgba(0,135,127)';border: 'rgba(0,135,127)'" class="btn btn-primary" (click)='getReport()'>Export</button></span>
   </nb-card-header>
 
-  <nb-card-body>
-    <ng2-smart-table [settings]="settings" [source]="source" (custom)="onCustom($event)">
+  <nb-card-body >
+    <ng2-smart-table 
+    [settings]="settings" 
+    [source]="source" 
+    (custom)="onCustom($event)">
     </ng2-smart-table>
   </nb-card-body>
 </nb-card>

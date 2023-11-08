@@ -93,10 +93,12 @@
   height: 400px; 
   width: 550px;
   font-family: 'Biome W01 Regular', sans-serif;;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
  
 }
 
 
 .chart-container:hover {
   background-color:#00877f; /* Change the background color on hover */
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }

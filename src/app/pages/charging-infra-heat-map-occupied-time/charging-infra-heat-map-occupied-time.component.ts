@@ -68,6 +68,8 @@ export class ChargingInfraHeatMapOccupiedTimeComponent implements OnInit, AfterV
     if (this.map) {
       this.map.remove();
     }
+    document.getElementById('heatMapOccupiedTime').style.backgroundColor = "rgba(85,90,96,0.3)";
+  
   
     this.map = L.map('heatMapOccupiedTime', {
       center: [51.5200, 9.4050],
@@ -152,11 +154,10 @@ export class ChargingInfraHeatMapOccupiedTimeComponent implements OnInit, AfterV
          // console.log(fillColor)
   
           return {
-            color: '#000',
+            color: fillColor,
             weight: 1,
-            opacity: 0.6,
-            fillOpacity: 0.6,
-            fillColor: fillColor,
+            opacity: 1,
+            fillOpacity: 0.8,
           };
         },
   
@@ -227,11 +228,10 @@ export class ChargingInfraHeatMapOccupiedTimeComponent implements OnInit, AfterV
           const fillColor = this.getFillColor(occupiedTime, thresholds);
 
           return {
-            color: '#000',
+            color: fillColor,
             weight: 1,
-            opacity: 0.6,
-            fillOpacity: 0.6,
-            fillColor: fillColor,
+            opacity: 1,
+            fillOpacity: 0.8,
           };
         },
         onEachFeature: (feature, layer) => {
@@ -512,17 +512,17 @@ export class ChargingInfraHeatMapOccupiedTimeComponent implements OnInit, AfterV
 
   private getFillColor(density: number, thresholds: number[]): string {
     if (density <= thresholds[1]) {
-        return 'rgba(243, 249, 255, 1)';
-    } else if (density <= thresholds[2]) {
-        return 'rgba(175, 209, 231, 1)';
-    } else if (density <= thresholds[3]) {
-        return 'rgba(62, 142, 196, 1)';
-    } else if (density <= thresholds[4]) {
-        return 'rgba(8, 48, 107, 1)';
-    } else if(density > thresholds[4]){
-        return 'rgba(0, 0, 55, 1)';
-    }
-}
+      return 'RGBA(0,111,122, 0.1)';
+  } else if (density <= thresholds[2]) {
+      return 'RGBA(0,111,122, 0.4)';
+  } else if (density <= thresholds[3]) {
+      return 'RGBA(0,111,122, 0.7)';
+  } else if (density <= thresholds[4]) {
+      return 'RGBA(0,111,122,1)';
+  } else {
+      return 'RGBA(220, 189, 35, 1)';
+  }
+  }
 
   
 // private getFillColorBezirk(occupiedTime:number, colorThreshold:number):string{
