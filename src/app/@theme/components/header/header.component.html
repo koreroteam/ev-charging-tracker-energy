@@ -20,10 +20,41 @@
     <nb-actions size="small">
 
         <nb-action>
-            <button  href="#" (click)="navigateHome()" class="btn btn-secondary" type="button" style="margin-bottom: 15px; background-color: white; border: none; color: #000;margin-left: 300px;">
+            <button  href="#" (click)="navigateHome()" class="btn btn-secondary" type="button" style="margin-bottom: 15px; background-color: white; border: none; color: #000;margin-left: 180px;">
                 <nb-icon [icon]="homeCard.iconClass"></nb-icon>
                 Home
             </button>
+        </nb-action>
+
+        <nb-action>
+          <div class="dropdown" (mouseenter)=" dropdownOpenStromErzeuger = true" (mouseleave)="dropdownOpenStromErzeuger = false">
+            <button class="btn btn-secondary dropdown-toggle" type="button" style="margin-bottom: 15px; background-color: white; border: none; color: #000;">
+              <nb-icon [icon]="mapCard.iconClass"></nb-icon>
+              Strom Erzeuger
+            </button>
+        
+            <div class="dropdown-menu" [class.show]="dropdownOpenStromErzeuger">
+              <div class="dropdown-submenu dropdown-submenu-a" (mouseenter)="dropdownOpenStormErzeugerSolar = true" (mouseleave)="dropdownOpenStormErzeugerSolar = false">
+                <button class="dropdown-item dropdown-toggle">Strom Erzeuger Soloar</button>
+                <div class="dropdown-menu" [class.show]="dropdownOpenStormErzeugerSolar">
+                  <button class="dropdown-item" type="button" (click)="navigateHeatMapStromErzeugerSolar()">Anzahl Strom Erzeuger</button>
+                  <button class="dropdown-item" type="button" (click)="navigateStromErzeugerSolarNettoProduction()">Netto Production</button>
+                  <button class="dropdown-item" type="button" (click)="navigateStromErzeugerSolarBruttoProduction()">Brutto Production</button>
+                  <button class="dropdown-item" type="button" (click)="navigateStromErzeugerSolarNettoLeistung()">Ladeleistung</button>
+                  <button class="dropdown-item" type="button" (click)="navigateStromErzeugerSolarRatio()">Ratio</button>
+                 
+                </div>
+              </div>
+              
+              <div class="dropdown-submenu dropdown-submenu-b" (mouseenter)="dropdownOpenBelegungsZeit = true" (mouseleave)="dropdownOpenBelegungsZeit = false">
+                <button class="dropdown-item dropdown-toggle">Belegungszeit</button>
+                <div class="dropdown-menu" [class.show]="dropdownOpenBelegungsZeit">
+                  <button class="dropdown-item" type="button" (click)="navigateChargingInfraOccupiedTime()">Statistik</button>
+                  <button class="dropdown-item" type="button" (click)="navigateChargingInfraHeatMapOccupiedTime()">Heat Map</button>
+                </div>
+              </div>
+            </div>
+          </div>
         </nb-action>
 
         <nb-action>
@@ -92,7 +123,7 @@
                     <button class="dropdown-item" type="button" (click)="navigateHeatMapLadeleistungJeBEV()">Je BEV</button>
                   </div>
                 </div>
-                <div class="dropdown-submenu dropdown-submenu-b" (mouseenter)="dropdownOpenMapStromErzeuger = true" (mouseleave)="dropdownOpenMapStromErzeuger = false">
+               <div class="dropdown-submenu dropdown-submenu-b" (mouseenter)="dropdownOpenMapStromErzeuger = true" (mouseleave)="dropdownOpenMapStromErzeuger = false">
                   <button class="dropdown-item dropdown-toggle">Strom Erzeuger</button>
                   <div class="dropdown-menu" [class.show]="dropdownOpenMapStromErzeuger">
                     <button class="dropdown-item" type="button" (click)="navigateHeatMapStromErzeugerSolar()">Anzahl Strom Erzeuger</button>
@@ -131,6 +162,8 @@
               </div>
             </div>
           </nb-action>
+
+          
           
      
        

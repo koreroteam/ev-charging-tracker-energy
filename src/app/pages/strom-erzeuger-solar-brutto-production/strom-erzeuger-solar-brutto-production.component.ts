@@ -13,11 +13,11 @@ import * as htmlToImage from 'html-to-image';
 
 
 @Component({
-  selector: 'ngx-strom-erzeuger-solar',
-  templateUrl: './strom-erzeuger-solar.component.html',
-  styleUrls: ['./strom-erzeuger-solar.component.scss']
+  selector: 'ngx-strom-erzeuger-solar-brutto-production',
+  templateUrl: './strom-erzeuger-solar-brutto-production.component.html',
+  styleUrls: ['./strom-erzeuger-solar-brutto-production.component.scss']
 })
-export class StromErzeugerSolarComponent implements OnInit, AfterViewInit {
+export class StromErzeugerSolarBruttoProductionComponent implements OnInit, AfterViewInit {
   @ViewChild('draggableLegend', { static: false }) draggableLegend: ElementRef;
 
   private active = false;
@@ -48,7 +48,6 @@ export class StromErzeugerSolarComponent implements OnInit, AfterViewInit {
   public todaysDate : string;
 
 
-
   private async initMap(): Promise<void> {
     this.createMap();
       const chargePointsData = await this.getChargePointsDataZipCode();
@@ -63,8 +62,9 @@ export class StromErzeugerSolarComponent implements OnInit, AfterViewInit {
     if (this.map) {
       this.map.remove();
     }
-    document.getElementById('heatMapContainerSolar').style.backgroundColor = "rgba(85,90,96,0.3)";
-    this.map = L.map('heatMapContainerSolar', {
+    document.getElementById('heatMapContainerSolarBruttoProduc').style.backgroundColor = "rgba(85,90,96,0.3)";
+  
+    this.map = L.map('heatMapContainerSolarBruttoProduc', {
       center: [51.5200, 9.4050],
       zoom: 6
     });
@@ -81,21 +81,22 @@ export class StromErzeugerSolarComponent implements OnInit, AfterViewInit {
 
     // Map zip codes to nettonennLeistung
     const mappedData = todaysData.reduce((acc, item) => {
-      acc[item.zipCode] = item.recordCount;
+      acc[item.zipCode] = item.bruttoLeistung;
       return acc;
     }, {});
 
     // Extract nettonennLeistung values and sort them
-    const leistungValues = todaysData.map(item => item.recordCount);
+    const leistungValues = todaysData.map(item => item.bruttoLeistung);
     leistungValues.sort((a, b) => a - b);
 
-    // Determine thresholds, for example, by percentiles
+   
     const thresholds = this.calculateThresholds(leistungValues);
 
     return { chargePointsData: mappedData, thresholds };
 }
 
 private calculateThresholds(values: number[]): number[] {
+    
     const percentile = Math.ceil(values.length / 5);
     const thresholds = [];
 
@@ -103,7 +104,7 @@ private calculateThresholds(values: number[]): number[] {
         const index = i * percentile;
         thresholds.push(values[index] || 0);
     }
-
+console.log(thresholds)
     return thresholds;
 }
 
@@ -118,9 +119,9 @@ private calculateThresholds(values: number[]): number[] {
     this.geoJsonLayer = L.geoJSON(data, {
       style: (feature) => {
         const zipcode = feature.properties.postcode;
-        const recordCount = chargePointsData[zipcode] || 0;
+        const bruttoLeistung = chargePointsData[zipcode] || 0;
   
-        const fillColor = this.getFillColor(recordCount, thresholds);
+        const fillColor = this.getFillColor(bruttoLeistung, thresholds);
   
         return {
           fillColor: fillColor,
@@ -134,10 +135,10 @@ private calculateThresholds(values: number[]): number[] {
   
       onEachFeature: (feature, layer) => {
         const zipcode = feature.properties.postcode;
-        const recordCount = chargePointsData[zipcode] || 0;
+        const bruttoLeistung = chargePointsData[zipcode] || 0;
         
        
-        const popupContent = `PLZ: ${zipcode}<br>Anzahl Strom Erzeuger Solar per Postleitzahl: ${recordCount}`;
+        const popupContent = `PLZ: ${zipcode}<br>Netto Leistung: ${bruttoLeistung}`;
 
           layer.on('mouseover', () => {
             layer.bindPopup(popupContent).openPopup();

@@ -30,6 +30,8 @@ import { ChargingInfraHeatMapBevsPowerComponent } from './charging-infra-heat-ma
 import { StromErzeugerSolarComponent } from './strom-erzeuger-solar/strom-erzeuger-solar.component';
 import { StromErzeugerSolarNettoLeistungComponent } from './strom-erzeuger-solar-netto-leistung/strom-erzeuger-solar-netto-leistung.component';
 import { StromErzeugerSolarNettoLeistungRatioComponent } from './strom-erzeuger-solar-netto-leistung-ratio/strom-erzeuger-solar-netto-leistung-ratio.component';
+import { StromErzeugerSolarNettoProductionComponent } from './strom-erzeuger-solar-netto-production/strom-erzeuger-solar-netto-production.component';
+import { StromErzeugerSolarBruttoProductionComponent } from './strom-erzeuger-solar-brutto-production/strom-erzeuger-solar-brutto-production.component';
 
 
 const routes: Routes = [{
@@ -143,6 +145,14 @@ const routes: Routes = [{
     {
       path:'strom-erzeuger-solar-netto-leistung-ratio',
       component: StromErzeugerSolarNettoLeistungRatioComponent,
+    },
+    {
+      path:'strom-erzeuger-solar-netto-production',
+      component: StromErzeugerSolarNettoProductionComponent,
+    },
+    {
+      path:'strom-erzeuger-solar-brutto-production',
+      component: StromErzeugerSolarBruttoProductionComponent,
     },
     {
       path: 'layout',

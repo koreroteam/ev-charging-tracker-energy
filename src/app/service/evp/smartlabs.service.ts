@@ -60,21 +60,6 @@ export class SmartLabService {
         return this.http.get(this.baseURL + '/zip-code-summary', { 'headers': headers })
     }
 
-    async getStromInfraCountByZipCode(): Promise<Observable<any>> {
-      const headers = { 'content-type': 'application/json' }
-      return this.http.get(this.baseURL + '/solar', { 'headers': headers })
-  }
-
-  async getStromRatio(): Promise<Observable<any>> {
-    const headers = { 'content-type': 'application/json' }
-    return this.http.get(this.baseURL + '/solarRatio', { 'headers': headers })
-}
-
-  async getStromInfraSolarNettoLeistungByZipCode(): Promise<Observable<any>> {
-    const headers = { 'content-type': 'application/json' }
-    return this.http.get(this.baseURL + '/solarNetto', { 'headers': headers })
-}
-
 
     async getChargePointsCountByZipCode2Digits(): Promise<Observable<any>> {
         const headers = { 'content-type': 'application/json' }
@@ -249,6 +234,26 @@ export class SmartLabService {
       
   }
 
+//Strom Erzeuger:
+  async getStromInfraCountByZipCode(): Promise<Observable<any>> {
+    const headers = { 'content-type': 'application/json' }
+    return this.http.get(this.baseURL + '/solar', { 'headers': headers })
+}
+
+async getStromRatio(): Promise<Observable<any>> {
+  const headers = { 'content-type': 'application/json' }
+  return this.http.get(this.baseURL + '/solarRatio', { 'headers': headers })
+}
+
+async getStromInfraSolarNettoLeistungByZipCode(): Promise<Observable<any>> {
+  const headers = { 'content-type': 'application/json' }
+  return this.http.get(this.baseURL + '/solarNetto', { 'headers': headers })
+}
+
+async getStromInfraSolarInfo(): Promise<Observable<any>> {
+  const headers = { 'content-type': 'application/json' }
+  return this.http.get(this.baseURL + '/solarInfo', { 'headers': headers })
+}
 
     async exportCSVReport(pageNo) {
         return this.http.get(this.baseURL + '/getChargePointReport?pageNo='+pageNo, { responseType: 'blob' as 'json', observe: 'response' as 'response' })

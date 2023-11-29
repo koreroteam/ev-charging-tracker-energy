@@ -31,6 +31,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   dropdownOpenLadepunktInfo = false;
   dropdownOpenKarteLadepunkt = false;
   dropdownOpenBelegungsInfo= false;
+  dropdownOpenStromErzeuger = false;
 
 
 
@@ -49,6 +50,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   dropdownOpenBelegungsZeit = false;
   
 
+  //StromErzeugerInfo
+  
+  dropdownOpenStormErzeugerSolar = false;
   
   totalNumberCard: CardSettings = {
    
@@ -242,6 +246,14 @@ navigateChargingInfraOccupiedTime() {
 
 navigateChargingInfraHeatMapOccupiedTime() {
   this.router.navigate(['/pages/charging-infra-heat-map-occupied-time']);
+}
+
+navigateStromErzeugerSolarNettoProduction(){
+  this.router.navigate(['/pages/strom-erzeuger-solar-netto-production']);
+}
+
+navigateStromErzeugerSolarBruttoProduction(){
+  this.router.navigate(['/pages/strom-erzeuger-solar-brutto-production']);
 }
 
 }
