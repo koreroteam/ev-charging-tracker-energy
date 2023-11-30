@@ -46,6 +46,7 @@ export class StromErzeugerSolarComponent implements OnInit, AfterViewInit {
   public popupDataZipCode2D: any[] = [];
   private addedHeaderLabels = new Set<string>();
   public todaysDate : string;
+  public totalNumber: number;
 
 
 
@@ -84,7 +85,8 @@ export class StromErzeugerSolarComponent implements OnInit, AfterViewInit {
       acc[item.zipCode] = item.recordCount;
       return acc;
     }, {});
-
+    const totalRecordCountToday = this.sumRecordCount(todaysData);
+    this.totalNumber = totalRecordCountToday;
     // Extract nettonennLeistung values and sort them
     const leistungValues = todaysData.map(item => item.recordCount);
     leistungValues.sort((a, b) => a - b);
@@ -94,6 +96,11 @@ export class StromErzeugerSolarComponent implements OnInit, AfterViewInit {
 
     return { chargePointsData: mappedData, thresholds };
 }
+
+private sumRecordCount(data: any[]): number {
+  return data.reduce((sum, item) => sum + item.recordCount, 0);
+}
+
 
 private calculateThresholds(values: number[]): number[] {
     const percentile = Math.ceil(values.length / 5);

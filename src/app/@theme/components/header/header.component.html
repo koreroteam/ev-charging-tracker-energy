@@ -46,11 +46,21 @@
                 </div>
               </div>
               
-              <div class="dropdown-submenu dropdown-submenu-b" (mouseenter)="dropdownOpenBelegungsZeit = true" (mouseleave)="dropdownOpenBelegungsZeit = false">
-                <button class="dropdown-item dropdown-toggle">Belegungszeit</button>
-                <div class="dropdown-menu" [class.show]="dropdownOpenBelegungsZeit">
-                  <button class="dropdown-item" type="button" (click)="navigateChargingInfraOccupiedTime()">Statistik</button>
-                  <button class="dropdown-item" type="button" (click)="navigateChargingInfraHeatMapOccupiedTime()">Heat Map</button>
+              <div class="dropdown-submenu dropdown-submenu-b" (mouseenter)="dropdownOpenStromSpeicher = true" (mouseleave)="dropdownOpenStromSpeicher = false">
+                <button class="dropdown-item dropdown-toggle">Strom Speicher</button>
+                <div class="dropdown-menu" [class.show]="dropdownOpenStromSpeicher">
+                  <button class="dropdown-item" type="button" (click)="navigateStromErzeugerStromSpeicherTotalNumber()">Anzahl Strom Speicher</button>
+                  <button class="dropdown-item" type="button" (click)="navigateStromErzeugerStromSpeicherNettoProduction()">Netto Production</button>
+                  <button class="dropdown-item" type="button" (click)="navigateStromErzeugerStromSpeicherBruttoProduction()">Brutto Production</button>
+                </div>
+              </div>
+
+              <div class="dropdown-submenu dropdown-submenu-b" (mouseenter)="dropdownOpenStromErzeugerWind = true" (mouseleave)="dropdownOpenStromErzeugerWind = false">
+                <button class="dropdown-item dropdown-toggle">Wind</button>
+                <div class="dropdown-menu" [class.show]="dropdownOpenStromErzeugerWind">
+                  <button class="dropdown-item" type="button" (click)="navigateStromErzeugerWindTotalNumber()">Anzahl Strom Erzeuger Wind</button>
+                  <button class="dropdown-item" type="button" (click)="navigateStromErzeugerWindNettoProduction()">Netto Production</button>
+                  <button class="dropdown-item" type="button" (click)="navigateStromErzeugerWindBruttoProduction()">Brutto Production</button>
                 </div>
               </div>
             </div>

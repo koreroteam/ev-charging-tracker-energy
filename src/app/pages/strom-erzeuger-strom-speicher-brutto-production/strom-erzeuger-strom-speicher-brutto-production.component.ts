@@ -13,11 +13,11 @@ import * as htmlToImage from 'html-to-image';
 
 
 @Component({
-  selector: 'ngx-strom-erzeuger-solar-netto-leistung',
-  templateUrl: './strom-erzeuger-solar-netto-leistung.component.html',
-  styleUrls: ['./strom-erzeuger-solar-netto-leistung.component.scss']
+  selector: 'ngx-strom-erzeuger-strom-speicher-brutto-production',
+  templateUrl: './strom-erzeuger-strom-speicher-brutto-production.component.html',
+  styleUrls: ['./strom-erzeuger-strom-speicher-brutto-production.component.scss']
 })
-export class StromErzeugerSolarNettoLeistungComponent implements OnInit, AfterViewInit {
+export class StromErzeugerStromSpeicherBruttoProductionComponent implements OnInit, AfterViewInit {
   @ViewChild('draggableLegend', { static: false }) draggableLegend: ElementRef;
 
   private active = false;
@@ -39,24 +39,15 @@ export class StromErzeugerSolarNettoLeistungComponent implements OnInit, AfterVi
   previousHighlightedFeature: any;
   geoJsonLayer: L.GeoJSON;
   zipCodeFilterOption: string = 'all';
-  private regierungsbezirkFeatures: any;
-  private kreiseFeatures: any;
-  private previousHighlightedLayer: L.Layer;
   public inputRegierungsbezirk: string;
   public popupDataKreise: any[] = [];
   public popupDataRegierungsbezirk: any[] = [];
   public popupDataZipCode: any[] = [];
   public popupDataZipCode2D: any[] = [];
   private addedHeaderLabels = new Set<string>();
+  public todaysDate : string;
 
 
-
-
-
-  
-
-
-  
   private async initMap(): Promise<void> {
     this.createMap();
       const chargePointsData = await this.getChargePointsDataZipCode();
@@ -65,63 +56,57 @@ export class StromErzeugerSolarNettoLeistungComponent implements OnInit, AfterVi
     
   }
 
-  // public async switchMap(view: string): Promise<void> {
-  //   if (view === 'all') {
-  //     this.zipCodeFilterOption = 'all';
-  //     await this.initMap();
-  //   } else if (view === '2-stellig') {
-  //     this.zipCodeFilterOption = 'twoDigits';
-  //     await this.initMap();
-  //   } else if (view === 'regierungsbezirke') {
-  //     this.zipCodeFilterOption = 'regierungsbezirke';
-  //     this.renderRegierungsbezirkMap();
-  //   }else if(view ==='kreise'){
-  //     this.zipCodeFilterOption = 'kreise';
-  //     this.renderKreiseMap()
-  //   }
-  // }
   
   
   private createMap(): void {
     if (this.map) {
       this.map.remove();
     }
+    document.getElementById('heatMapContainerStromSpeicherBruttoProduc').style.backgroundColor = "rgba(85,90,96,0.3)";
   
-    this.map = L.map('heatMapContainerSolarLeistung', {
+    this.map = L.map('heatMapContainerStromSpeicherBruttoProduc', {
       center: [51.5200, 9.4050],
       zoom: 6
     });
     
-  
-    // const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    //   maxZoom: 18,
-    //   minZoom: 3,
-    //   boundary: this.latLngGeom,
-    // });
-  
-    // tiles.addTo(this.map);
   }
   
   private async getChargePointsDataZipCode(): Promise<any> {
-    const chargePointsData$ = this.zipCodeFilterOption === 'twoDigits'
-      ? this.apiService.getChargePointsCountByZipCode2Digits()
-      : this.apiService.getStromInfraSolarNettoLeistungByZipCode();
-  
-      const chargePointsData = await (await chargePointsData$).toPromise();
-  
-      const chargePointsCounts = Object.values(chargePointsData);
-      chargePointsCounts.sort((a, b) => Number(a) - Number(b));
-      console.log(chargePointsCounts)
+    const chargePointsData$ = this.apiService.getStromInfraStromSpeicherInfo();
+    const chargePointsData = await (await chargePointsData$).toPromise();
 
-    
-      const thresholds = [0, 0.2, 0.4, 0.6, 0.8].map(percent => {
-        const index = Math.round(percent * (chargePointsCounts.length - 1));
-        return chargePointsCounts[index];
-      });
-      console.log(thresholds)
-    
-      return { chargePointsData, thresholds };
-  }
+    // Filter for today's data
+    const todaysDate = new Date().toISOString().split('T')[0];
+    const todaysData = chargePointsData.filter(item => item.createdAtFormatted === todaysDate);
+
+    // Map zip codes to nettonennLeistung
+    const mappedData = todaysData.reduce((acc, item) => {
+      acc[item.zipCode] = item.bruttoLeistung;
+      return acc;
+    }, {});
+
+    // Extract nettonennLeistung values and sort them
+    const leistungValues = todaysData.map(item => item.bruttoLeistung);
+    leistungValues.sort((a, b) => a - b);
+
+    // Determine thresholds, for example, by percentiles
+    const thresholds = this.calculateThresholds(leistungValues);
+
+    return { chargePointsData: mappedData, thresholds };
+}
+
+private calculateThresholds(values: number[]): number[] {
+    const percentile = Math.ceil(values.length / 5);
+    const thresholds = [];
+
+    for (let i = 0; i < 5; i++) {
+        const index = i * percentile;
+        thresholds.push(values[index] || 0);
+    }
+
+    return thresholds;
+}
+
   
   private async fetchData(): Promise<any> {
     return this.fetchZipcodeData().toPromise();
@@ -129,16 +114,13 @@ export class StromErzeugerSolarNettoLeistungComponent implements OnInit, AfterVi
   
   private renderMapZipCode({chargePointsData, thresholds}: {chargePointsData: any, thresholds: number[]}, data: any): void {
     const zipcodeFeatures = {};
-  
+    this.todaysDate = new Date().toISOString().split('T')[0];
     this.geoJsonLayer = L.geoJSON(data, {
       style: (feature) => {
         const zipcode = feature.properties.postcode;
-        const chargePointsCountKey = this.getChargePointsCountKey(zipcode);
-        const chargePointsCount = chargePointsData[chargePointsCountKey]|| 0;
+        const bruttoLeistung = chargePointsData[zipcode] || 0;
   
-        const fillColor = this.zipCodeFilterOption === 'twoDigits'
-          ? this.getFillColor(chargePointsCount,thresholds)
-          : this.getFillColor(chargePointsCount,thresholds);
+        const fillColor = this.getFillColor(bruttoLeistung, thresholds);
   
         return {
           fillColor: fillColor,
@@ -152,18 +134,10 @@ export class StromErzeugerSolarNettoLeistungComponent implements OnInit, AfterVi
   
       onEachFeature: (feature, layer) => {
         const zipcode = feature.properties.postcode;
-        const chargePointsCountKey = this.getChargePointsCountKey(zipcode);
-        const chargePointsCount = chargePointsData[chargePointsCountKey]|| 0;
-
-        if(this.zipCodeFilterOption === 'twoDigits'){
-          this.popupDataZipCode2D.push([zipcode,chargePointsCount])
-        }else if(this.zipCodeFilterOption === "all"){
-          this.popupDataZipCode.push([zipcode,chargePointsCount])
-        }
-  
-        const popupContent = this.zipCodeFilterOption === 'twoDigits'
-          ? `PLZ 2-stellig: ${zipcode}<br>Strom Erzeuger Solar Nettonennleistungen: ${chargePointsCount}`
-          : `PLZ: ${zipcode}<br>Strom Erzeuger Solar Nettonennleistungen: ${chargePointsCount.toFixed(2)}`;
+        const bruttoLeistung = chargePointsData[zipcode] || 0;
+        
+       
+        const popupContent = `PLZ: ${zipcode}<br>Brutto Leistung: ${bruttoLeistung}`;
 
           layer.on('mouseover', () => {
             layer.bindPopup(popupContent).openPopup();
@@ -187,106 +161,18 @@ export class StromErzeugerSolarNettoLeistungComponent implements OnInit, AfterVi
 
  
   
-  
-  
 
+  
+  
   public onInputChange(event: Event): void {
     
-
-  
     const inputText = (event.target as HTMLInputElement).value;
 
     if (!inputText) {
       return;
     }
 
-    const getMergedRegierungsbezirkName = (inputText: string): string | null => {
-      const stateMapping = {
-        'Luneburg': 'Niedersachsen',
-        'Hannover': 'Niedersachsen',
-        'Weser-Ems': 'Niedersachsen',
-        'Braunschweig': 'Niedersachsen',
-        'Leipzig': 'Sachsen',
-        'Dresden': 'Sachsen',
-        'Chemnitz': 'Sachsen',
-        'Halle': 'Sachsen-Anhalt',
-        'Dessau': 'Sachsen-Anhalt',
-        'Magdeburg': 'Sachsen-Anhalt',
-        'Rheinhessen-Pfalz':'Rheinland-Pfalz',
-        'Koblenz':'Rheinland-Pfalz',
-        'Trier':'Rheinland-Pfalz',
-      };
-      return stateMapping[inputText] || null;
-    };
-  
-
-    /* if (!this.isValidZipCodeInput(inputText)) {
-      if (this.zipCodeFilterOption === 'twoDigits') {
-        alert('Bitte eine 2-stellige PLZ eingeben!');
-      } else {
-        alert('Bitte eine 5-stellige PLZ eingeben!');
-      }
-      return;
-    } */
-
-    if (this.zipCodeFilterOption === "regierungsbezirke") {
-      let searchResults = this.searchRegierungsbezirk(inputText);
-      const mergedRegierungsbezirkName = getMergedRegierungsbezirkName(inputText);
-      if (mergedRegierungsbezirkName) {
-        searchResults = searchResults.concat(this.searchRegierungsbezirk(mergedRegierungsbezirkName));
-      }
-      if (searchResults.length === 1 && inputText.length > 1) {
-      const result = searchResults[0];
-      this.inputRegierungsbezirk = result;
-  
-      if (this.previousHighlightedLayer) {
-        const defaultStyle = {
-          color: '#000',
-          weight: 1,
-          opacity: 0.5,
-        };
-        (this.previousHighlightedLayer as L.Path).setStyle(defaultStyle);
-      }
-    
-  
-      const targetLayer = this.regierungsbezirkFeatures[result];
-      this.map.fitBounds(targetLayer.getBounds());
-      targetLayer.setStyle({
-        color: '#ff7800',
-        weight: 5,
-        opacity: 0.65,
-      });
-      targetLayer.openPopup();
-  
-      this.previousHighlightedLayer = targetLayer;
-
-    } }else if (this.zipCodeFilterOption === "kreise") {
-        const kreiseResults = this.searchKreise(inputText);
-    if (kreiseResults.length === 1 && inputText.length > 1) {
-      const result = kreiseResults[0];
-  
-      if (this.previousHighlightedLayer) {
-        const defaultStyle = {
-          color: '#000',
-          weight: 1,
-          opacity: 0.5,
-        };
-        (this.previousHighlightedLayer as L.Path).setStyle(defaultStyle);
-      }
-  
-      const targetLayer = this.kreiseFeatures[result];
-      this.map.fitBounds(targetLayer.getBounds());
-      targetLayer.setStyle({
-        color: '#ff7800',
-        weight: 5,
-        opacity: 0.65,
-      });
-      targetLayer.openPopup();
-  
-      this.previousHighlightedLayer = targetLayer;
-    }
-
-    } else if (this.zipCodeFilterOption === "twoDigits" || this.zipCodeFilterOption === "all") {
+    if (this.zipCodeFilterOption === "twoDigits" || this.zipCodeFilterOption === "all") {
       const layer = this.zipCodeFilterOption === 'twoDigits'
       ? this.zipcodeFeatures[inputText.slice(0, 2)]
       : this.zipcodeFeatures[inputText] || this.zipcodeFeatures[inputText.slice(0, 2)];
@@ -317,21 +203,7 @@ export class StromErzeugerSolarNettoLeistungComponent implements OnInit, AfterVi
 }
 
   
-  
-  private searchRegierungsbezirk(inputText: string): string[] {
-    const regierungsbezirkNames = Object.keys(this.regierungsbezirkFeatures);
-    const filteredNames = regierungsbezirkNames.filter(name =>
-      name.toLowerCase().startsWith(inputText.toLowerCase())
-    );
-    return filteredNames;
-  }
-  
-  private searchKreise(inputText: string): string[]{
-    const kreiseName = Object.keys(this.kreiseFeatures);
-    const filteredNames = kreiseName.filter(name =>
-      name.toLowerCase().startsWith(inputText.toLocaleLowerCase()))
-      return filteredNames;
-  } 
+
   
   
   private fetchZipcodeData(): Observable<any> {
@@ -362,32 +234,28 @@ export class StromErzeugerSolarNettoLeistungComponent implements OnInit, AfterVi
     return Object.values(grouped);
   }
   
-  
-  
-  
-  
-  private getChargePointsCountKey(zipcode: string): string {
-    return zipcode;
-  }
+
 
   private getFillColor(density: number, thresholds: number[]): string {
-  
     if (density <= thresholds[1]) {
-        return 'rgba(255,255,255)';
+        return 'RGBA(0,111,122, 0.1)';
     } else if (density <= thresholds[2]) {
-        return 'rgba(76, 153, 0)';
+        return 'RGBA(0,111,122, 0.4)';
     } else if (density <= thresholds[3]) {
-        return 'rgba(0, 135, 127)';
+        return 'RGBA(0,111,122, 0.7)';
     } else if (density <= thresholds[4]) {
-        return 'rgba(0, 111, 122)';
+        return 'RGBA(0,111,122,1)';
     } else {
-        return 'rgba(0, 76, 76)';
+        return 'RGBA(220, 189, 35, 1)';
     }
 }
 
+
+  
+
   constructor(private apiService: SmartLabService, 
     private theme: NbThemeService, 
-   
+    
     private httpClient: HttpClient, 
     private renderer: Renderer2,
     private router: Router,
@@ -523,6 +391,16 @@ public downloadCSV(filename: string, data: any[], headerLabel: string): void {
 
   
 
+
+
+
+
+
+
+
+
+
+  
 
 
 

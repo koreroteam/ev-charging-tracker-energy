@@ -42,6 +42,12 @@ import { StromErzeugerSolarNettoLeistungComponent } from './strom-erzeuger-solar
 import { StromErzeugerSolarNettoLeistungRatioComponent } from './strom-erzeuger-solar-netto-leistung-ratio/strom-erzeuger-solar-netto-leistung-ratio.component';
 import { StromErzeugerSolarNettoProductionComponent } from './strom-erzeuger-solar-netto-production/strom-erzeuger-solar-netto-production.component';
 import { StromErzeugerSolarBruttoProductionComponent } from './strom-erzeuger-solar-brutto-production/strom-erzeuger-solar-brutto-production.component';
+import { StromErzeugerStromSpeicherTotalNumberComponent } from './strom-erzeuger-strom-speicher-total-number/strom-erzeuger-strom-speicher-total-number.component'; 
+import { StromErzeugerStromSpeicheNettoProductionComponent } from './strom-erzeuger-strom-speicher-netto-production/strom-erzeuger-strom-speicher-netto-production.component'; 
+import { StromErzeugerStromSpeicherBruttoProductionComponent } from './strom-erzeuger-strom-speicher-brutto-production/strom-erzeuger-strom-speicher-brutto-production.component';
+import { StromErzeugerWindTotalNumberComponent } from './strom-erzeuger-wind-total-number/strom-erzeuger-wind-total-number.component';
+import { StromErzeugerWindBruttoProductionComponent } from './strom-erzeuger-wind-brutto-production/strom-erzeuger-wind-brutto-production.component';
+import { StromErzeugerWindNettoProductionComponent } from './strom-erzeuger-wind-netto-production/strom-erzeuger-wind-netto-production.component';
 
 
 
@@ -101,6 +107,12 @@ import { StromErzeugerSolarBruttoProductionComponent } from './strom-erzeuger-so
     StromErzeugerSolarNettoLeistungRatioComponent,
     StromErzeugerSolarNettoProductionComponent,
     StromErzeugerSolarBruttoProductionComponent,
+    StromErzeugerStromSpeicherTotalNumberComponent,
+    StromErzeugerStromSpeicherBruttoProductionComponent,
+    StromErzeugerStromSpeicheNettoProductionComponent,
+    StromErzeugerWindBruttoProductionComponent,
+    StromErzeugerWindTotalNumberComponent,
+    StromErzeugerWindNettoProductionComponent,
   
   ],
 })

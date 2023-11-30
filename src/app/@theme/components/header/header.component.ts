@@ -53,7 +53,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   //StromErzeugerInfo
   
   dropdownOpenStormErzeugerSolar = false;
-  
+  dropdownOpenStromSpeicher = false;
+  dropdownOpenStromErzeugerWind = false;
+
   totalNumberCard: CardSettings = {
    
     iconClass: 'bar-chart-outline',
@@ -254,6 +256,30 @@ navigateStromErzeugerSolarNettoProduction(){
 
 navigateStromErzeugerSolarBruttoProduction(){
   this.router.navigate(['/pages/strom-erzeuger-solar-brutto-production']);
+}
+
+navigateStromErzeugerStromSpeicherTotalNumber() {
+  this.router.navigate(['/pages/strom-erzeuger-strom-speicher-total-number']);
+}
+
+navigateStromErzeugerStromSpeicherNettoProduction(){
+  this.router.navigate(['/pages/strom-erzeuger-strom-speicher-netto-production']);
+}
+
+navigateStromErzeugerStromSpeicherBruttoProduction(){
+  this.router.navigate(['/pages/strom-erzeuger-strom-speicher-brutto-production']);
+}
+
+navigateStromErzeugerWindTotalNumber() {
+  this.router.navigate(['/pages/strom-erzeuger-wind-total-number']);
+}
+
+navigateStromErzeugerWindNettoProduction(){
+  this.router.navigate(['/pages/strom-erzeuger-wind-netto-production']);
+}
+
+navigateStromErzeugerWindBruttoProduction(){
+  this.router.navigate(['/pages/strom-erzeuger-wind-brutto-production']);
 }
 
 }

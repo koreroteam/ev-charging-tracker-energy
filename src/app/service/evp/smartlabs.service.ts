@@ -234,6 +234,8 @@ export class SmartLabService {
       
   }
 
+
+
 //Strom Erzeuger:
   async getStromInfraCountByZipCode(): Promise<Observable<any>> {
     const headers = { 'content-type': 'application/json' }
@@ -254,7 +256,15 @@ async getStromInfraSolarInfo(): Promise<Observable<any>> {
   const headers = { 'content-type': 'application/json' }
   return this.http.get(this.baseURL + '/solarInfo', { 'headers': headers })
 }
+async getStromInfraStromSpeicherInfo(): Promise<Observable<any>> {
+  const headers = { 'content-type': 'application/json' }
+  return this.http.get(this.baseURL + '/stromSpeicherInfo', { 'headers': headers })
+}
 
+async getStromInfraWindInfo(): Promise<Observable<any>> {
+  const headers = { 'content-type': 'application/json' }
+  return this.http.get(this.baseURL + '/windInfo', { 'headers': headers })
+}
     async exportCSVReport(pageNo) {
         return this.http.get(this.baseURL + '/getChargePointReport?pageNo='+pageNo, { responseType: 'blob' as 'json', observe: 'response' as 'response' })
     }
