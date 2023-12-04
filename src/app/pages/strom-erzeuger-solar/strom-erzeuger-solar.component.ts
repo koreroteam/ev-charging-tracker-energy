@@ -130,12 +130,10 @@ private calculateThresholds(values: number[]): number[] {
         const fillColor = this.getFillColor(recordCount, thresholds);
   
         return {
-          fillColor: fillColor,
-          weight: 0.7,
-          opacity: 0.5,
-          color: 'grey',
-          dashArray: '3',
-          fillOpacity: 1
+          color: fillColor,
+          weight: 1,
+          opacity: 1,
+          fillOpacity: 0.8,
         };
       },
   
