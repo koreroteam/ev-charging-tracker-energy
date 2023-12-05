@@ -162,9 +162,6 @@ export class SmartLabService {
         const headers = { 'content-type': 'application/json' };
         return this.http.get(this.baseURL + '/summary', { 'headers': headers, 'params': params }).toPromise();
       }
-      
-      
-    
     
     async getCharttData(param:any): Promise<Observable<any>> {
         const headers = { 'content-type': 'application/json' }
@@ -252,19 +249,73 @@ async getStromInfraSolarNettoLeistungByZipCode(): Promise<Observable<any>> {
   return this.http.get(this.baseURL + '/solarNetto', { 'headers': headers })
 }
 
-async getStromInfraSolarInfo(): Promise<Observable<any>> {
-  const headers = { 'content-type': 'application/json' }
-  return this.http.get(this.baseURL + '/solarInfo', { 'headers': headers })
-}
-async getStromInfraStromSpeicherInfo(): Promise<Observable<any>> {
-  const headers = { 'content-type': 'application/json' }
-  return this.http.get(this.baseURL + '/stromSpeicherInfo', { 'headers': headers })
+getStromInfraSolarInfo(zipcode?: string, startDate?: string, endDate?: string): Observable<any> {
+  const headers = { 'content-type': 'application/json' };
+  let params = new HttpParams();
+  if (zipcode) {
+    params = params.set('zipcode', zipcode);
+  }
+  if (startDate) {
+    params = params.set('startDate', startDate);
+  }
+  if (endDate) {
+    params = params.set('endDate', endDate);
+  }
+  return this.http.get(this.baseURL + '/solarInfo', { headers, params });
 }
 
-async getStromInfraWindInfo(): Promise<Observable<any>> {
-  const headers = { 'content-type': 'application/json' }
-  return this.http.get(this.baseURL + '/windInfo', { 'headers': headers })
+// Update the other methods similarly
+
+
+getStromInfraStromSpeicherInfo(zipcode?: string, startDate?: string, endDate?: string): Observable<any> {
+  const headers = { 'content-type': 'application/json' };
+  let params = new HttpParams();
+  if (zipcode) {
+    params = params.set('zipcode', zipcode);
+  }
+  if (startDate) {
+    params = params.set('startDate', startDate);
+  }
+  if (endDate) {
+    params = params.set('endDate', endDate);
+  }
+  return this.http.get(this.baseURL + '/stromSpeicherInfo', { headers, params });
 }
+
+
+getStromInfraWindInfo(zipcode?: string, startDate?: string, endDate?: string): Observable<any> {
+  const headers = { 'content-type': 'application/json' };
+  let params = new HttpParams();
+  if (zipcode) {
+    params = params.set('zipcode', zipcode);
+  }
+  if (startDate) {
+    params = params.set('startDate', startDate);
+  }
+  if (endDate) {
+    params = params.set('endDate', endDate);
+  }
+  return this.http.get(this.baseURL + '/windInfo', { headers, params });
+}
+
+// Similarly, update getStromInfraSolarInfo and getStromInfraStromSpeicherInfo
+
+
+getStromInfraSummaryInfo(startDate?: string, endDate?: string): Observable<any> {
+  const headers = { 'content-type': 'application/json' };
+  let params = new HttpParams();
+
+  if (startDate) {
+    params = params.set('startDate', startDate);
+  }
+  if (endDate) {
+    params = params.set('endDate', endDate);
+  }
+
+  return this.http.get(this.baseURL + '/stromErzeugerSummary', { headers, params });
+}
+
+
     async exportCSVReport(pageNo) {
         return this.http.get(this.baseURL + '/getChargePointReport?pageNo='+pageNo, { responseType: 'blob' as 'json', observe: 'response' as 'response' })
     }

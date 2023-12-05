@@ -48,8 +48,9 @@ import { StromErzeugerStromSpeicherBruttoProductionComponent } from './strom-erz
 import { StromErzeugerWindTotalNumberComponent } from './strom-erzeuger-wind-total-number/strom-erzeuger-wind-total-number.component';
 import { StromErzeugerWindBruttoProductionComponent } from './strom-erzeuger-wind-brutto-production/strom-erzeuger-wind-brutto-production.component';
 import { StromErzeugerWindNettoProductionComponent } from './strom-erzeuger-wind-netto-production/strom-erzeuger-wind-netto-production.component';
-
-
+import { StromErzeugerBarChartTotalNumberComponent } from './strom-erzeuger-bar-chart-total-number/strom-erzeuger-bar-chart-total-number.component';
+import { StromErzeugerBarChartNettoProductionComponent } from './strom-erzeuger-bar-chart-netto-production/strom-erzeuger-bar-chart-netto-production.component';
+import { StromErzeugerBarChartBruttoProductionComponent } from './stom-erzeuger-bar-chart-brutto-production/stom-erzeuger-bar-chart-brutto-production.component';
 
 
 @NgModule({
@@ -113,6 +114,9 @@ import { StromErzeugerWindNettoProductionComponent } from './strom-erzeuger-wind
     StromErzeugerWindBruttoProductionComponent,
     StromErzeugerWindTotalNumberComponent,
     StromErzeugerWindNettoProductionComponent,
+    StromErzeugerBarChartTotalNumberComponent,
+    StromErzeugerBarChartNettoProductionComponent,
+    StromErzeugerBarChartBruttoProductionComponent,
   
   ],
 })

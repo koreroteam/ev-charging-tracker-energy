@@ -24,7 +24,7 @@
 
 <div class="row">
   <div class="col-12">
-    <p><b  style="font-family: 'Biome W01 Regular', sans-serif;">Heat Map: Anzahl Strom Speicher per Postleitzahl</b>
+    <p><b  style="font-family: 'Biome W01 Regular', sans-serif;">Heat Map: Brutto Production Strom Speicher per Postleitzahl</b>
           <span class="float-right px-2"><button nbButton  size="small" status="danger" shape="round"
                   (click)='downloadImage("jpeg")'  style="border: 'rgba(0,135,127)';background-color:'rgba(0,135,127)';font-family: 'Biome W01 Regular', sans-serif;">JPEG</button></span>
           <span class="float-right"><button nbButton  size="small" status="danger" shape="round"  style="border: 'rgba(0,135,127)';background-color:'rgba(0,135,127)';font-family: 'Biome W01 Regular', sans-serif;"
@@ -46,7 +46,7 @@
        
           <div class="legend-container"  #draggableLegend>
             <div *ngIf="zipCodeFilterOption === 'all'" #legend id="legend" class="legend">
-            <p><b  style="font-family: 'Biome W01 Regular', sans-serif;">Perzentile der Anzahl Strom Speicher 
+            <p><b  style="font-family: 'Biome W01 Regular', sans-serif;">Perzentile der Brutto Production Strom Speicher 
               <br>je PLZ-Gebiet:</b></p>
               <div class="legend-item">
                 <div class="color" style="background-color:  RGBA(0,111,122,0.1)"></div>

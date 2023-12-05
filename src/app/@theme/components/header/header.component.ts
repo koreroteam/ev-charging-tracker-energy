@@ -32,6 +32,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   dropdownOpenKarteLadepunkt = false;
   dropdownOpenBelegungsInfo= false;
   dropdownOpenStromErzeuger = false;
+  dropdownOpenBarChartStromErzeuger = false;
 
 
 
@@ -281,6 +282,19 @@ navigateStromErzeugerWindNettoProduction(){
 navigateStromErzeugerWindBruttoProduction(){
   this.router.navigate(['/pages/strom-erzeuger-wind-brutto-production']);
 }
+
+navigateStromErzeugerBarChartTotalNumber(){
+  this.router.navigate(['/pages/strom-erzeuger-bar-chart-total-number']);
+}
+
+navigateStromErzeugerBarChartNettoProduction(){
+  this.router.navigate(['/pages/strom-erzeuger-bar-chart-netto-production']);
+}
+
+navigateStromErzeugerBarChartBruttoProduction(){
+  this.router.navigate(['/pages/stom-erzeuger-bar-chart-brutto-production']);
+}
+
 
 }
 

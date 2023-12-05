@@ -20,7 +20,7 @@
     <nb-actions size="small">
 
         <nb-action>
-            <button  href="#" (click)="navigateHome()" class="btn btn-secondary" type="button" style="margin-bottom: 15px; background-color: white; border: none; color: #000;margin-left: 180px;">
+            <button  href="#" (click)="navigateHome()" class="btn btn-secondary" type="button" style="margin-bottom: 15px; background-color: white; border: none; color: #000;">
                 <nb-icon [icon]="homeCard.iconClass"></nb-icon>
                 Home
             </button>
@@ -30,10 +30,29 @@
           <div class="dropdown" (mouseenter)=" dropdownOpenStromErzeuger = true" (mouseleave)="dropdownOpenStromErzeuger = false">
             <button class="btn btn-secondary dropdown-toggle" type="button" style="margin-bottom: 15px; background-color: white; border: none; color: #000;">
               <nb-icon [icon]="mapCard.iconClass"></nb-icon>
-              Strom Erzeuger
+             Info Strom Erzeuger
             </button>
         
             <div class="dropdown-menu" [class.show]="dropdownOpenStromErzeuger">
+              
+               
+                  <button class="dropdown-item" type="button" (click)="navigateStromErzeugerBarChartTotalNumber()">Anzahl Strom Erzeuger</button>
+                  <button class="dropdown-item" type="button" (click)="navigateStromErzeugerBarChartNettoProduction()">Strom Erzeuger Netto Production</button>
+                  <button class="dropdown-item" type="button" (click)="navigateStromErzeugerBarChartBruttoProduction()">Strom Erzeuger Brutto Production</button>
+            
+            
+            </div>
+          </div>
+        </nb-action>
+
+        <nb-action>
+          <div class="dropdown" (mouseenter)=" dropdownOpenBarChartStromErzeuger = true" (mouseleave)="dropdownOpenBarChartStromErzeuger = false">
+            <button class="btn btn-secondary dropdown-toggle" type="button" style="margin-bottom: 15px; background-color: white; border: none; color: #000;">
+              <nb-icon [icon]="mapCard.iconClass"></nb-icon>
+             Karte Strom Erzeuger
+            </button>
+        
+            <div class="dropdown-menu" [class.show]="dropdownOpenBarChartStromErzeuger">
               <div class="dropdown-submenu dropdown-submenu-a" (mouseenter)="dropdownOpenStormErzeugerSolar = true" (mouseleave)="dropdownOpenStormErzeugerSolar = false">
                 <button class="dropdown-item dropdown-toggle">Strom Erzeuger Soloar</button>
                 <div class="dropdown-menu" [class.show]="dropdownOpenStormErzeugerSolar">

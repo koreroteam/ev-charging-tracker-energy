@@ -1,0 +1,69 @@
+<div class="col-lg-12">
+    <nb-card style="background: linear-gradient(to top, rgba(255, 255, 255, 0.5), rgba(0, 111, 122, 0.3)); border-radius: 20px;">
+        <nb-card-header class="font">
+    
+            <span class="float-right" style="display: flex; align-items: center; justify-content: space-between;">
+
+              <div>
+                <div style="display: flex; align-items: center;">
+                  <input class="font mx-2" nbInput placeholder="Zeitraum wählen" id="dateRangeFilter" [nbDatepicker]="formpicker">
+                  <nb-rangepicker #formpicker class="font"></nb-rangepicker>
+                </div>
+              </div>
+              
+
+                <nb-select  style="display: flex; align-items: center;" selected="#" class="mx-2" (selectedChange)="changePowerFilter($event)">
+                    <nb-option class="font" value="#">Strom Erzeuger</nb-option>
+                    <nb-option class="font" value="Solar">Solar</nb-option>
+                    <nb-option class="font" value="Wind">Wind</nb-option>
+                    <nb-option class="font" value="Strom Speicher">Strom Speicher</nb-option>
+                </nb-select>
+
+                <nb-select style="display: flex; align-items: center;" selected="#" class="mx-2" (selectedChange)="changeRegion($event)" [(ngModel)]="selectedFilter" id='selectedFilter'>
+                    <nb-option class="font" value="#">Region</nb-option>
+                    <nb-option class="font" value="zipcode">PLZ</nb-option>
+                    <!-- <nb-option value="country">Land</nb-option> -->
+                </nb-select>
+
+                <ng-container *ngIf="selectedFilter === 'zipcode'">
+                  <input nbInput class="font" type="text" id="filterValue" placeholder="Postleitzahl eingeben" [(ngModel)]="zipcodeFilter" />
+                </ng-container>
+                
+
+                <button class="font" style="background-color:'rgba(0,135,127)';border: 'rgba(0,135,127)';" nbButton status="danger" shape="round" (click)="applyFilters()">Filter</button>
+        
+            </span>
+            
+        </nb-card-header>
+    </nb-card>
+</div>
+<div class="col-lg-12" id="print">
+    <nb-card style="border-radius: 20px;">
+        
+        <nb-card-header class="font">Anzahl Strom Erzeuger Solar, Wind, Strom Speicher in Deutschland - täglich<span class="float-right px-2">
+          <button nbButton  class="font" style="margin-left: 10px; margin-top: 20px;" size="small"  shape="round"
+            (click)='downloadImage("jpeg")'><nb-icon icon="download-outline"></nb-icon>JPEG</button></span>
+    <span class="float-right"><button  class="font" style="margin-left: 10px; margin-top: 20px;" nbButton size="small" shape="round"
+            (click)='downloadImage("png")'><nb-icon icon="download-outline"></nb-icon>PNG</button></span></nb-card-header>
+            
+        <nb-card-body style="display: flex; align-items: center; justify-content: center;">
+            
+            <ngx-charts-bar-vertical-stacked 
+            [scheme]="colorScheme" 
+            [view]="[900,300]" 
+            [results]="results" 
+            [showDataLabel]="true" 
+            [xAxis]="showXAxis" 
+            [yAxis]="showYAxis"
+            [legend]="showLegend" 
+            [legendTitle]="legendTitle" 
+            [xAxisLabel]="xAxisLabel" 
+            [yAxisLabel]="yAxisLabel">
+            [legendItems]="legendItems"
+            (select)="onSelect($event)">
+            </ngx-charts-bar-vertical-stacked>
+            
+        </nb-card-body>
+    </nb-card>
+   
+</div>
