@@ -3,11 +3,16 @@
         <nb-card-header class="font">
     
             <span class="float-right" style="display: flex; align-items: center; justify-content: space-between;">
+              <div>
+                <nb-checkbox id="renewableEnergyFilter" (checkedChange)="changeRenewableEnergy($event)"><p class="font" style="margin-top: 20px;">Renewable Energy</p></nb-checkbox>
+            </div>
+            
 
                 <div>
                     <div style="display: flex; align-items: center;">
                       <input class="font" nbInput placeholder="Zeitraum wählen" class="mx-2" id="dateRangeFilter" [nbDatepicker]="formpicker">
-                      <nb-rangepicker #formpicker class="font"></nb-rangepicker>
+                      <nb-rangepicker #formpicker class="font" [(ngModel)]="dateRange" (change)="onDateRangeChange($event)"></nb-rangepicker>
+
                     </div>
                   </div>
 

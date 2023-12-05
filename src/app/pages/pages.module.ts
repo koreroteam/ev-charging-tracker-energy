@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { NbButton, NbButtonModule, NbCalendarRangeModule, NbCardModule, NbDatepickerModule, NbIconModule, NbInputModule, NbMenuModule, NbNativeDateService, NbRangepickerComponent, NbSelectComponent, NbSelectModule, NbTreeGridModule } from '@nebular/theme';
+import { NbButton, NbButtonModule, NbCalendarRangeModule, NbCardModule, NbCheckboxModule, NbDatepickerModule, NbIconModule, NbInputModule, NbMenuModule, NbNativeDateService, NbRangepickerComponent, NbSelectComponent, NbSelectModule, NbTreeGridModule } from '@nebular/theme';
 
 import { ThemeModule } from '../@theme/theme.module';
 import { PagesComponent } from './pages.component';
@@ -75,6 +75,7 @@ import { StromErzeugerBarChartBruttoProductionComponent } from './stom-erzeuger-
     NbDatepickerModule,
     FormsModule,
     ReactiveFormsModule,
+    NbCheckboxModule,
    
 
   ],

@@ -1,4 +1,4 @@
-import { Component, OnInit,  NgModule } from '@angular/core';
+import { Component, OnInit,  NgModule, ViewChild, ElementRef} from '@angular/core';
 import { NbThemeService } from '@nebular/theme';
 import { SmartLabService } from '../../service/evp/smartlabs.service';
 import * as htmlToImage from 'html-to-image';
@@ -8,6 +8,7 @@ import { forkJoin, of } from 'rxjs';
 import { concatMap, map } from 'rxjs/operators';
 import { mergeMap } from 'rxjs/operators';
 import { CDK_CONNECTED_OVERLAY_SCROLL_STRATEGY_PROVIDER_FACTORY } from '@angular/cdk/overlay/overlay-directives';
+import { Moment } from 'moment';
 
 
 
@@ -52,7 +53,9 @@ export class ChargingInfraPointChartsComponent implements OnInit {
   region: any;
   selectedFilter: string;
   selectedFilterValue: string = '';
- 
+  renewableEnergyFilter: boolean = false;
+  dateRange: { start: Moment, end: Moment };
+
 
   showInput: any = '#';
   colorScheme = {
@@ -69,13 +72,15 @@ export class ChargingInfraPointChartsComponent implements OnInit {
   }
 
   async getLast7DaysData() {
-    this.endDate = moment().format('YYYY-MM-DD');
     this.startDate = moment().subtract(7, 'days').format('YYYY-MM-DD');
+    this.endDate = moment().format('YYYY-MM-DD');
+    this.dateRange = { start: moment(this.startDate), end: moment(this.endDate) };
+  
     const param = `startDate=${this.startDate}&endDate=${this.endDate}`;
-    
     const data = await (await this.apiService.getCharttDataCombined(param)).toPromise();
     this.processData(data);
-}
+  }
+  
   
   
 async getChargepointGraph() {
@@ -191,6 +196,19 @@ async getChargepointGraph() {
     this.getChargepointGraph();
   }
 
+  changeRenewableEnergy(isChecked: boolean) {
+    console.log("Checkbox changed, isChecked:", isChecked);
+    this.renewableEnergyFilter = isChecked;
+    this.getChargepointGraph();
+  }
+
+  onDateRangeChange(range: any) {
+    if (range && range.start && range.end) {
+      this.dateRange = range;
+      this.getChargepointGraph(); // Trigger data fetching
+    }
+  }
+  
 
   buildparams() {
     this.params = [];
@@ -220,7 +238,17 @@ async getChargepointGraph() {
       this.params.push('startDate='+this.startDate);
       this.params.push('endDate='+this.endDate);
     }
-    return this.params.join("&");
+    if (this.dateRange && this.dateRange.start && this.dateRange.end) {
+      this.startDate = this.dateRange.start.format('YYYY-MM-DD');
+      this.endDate = this.dateRange.end.format('YYYY-MM-DD');
+    }
+  
+    if (this.renewableEnergyFilter) {
+      this.params.push('renewableEnergyFilter=' + this.renewableEnergyFilter);
+    }
+
+    console.log("Built params:", this.params);
+  return this.params.join("&");
   }
 
   downloadImage(type: any) {
